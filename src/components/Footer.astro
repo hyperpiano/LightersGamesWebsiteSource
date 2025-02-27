@@ -1,0 +1,82 @@
+<footer>
+	<div class="container">
+		<small>
+			&copy; LightersGames 2025<br />
+			Website Template by <a href="https://github.com/MarcusOtter">Marcus Otterström</a>, Modified by <a href="https://github.com/wookable2">Taewook Koh</a>
+		</small>
+		<nav>
+			<ul>
+				<li><a href="https://store.steampowered.com/app/2544740/THANKS_LIGHT/">Steam</a></li>
+				<li><a href="mailto:hb@lightersgames.com">Contact</a></li>
+			</ul>
+			<ul>
+				<li><a href="https://x.com/TeamLightersTL">X / Twitter</a></li>
+			</ul>
+			<ul>
+				<li><a href="https://drive.google.com/drive/u/0/folders/1n39FotFqB-3vY08dP57ZI-pf5lJ0aFia">Press Kit</a></li>
+			</ul>
+		</nav>
+	</div>
+</footer>
+
+
+<style>
+	footer {
+		background-color: #131012;
+		padding: 4em 0;
+	}
+
+	.container {
+		max-width: 80ch;
+		margin: auto;
+		padding: 2ch;
+		background-image: url("/img/LightersTeamLogo.png");
+		background-repeat: no-repeat;
+		background-position-x: 95%;
+		background-position-y: 30%;
+	}
+
+	nav {
+		margin-top: 1em;
+		font-size: 1.15rem;
+	}
+
+	small {
+		font-size: 1.15rem;
+	}
+
+	ul {
+		margin-top: 0.25em;
+		display: flex;
+		padding: 0;
+		list-style-type: none;
+		gap: 0.5em;
+		flex-wrap: wrap;
+		align-items: center;
+	}
+
+	footer a {
+		display: inline-block;
+		padding: 0.25em;
+		margin-left: -0.25em;
+	}
+
+	footer a:hover,
+	footer a:focus {
+		text-decoration: none;
+	}
+
+	@media screen and (max-width: 500px) {
+		.container {
+			background-image: none;
+		}
+
+		footer {
+			text-align: center;
+		}
+
+		ul {
+			justify-content: center;
+		}
+	}
+</style>

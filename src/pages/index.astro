@@ -1,0 +1,53 @@
+---
+import Footer from '../components/Footer.astro';
+import Main from '../components/Main.astro';
+import { SEO } from 'astro-seo';
+---
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<meta name="author" content="Marcus Otterström"/>
+	<meta name="keywords" content="LightersGames,ThanksLight,3D,Puzzle,Portal,Chamber,Steam,Indie"/>
+
+	<SEO 
+		title="ThanksLight - Demo currently on Steam!"
+		description="This Is Not A Hexagon."
+		canonical="https://lightersgames.com"
+		openGraph={{
+			basic: {
+				title: "ThanksLight - Demo currently on Steam!",
+				type: "website",
+				image: "/img/trailer-img.png",
+				url: "https://lightersgames.com"
+			},
+			optional: {
+				video: "https://youtu.be/BbaYeA66mMM",
+				description: "Switch between dimensions to solve mysterious puzzles, and uncover the truth."
+			}
+		}}
+		twitter={{
+			card: "summary_large_image"
+		}}
+	/>
+
+	<meta property="twitter:description" content="Switch between dimensions to solve mysterious puzzles, and uncover the truth.">
+	<meta itemprop="description" content="Switch between dimensions to solve mysterious puzzles, and uncover the truth.">
+
+	<link rel="icon" type="image/png" sizes="40x40" href="/favicon-40x40.png" />
+
+	<style global>
+		@import "../styles/base.css";
+		@import "../styles/lite-yt-embed.css";
+	</style>
+
+	<script defer src="/js/lite-yt-embed.js"></script>
+	<script defer data-domain="lightersgames.com" src="/js/script.js"></script>
+	<script>window.plausible = window.plausible || function() { (window.plausible.q = window.plausible.q || []).push(arguments) }</script>
+</head>
+<body>
+	<Main />
+	<Footer />
+</body>
+</html>
