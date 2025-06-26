@@ -53,9 +53,7 @@ import SocialMediaButton from '../components/SocialMediaButton.astro';
 			<li><small>Taewook Koh</small></li>
 		</ul>
 		<!-- Platform Images -->
-		<p>
-			also coming to...
-		</p>
+		<h2><span style="font-family: 'Paperlogy-4Regular', serif;">also coming to... </span></h2>
 		<div class="platform-images">
 			<img src="/img/platforms/ps5.png" alt="PS5" />
 			<img src="/img/platforms/switch.png" alt="Nintendo Switch" />
@@ -145,6 +143,40 @@ import SocialMediaButton from '../components/SocialMediaButton.astro';
 		gap: 1em 2em;
 	}
 
+	/* New team images styling */
+	.team-images {
+		display: flex;
+		justify-content: space-between;
+		gap: 1em;
+		margin: 2em 0;
+		flex-wrap: wrap;
+	}
+
+	.team-images img {
+		flex: 1;
+		max-width: calc(33.333% - 0.67em);
+		height: auto;
+		border-radius: 8px;
+		object-fit: cover;
+	}
+
+	/* Platform images styling */
+	.platform-images {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		gap: 2em;
+		margin: 1em 0 2em 0;
+		flex-wrap: wrap;
+	}
+
+	.platform-images img {
+		max-width: 80px;
+		max-height: 80px;
+		height: auto;
+		object-fit: contain;
+	}
+
 	.socials {
 		text-align: left;
 		padding: 0;
@@ -187,6 +219,15 @@ import SocialMediaButton from '../components/SocialMediaButton.astro';
 		.screenshots {
 			gap: 0.3em;
 		}
+
+		.team-images {
+			flex-direction: column;
+			align-items: center;
+		}
+
+		.team-images img {
+			max-width: 80%;
+		}
 	}
 
 	@media screen and (max-width: 500px) {
@@ -205,6 +246,15 @@ import SocialMediaButton from '../components/SocialMediaButton.astro';
 
 		#content {
 			padding: 0.8ch;
+		}
+
+		.team-images img {
+			max-width: 90%;
+		}
+
+		.platform-images img {
+			max-width: 60px;
+			max-height: 60px;
 		}
 	}
 </style>
