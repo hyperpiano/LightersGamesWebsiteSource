@@ -1,0 +1,211 @@
+---
+import Footer from '../components/Footer.astro';
+import { SEO } from 'astro-seo';
+---
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="author" content="HuiBeom Jung"/>
+	<meta name="keywords" content="LightersGames,Privacy Policy,Data Protection,GDPR,Personal Information"/>
+	<SEO 
+		title="Privacy Policy - LightersGames"
+		description="Privacy Policy for LightersGames and ThanksLight. Learn how we collect, use, and protect your personal information."
+		canonical="https://lightersgames.com/privacy-policy"
+		openGraph={{
+			basic: {
+				title: "Privacy Policy - LightersGames",
+				type: "website",
+				image: "/img/trailer-img.png",
+				url: "https://lightersgames.com/privacy-policy"
+			},
+			image: {
+            alt: "LightersGames Privacy Policy"  
+			},
+			optional: {
+				description: "Privacy Policy for LightersGames and ThanksLight. Learn how we collect, use, and protect your personal information."
+			}
+		}}
+	/>
+	<meta property="twitter:description" content="Privacy Policy for LightersGames and ThanksLight. Learn how we collect, use, and protect your personal information.">
+	<meta itemprop="description" content="Privacy Policy for LightersGames and ThanksLight. Learn how we collect, use, and protect your personal information.">
+	<link rel="icon" type="image/png" sizes="40x40" href="/favicon-40x40.png" />
+	<style is:global>
+		@import "../styles/base.css";
+	</style>
+	<script defer data-domain="lightersgames.com" src="/js/script.js"></script>
+	<script>window.plausible = window.plausible || function() { (window.plausible.q = window.plausible.q || []).push(arguments) }</script>
+</head>
+<body>
+	<main>
+		<div id="content">
+			<h1>Privacy Policy</h1>
+			<p><em>Last updated: [Date]</em></p>
+			
+			<h2>Introduction</h2>
+			<p>
+				LightersGames Inc. ("we," "our," or "us") is committed to protecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our website, use our games, or interact with our services.
+			</p>
+
+			<h2>Information We Collect</h2>
+			<h3>Information You Provide</h3>
+			<p>
+				We may collect information you voluntarily provide, such as when you contact us, subscribe to our newsletter, or participate in community forums.
+			</p>
+
+			<h3>Automatically Collected Information</h3>
+			<p>
+				When you visit our website or use our games, we may automatically collect certain information about your device and usage patterns through cookies and similar technologies.
+			</p>
+
+			<h2>How We Use Your Information</h2>
+			<p>We use the information we collect to:</p>
+			<ul>
+				<li>Provide and maintain our services</li>
+				<li>Improve our games and website</li>
+				<li>Communicate with you about updates and announcements</li>
+				<li>Analyze usage patterns and trends</li>
+				<li>Comply with legal obligations</li>
+			</ul>
+
+			<h2>Information Sharing</h2>
+			<p>
+				We do not sell, trade, or otherwise transfer your personal information to third parties without your consent, except as described in this Privacy Policy or as required by law.
+			</p>
+
+			<h2>Data Security</h2>
+			<p>
+				We implement appropriate technical and organizational measures to protect your personal information against unauthorized access, alteration, disclosure, or destruction.
+			</p>
+
+			<h2>Your Rights</h2>
+			<p>
+				Depending on your location, you may have certain rights regarding your personal information, including the right to access, correct, delete, or restrict the processing of your data.
+			</p>
+
+			<h2>Third-Party Services</h2>
+			<p>
+				Our games and website may integrate with third-party platforms such as Steam and Epic Games Store. Please review their respective privacy policies for information about their data practices.
+			</p>
+
+			<h2>Children's Privacy</h2>
+			<p>
+				Our services are not directed to children under 13 years of age. We do not knowingly collect personal information from children under 13.
+			</p>
+
+			<h2>Changes to This Policy</h2>
+			<p>
+				We may update this Privacy Policy from time to time. We will notify you of any material changes by posting the updated policy on our website.
+			</p>
+
+			<h2>Contact Us</h2>
+			<p>
+				If you have questions about this Privacy Policy or our data practices, please contact us at:
+			</p>
+			<p>
+				<strong>LightersGames Inc.</strong><br>
+				Email: [hb@lightersgames.com]<br>
+			</p>
+		</div>
+	</main>
+	<Footer />
+</body>
+</html>
+
+<style>
+	main {
+		background-color: #242424;
+		position: relative;
+		max-width: 1920px;
+		margin: auto;
+		padding-bottom: 4em;
+		color: white;
+	}
+
+	#content {
+		max-width: 80ch;
+		margin: 0 auto;
+		padding: 2ch;
+		line-height: 1.6;
+	}
+
+	h1 {
+		text-align: center;
+		margin-bottom: 1em;
+		font-size: 2.5em;
+		font-weight: 300;
+		letter-spacing: 2px;
+	}
+
+	h2 {
+		margin-top: 2em;
+		margin-bottom: 0.5em;
+		font-size: 1.5em;
+		font-weight: 400;
+		color: #ffffff;
+		border-bottom: 1px solid #444;
+		padding-bottom: 0.25em;
+	}
+
+	h3 {
+		margin-top: 1.5em;
+		margin-bottom: 0.5em;
+		font-size: 1.2em;
+		font-weight: 400;
+		color: #cccccc;
+	}
+
+	p {
+		margin-bottom: 1em;
+		text-align: left;
+	}
+
+	ul {
+		margin-bottom: 1em;
+		padding-left: 2em;
+	}
+
+	li {
+		margin-bottom: 0.5em;
+	}
+
+	em {
+		color: #aaaaaa;
+		font-style: italic;
+	}
+
+	strong {
+		font-weight: 600;
+	}
+
+	/* Responsive styles */
+	@media screen and (max-width: 768px) {
+		#content {
+			padding: 1ch;
+			max-width: 95%;
+		}
+
+		h1 {
+			font-size: 2em;
+		}
+
+		h2 {
+			font-size: 1.3em;
+		}
+
+		h3 {
+			font-size: 1.1em;
+		}
+	}
+
+	@media screen and (max-width: 500px) {
+		#content {
+			padding: 0.8ch;
+		}
+
+		h1 {
+			font-size: 1.8em;
+			letter-spacing: 1px;
+		}
+	}
+</style>
