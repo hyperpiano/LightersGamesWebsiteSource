@@ -58,12 +58,12 @@ import { SEO } from 'astro-seo';
 			user-select: none;
 		}
 		body {
-			background-color: #000000;
+			background-color: #242424;
 			margin: 0;
 			padding: 0;
 		}
 		html {
-			background-color: #000000;
+			background-color: #242424;
 		}
 		
 		/* Masked content styles */
@@ -146,7 +146,18 @@ import { SEO } from 'astro-seo';
 			-webkit-mask: none;
 		}
 		
-		/* Toggle instructions */
+		/* Image overlay text */
+		.image-overlay-text {
+			position: absolute;
+			top: 5px;
+			left: 5px;
+			font-size: 2pt;
+			color: #ffffff;
+			font-family: Arial, sans-serif;
+			z-index: 2;
+			pointer-events: none;
+			text-shadow: 1px 1px 1px rgba(0,0,0,0.8);
+		}
 		.toggle-instructions {
 			position: fixed;
 			top: 20px;
@@ -181,8 +192,9 @@ import { SEO } from 'astro-seo';
 			<p>Move your aura to find images, then click to toggle the light!</p>
 			
 			<!-- Hidden Image 1 -->
-			<div class="true-image" style="margin: 20px;">
+			<div class="true-image" style="margin: 20px; position: relative;">
 				<img class="true-image" src="/img/reveal/show-hexagon.png" alt="Revealed Image 1" width="200" height="150">
+				<div class="image-overlay-text">Secret Image #1</div>
 			</div>
 		</div>
 		
@@ -191,8 +203,9 @@ import { SEO } from 'astro-seo';
 			<p>Another hidden image awaits...</p>
 			
 			<!-- Hidden Image 2 -->
-			<div class="true-image" style="margin: 15px 0;">
+			<div class="true-image" style="margin: 15px 0; position: relative;">
 				<img class="true-image" src="/img/reveal/show-hexagon.png" alt="Revealed Image 2" width="150" height="200">
+				<div class="image-overlay-text">Hidden #2</div>
 			</div>
 		</div>
 		
@@ -200,8 +213,9 @@ import { SEO } from 'astro-seo';
 			<p>Final secret image!</p>
 			
 			<!-- Hidden Image 3 -->
-			<div class="true-image" style="margin-top: 10px;">
+			<div class="true-image" style="margin-top: 10px; position: relative;">
 				<img class="true-image" src="/img/reveal/show-hexagon.png" alt="Revealed Image 3" width="180" height="120">
+				<div class="image-overlay-text" style="top: auto; bottom: 5px; right: 5px; left: auto;">Final Secret</div>
 			</div>
 		</div>
 	</div>
