@@ -76,7 +76,7 @@ import { SEO } from 'astro-seo';
 		.black-image {
 			display: block;
 			/* Apply black overlay to PNG silhouettes */
-			filter: brightness(0);
+			/* filter: brightness(0); */
 		}
 		
 		/* True content image (hidden by default) */
@@ -94,7 +94,7 @@ import { SEO } from 'astro-seo';
 		}
 		
 		.hidden-image.revealed .black-image {
-			opacity: 0;
+			opacity: 1;
 		}
 		
 		/* Reveal mask using CSS mask property */
