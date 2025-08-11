@@ -26,9 +26,16 @@ import { SEO } from 'astro-seo';
 			background: radial-gradient(circle, rgba(255,255,255,0.8) 0%, rgba(255,255,255,0.2) 40%, rgba(255,255,255,0) 70%);
 			filter: blur(8px); /* less blur = sharper edges */
 			transform: translate(-50%, -50%);
-			transition: transform 0.05s ease-out;
+			transition: transform 0.05s ease-out, opacity 0.3s ease;
 			z-index: 9999;
+			opacity: 1;
 		}
+		
+		/* Hidden aura state */
+		#aura.hidden {
+			opacity: 0;
+		}
+		
 		/* Hide default cursor globally */
 		* {
 			cursor: none !important;
@@ -107,36 +114,54 @@ import { SEO } from 'astro-seo';
 			background: black;
 			z-index: 1001;
 			pointer-events: none;
+			transition: mask 0.3s ease, -webkit-mask 0.3s ease;
+		}
+		
+		/* Active mask state (with light circle) */
+		#revealMask.active {
 			mask: radial-gradient(circle 150px at var(--mouse-x, 50%) var(--mouse-y, 50%), transparent 0%, transparent 40%, black 70%);
 			-webkit-mask: radial-gradient(circle 150px at var(--mouse-x, 50%) var(--mouse-y, 50%), transparent 0%, transparent 40%, black 70%);
 		}
 		
-		/* #revealMask {
-			background: transparent;
-			pointer-events: none;
+		/* Inactive mask state (no light circle - everything hidden) */
+		#revealMask.inactive {
+			mask: none;
+			-webkit-mask: none;
+		}
+		
+		/* Toggle instructions */
+		.toggle-instructions {
 			position: fixed;
-			top: 0;
-			left: 0;
-			width: 100vw;
-			height: 100vh;
-			mask: radial-gradient(circle 150px at var(--mouse-x, 50%) var(--mouse-y, 50%), transparent 0%, transparent 40%, black 70%);
-			-webkit-mask: radial-gradient(circle 150px at var(--mouse-x, 50%) var(--mouse-y, 50%), transparent 0%, transparent 40%, black 70%);
-		} */
+			top: 20px;
+			left: 20px;
+			color: #ffffff;
+			font-family: Arial, sans-serif;
+			font-size: 14px;
+			z-index: 10000;
+			background: rgba(0,0,0,0.7);
+			padding: 10px;
+			border-radius: 5px;
+		}
 	</style>
 </head>
 <body>
+	<!-- Toggle instructions -->
+	<div class="toggle-instructions">
+		Hold down mouse button to turn on the light
+	</div>
+	
 	<!-- Aura -->
 	<div id="aura"></div>
 	<!-- Custom cursor image -->
 	<img id="cursorImage" src="/img/custom-cursor.png" alt="Cursor" />
 	
 	<!-- Reveal mask overlay -->
-	<div id="revealMask"></div>
+	<div id="revealMask" class="inactive"></div>
 	
 	<div id="content">
 		<div class="masked-content" style="padding: 50px; font-size: 24px;">
 			<h1>Hidden Gallery</h1>
-			<p>Move your aura to find images, then click to reveal their true content!</p>
+			<p>Move your aura to find images, then click to toggle the light!</p>
 			
 			<!-- Hidden Image 1 -->
 			<div class="true-image" style="margin: 20px;">
@@ -167,6 +192,7 @@ import { SEO } from 'astro-seo';
 		const aura = document.getElementById("aura");
 		const cursorImg = document.getElementById("cursorImage");
 		const revealMask = document.getElementById("revealMask");
+		let auraEnabled = false; // Start with light off
 		
 		document.addEventListener("mousemove", (e) => {
 			const x = (e.clientX / window.innerWidth) * 100;
@@ -185,12 +211,20 @@ import { SEO } from 'astro-seo';
 			revealMask.style.setProperty('--mouse-y', y + '%');
 		});
 		
-		// Handle image clicking to reveal true content
-		document.addEventListener('click', (e) => {
-			const hiddenImage = e.target.closest('.hidden-image');
-			if (hiddenImage) {
-				hiddenImage.classList.toggle('revealed');
-			}
+		// Handle mouse down to turn light on
+		document.addEventListener('mousedown', (e) => {
+			auraEnabled = true;
+			aura.classList.remove('hidden');
+			revealMask.classList.remove('inactive');
+			revealMask.classList.add('active');
+		});
+		
+		// Handle mouse up to turn light off
+		document.addEventListener('mouseup', (e) => {
+			auraEnabled = false;
+			aura.classList.add('hidden');
+			revealMask.classList.remove('active');
+			revealMask.classList.add('inactive');
 		});
 	</script>
 </body>
