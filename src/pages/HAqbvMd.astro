@@ -16,14 +16,42 @@ import { SEO } from 'astro-seo';
 	</style>
 	<script defer data-domain="lightersgames.com" src="/js/script.js"></script>
 	<script>window.plausible = window.plausible || function() { (window.plausible.q = window.plausible.q || []).push(arguments) }</script>
+
+	<style>
+		/* Aura effect styles */
+		#aura {
+			position: fixed;
+			width: 200px;
+			height: 200px;
+			pointer-events: none;
+			border-radius: 50%;
+			background: radial-gradient(circle, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0) 70%);
+			filter: blur(20px);
+			transform: translate(-50%, -50%);
+			transition: transform 0.05s ease-out;
+			z-index: 9999;
+		}
+	</style>
 </head>
 <body>
+	<!-- Aura element -->
+	<div id="aura"></div>
+
 	<main>
 		<div id="content">
 			<h1>Ominous music intensifies..</h1>
 		</div>
 	</main>
 	<Footer />
+
+	<script>
+		const aura = document.getElementById("aura");
+
+		document.addEventListener("mousemove", (e) => {
+			aura.style.left = `${e.clientX}px`;
+			aura.style.top = `${e.clientY}px`;
+		});
+	</script>
 </body>
 </html>
 
@@ -149,12 +177,12 @@ import { SEO } from 'astro-seo';
 		background-color: #eceff1;
 		color: #000000;
 		padding: 5px;
-}
+	}
 
-.table_component td {
-    border: 1px solid #3c3c49;
-    background-color: #ffffff;
-    color: #000000;
-    padding: 5px;
-}
+	.table_component td {
+		border: 1px solid #3c3c49;
+		background-color: #ffffff;
+		color: #000000;
+		padding: 5px;
+	}
 </style>
