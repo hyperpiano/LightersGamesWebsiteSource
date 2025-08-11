@@ -42,38 +42,86 @@ import { SEO } from 'astro-seo';
 			background-color: #000000;
 		}
 		
-		/* Content container */
-		#content {
-			position: relative;
-		}
-		
-		/* Text elements with individual masking */
-		.masked-text {
-			color: #ffffff;
-			font-family: Arial, sans-serif;
-			--mouse-x: -1000px;
-			--mouse-y: -1000px;
-			mask: radial-gradient(circle 150px at var(--mouse-x) var(--mouse-y), white 0%, white 40%, transparent 70%);
-			-webkit-mask: radial-gradient(circle 150px at var(--mouse-x) var(--mouse-y), white 0%, white 40%, transparent 70%);
-		}
-		
-		/* Content sections */
-		.content-section {
+		/* Masked content styles */
+		.masked-content {
 			position: relative;
 			color: #ffffff;
 			font-family: Arial, sans-serif;
 		}
 		
-		/* Images - always visible, no masking */
-		.visible-image {
+		.mask-overlay {
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			background-color: #000000;
+			z-index: 1000;
+			pointer-events: none;
+		}
+		
+		/* Image styles */
+		.hidden-image {
 			position: relative;
 			display: inline-block;
-			/* No masking applied - always visible */
+			cursor: pointer;
 		}
 		
-		.visible-image img {
+		.hidden-image img {
 			display: block;
+			transition: opacity 0.3s ease;
 		}
+		
+		/* Black placeholder image (always visible) */
+		.black-image {
+			display: block;
+			/* Apply black overlay to PNG silhouettes */
+			filter: brightness(0);
+		}
+		
+		/* True content image (hidden by default) */
+		.true-image {
+			position: absolute;
+			top: 0;
+			left: 0;
+			opacity: 0;
+			z-index: 1;
+		}
+		
+		/* Revealed state */
+		.hidden-image.revealed .true-image {
+			opacity: 1;
+		}
+		
+		.hidden-image.revealed .black-image {
+			opacity: 0;
+		}
+		
+		/* Reveal mask using CSS mask property */
+		#revealMask {
+			position: fixed;
+			top: 0;
+			left: 0;
+			width: 100vw;
+			height: 100vh;
+			background: black;
+			z-index: 1001;
+			pointer-events: none;
+			mask: radial-gradient(circle 150px at var(--mouse-x, 50%) var(--mouse-y, 50%), transparent 0%, transparent 40%, black 70%);
+			-webkit-mask: radial-gradient(circle 150px at var(--mouse-x, 50%) var(--mouse-y, 50%), transparent 0%, transparent 40%, black 70%);
+		}
+		
+		/* #revealMask {
+			background: transparent;
+			pointer-events: none;
+			position: fixed;
+			top: 0;
+			left: 0;
+			width: 100vw;
+			height: 100vh;
+			mask: radial-gradient(circle 150px at var(--mouse-x, 50%) var(--mouse-y, 50%), transparent 0%, transparent 40%, black 70%);
+			-webkit-mask: radial-gradient(circle 150px at var(--mouse-x, 50%) var(--mouse-y, 50%), transparent 0%, transparent 40%, black 70%);
+		} */
 	</style>
 </head>
 <body>
@@ -82,46 +130,51 @@ import { SEO } from 'astro-seo';
 	<!-- Custom cursor image -->
 	<img id="cursorImage" src="/img/custom-cursor.png" alt="Cursor" />
 	
+	<!-- Reveal mask overlay -->
+	<div id="revealMask"></div>
+	
 	<div id="content">
-		<div class="content-section" style="padding: 50px; font-size: 24px;">
-			<h1 class="masked-text">Hidden Gallery</h1>
-			<p class="masked-text">Move your aura to find images, then click to reveal their true content!</p>
+		<div class="masked-content" style="padding: 50px; font-size: 24px;">
+			<h1>Hidden Gallery</h1>
+			<p>Move your aura to find images, then click to reveal their true content!</p>
 			
-			<!-- Image 1 - Always visible -->
-			<div class="visible-image" style="margin: 20px;">
-				<img src="/img/reveal/show-hexagon.png" alt="Image 1" width="200" height="150">
+			<!-- Hidden Image 1 -->
+			<div class="hidden-image" style="margin: 20px;">
+				<img class="black-image" src="/img/reveal/hide-hexagon.png" alt="Silhouette 1" width="200" height="150">
+				<img class="true-image" src="/img/reveal/show-hexagon.png" alt="Revealed Image 1" width="200" height="150">
 			</div>
 		</div>
 		
-		<div class="content-section" style="position: absolute; top: 300px; left: 400px; font-size: 18px;">
-			<h2 class="masked-text">Secret Gallery Corner</h2>
-			<p class="masked-text">Another hidden image awaits...</p>
+		<div class="masked-content" style="position: absolute; top: 300px; left: 400px; font-size: 18px;">
+			<h2>Secret Gallery Corner</h2>
+			<p>Another hidden image awaits...</p>
 			
-			<!-- Image 2 - Always visible -->
-			<div class="visible-image" style="margin: 15px 0;">
-				<img src="/img/reveal/show-hexagon.png" alt="Image 2" width="150" height="200">
+			<!-- Hidden Image 2 -->
+			<div class="hidden-image" style="margin: 15px 0;">
+				<img class="black-image" src="/img/reveal/hide-hexagon.png" alt="Silhouette 2" width="150" height="200">
+				<img class="true-image" src="/img/reveal/show-hexagon.png" alt="Revealed Image 2" width="150" height="200">
 			</div>
 		</div>
 		
-		<div class="content-section" style="position: absolute; bottom: 150px; right: 100px;">
-			<p class="masked-text">Final secret image!</p>
+		<div class="masked-content" style="position: absolute; bottom: 150px; right: 100px;">
+			<p>Final secret image!</p>
 			
-			<!-- Image 3 - Always visible -->
-			<div class="visible-image" style="margin-top: 10px;">
-				<img src="/img/reveal/show-hexagon.png" alt="Image 3" width="180" height="120">
+			<!-- Hidden Image 3 -->
+			<div class="hidden-image" style="margin-top: 10px;">
+				<img class="black-image" src="/img/reveal/hide-hexagon.png" alt="Silhouette 3" width="180" height="120">
+				<img class="true-image" src="/img/reveal/show-hexagon.png" alt="Revealed Image 3" width="180" height="120">
 			</div>
 		</div>
 	</div>
 	<script>
 		const aura = document.getElementById("aura");
 		const cursorImg = document.getElementById("cursorImage");
-		const maskedTextElements = document.querySelectorAll('.masked-text');
-		
-		// Initialize with cursor at center and mask hidden
-		document.body.style.setProperty('--mouse-x', '50%');
-		document.body.style.setProperty('--mouse-y', '50%');
+		const revealMask = document.getElementById("revealMask");
 		
 		document.addEventListener("mousemove", (e) => {
+			const x = (e.clientX / window.innerWidth) * 100;
+			const y = (e.clientY / window.innerHeight) * 100;
+			
 			// Move aura
 			aura.style.left = `${e.clientX}px`;
 			aura.style.top = `${e.clientY}px`;
@@ -130,11 +183,17 @@ import { SEO } from 'astro-seo';
 			cursorImg.style.left = `${e.clientX}px`;
 			cursorImg.style.top = `${e.clientY}px`;
 			
-			// Update mask position for each text element individually using pixel coordinates
-			maskedTextElements.forEach(element => {
-				element.style.setProperty('--mouse-x', e.clientX + 'px');
-				element.style.setProperty('--mouse-y', e.clientY + 'px');
-			});
+			// Update mask position
+			revealMask.style.setProperty('--mouse-x', x + '%');
+			revealMask.style.setProperty('--mouse-y', y + '%');
+		});
+		
+		// Handle image clicking to reveal true content
+		document.addEventListener('click', (e) => {
+			const hiddenImage = e.target.closest('.hidden-image');
+			if (hiddenImage) {
+				hiddenImage.classList.toggle('revealed');
+			}
 		});
 	</script>
 </body>
