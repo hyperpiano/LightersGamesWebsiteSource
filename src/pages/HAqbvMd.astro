@@ -60,6 +60,43 @@ import { SEO } from 'astro-seo';
 			pointer-events: none;
 		}
 		
+		/* Image styles */
+		.hidden-image {
+			position: relative;
+			display: inline-block;
+			cursor: pointer;
+		}
+		
+		.hidden-image img {
+			display: block;
+			transition: opacity 0.3s ease;
+		}
+		
+		/* Black placeholder image (always visible) */
+		.black-image {
+			display: block;
+			/* Apply black overlay to PNG silhouettes */
+			filter: brightness(0);
+		}
+		
+		/* True content image (hidden by default) */
+		.true-image {
+			position: absolute;
+			top: 0;
+			left: 0;
+			opacity: 0;
+			z-index: 1;
+		}
+		
+		/* Revealed state */
+		.hidden-image.revealed .true-image {
+			opacity: 1;
+		}
+		
+		.hidden-image.revealed .black-image {
+			opacity: 0;
+		}
+		
 		/* Reveal mask using CSS mask property */
 		#revealMask {
 			position: fixed;
@@ -86,18 +123,35 @@ import { SEO } from 'astro-seo';
 	
 	<div id="content">
 		<div class="masked-content" style="padding: 50px; font-size: 24px;">
-			<h1>Hidden Title</h1>
-			<p>This text is hidden until revealed by your aura light!</p>
-			<p>Move your mouse around to discover more content.</p>
+			<h1>Hidden Gallery</h1>
+			<p>Move your aura to find images, then click to reveal their true content!</p>
+			
+			<!-- Hidden Image 1 -->
+			<div class="hidden-image" style="margin: 20px;">
+				<img class="black-image" src="/img/reveal/hide-hexagon.png" alt="Silhouette 1" width="200" height="150">
+				<img class="true-image" src="/img/reveal/show-hexagon.png" alt="Revealed Image 1" width="200" height="150">
+			</div>
 		</div>
 		
 		<div class="masked-content" style="position: absolute; top: 300px; left: 400px; font-size: 18px;">
-			<h2>Secret Message</h2>
-			<p>You found a hidden area! There might be more...</p>
+			<h2>Secret Gallery Corner</h2>
+			<p>Another hidden image awaits...</p>
+			
+			<!-- Hidden Image 2 -->
+			<div class="hidden-image" style="margin: 15px 0;">
+				<img class="black-image" src="/img/reveal/hide-hexagon.png" alt="Silhouette 2" width="150" height="200">
+				<img class="true-image" src="/img/reveal/show-hexagon.png" alt="Revealed Image 2" width="150" height="200">
+			</div>
 		</div>
 		
-		<div class="masked-content" style="position: absolute; bottom: 100px; right: 100px;">
-			<p>Bottom corner secret!</p>
+		<div class="masked-content" style="position: absolute; bottom: 150px; right: 100px;">
+			<p>Final secret image!</p>
+			
+			<!-- Hidden Image 3 -->
+			<div class="hidden-image" style="margin-top: 10px;">
+				<img class="black-image" src="/img/reveal/hide-hexagon.png" alt="Silhouette 3" width="180" height="120">
+				<img class="true-image" src="/img/reveal/show-hexagon.png" alt="Revealed Image 3" width="180" height="120">
+			</div>
 		</div>
 	</div>
 	<script>
@@ -120,6 +174,14 @@ import { SEO } from 'astro-seo';
 			// Update mask position
 			revealMask.style.setProperty('--mouse-x', x + '%');
 			revealMask.style.setProperty('--mouse-y', y + '%');
+		});
+		
+		// Handle image clicking to reveal true content
+		document.addEventListener('click', (e) => {
+			const hiddenImage = e.target.closest('.hidden-image');
+			if (hiddenImage) {
+				hiddenImage.classList.toggle('revealed');
+			}
 		});
 	</script>
 </body>
