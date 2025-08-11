@@ -80,12 +80,19 @@ import { SEO } from 'astro-seo';
 		}
 		
 		/* True content image (hidden by default) */
-		.true-image {
+		/* .true-image {
 			position: absolute;
 			top: 0;
 			left: 0;
 			opacity: 0;
 			z-index: 1;
+		} */
+		
+		.true-image {
+			opacity: 0;
+			mask: radial-gradient(circle 150px at var(--mouse-x, 50%) var(--mouse-y, 50%), white 0%, white 40%, transparent 70%);
+			-webkit-mask: radial-gradient(circle 150px at var(--mouse-x, 50%) var(--mouse-y, 50%), white 0%, white 40%, transparent 70%);
+			transition: opacity 0.3s ease;
 		}
 		
 		/* Revealed state */
@@ -98,7 +105,7 @@ import { SEO } from 'astro-seo';
 		}
 		
 		/* Reveal mask using CSS mask property */
-		/* #revealMask {
+		#revealMask {
 			position: fixed;
 			top: 0;
 			left: 0;
@@ -109,9 +116,9 @@ import { SEO } from 'astro-seo';
 			pointer-events: none;
 			mask: radial-gradient(circle 150px at var(--mouse-x, 50%) var(--mouse-y, 50%), transparent 0%, transparent 40%, black 70%);
 			-webkit-mask: radial-gradient(circle 150px at var(--mouse-x, 50%) var(--mouse-y, 50%), transparent 0%, transparent 40%, black 70%);
-		} */
+		}
 		
-		#revealMask {
+		/* #revealMask {
 			background: transparent;
 			pointer-events: none;
 			position: fixed;
@@ -121,7 +128,7 @@ import { SEO } from 'astro-seo';
 			height: 100vh;
 			mask: radial-gradient(circle 150px at var(--mouse-x, 50%) var(--mouse-y, 50%), transparent 0%, transparent 40%, black 70%);
 			-webkit-mask: radial-gradient(circle 150px at var(--mouse-x, 50%) var(--mouse-y, 50%), transparent 0%, transparent 40%, black 70%);
-		}
+		} */
 	</style>
 </head>
 <body>
