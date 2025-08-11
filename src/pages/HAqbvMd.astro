@@ -42,27 +42,34 @@ import { SEO } from 'astro-seo';
 			background-color: #000000;
 		}
 		
-		/* Masked content styles - only apply masking to text content */
+		/* Text content masking layer */
+		#textMask {
+			position: fixed;
+			top: 0;
+			left: 0;
+			width: 100vw;
+			height: 100vh;
+			background: black;
+			z-index: 500;
+			pointer-events: none;
+			mask: radial-gradient(circle 150px at var(--mouse-x, 50%) var(--mouse-y, 50%), transparent 0%, transparent 40%, black 70%);
+			-webkit-mask: radial-gradient(circle 150px at var(--mouse-x, 50%) var(--mouse-y, 50%), transparent 0%, transparent 40%, black 70%);
+		}
+		
+		/* Content that should be masked (text only) */
 		.masked-content {
 			position: relative;
 			color: #ffffff;
 			font-family: Arial, sans-serif;
+			z-index: 100;
 		}
 		
-		/* Apply masking only to text elements, not images */
-		.masked-content h1,
-		.masked-content h2,
-		.masked-content p {
-			mask: radial-gradient(circle 150px at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(255,255,255,1) 0%, rgba(255,255,255,1) 40%, rgba(255,255,255,0) 70%);
-			-webkit-mask: radial-gradient(circle 150px at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(255,255,255,1) 0%, rgba(255,255,255,1) 40%, rgba(255,255,255,0) 70%);
-		}
-		
-		/* Image styles */
+		/* Images should be above the text mask */
 		.hidden-image {
 			position: relative;
 			display: inline-block;
 			cursor: pointer;
-			/* Images are NOT masked - always visible */
+			z-index: 1000; /* Above the text mask */
 		}
 		
 		.hidden-image img {
@@ -102,6 +109,9 @@ import { SEO } from 'astro-seo';
 	<!-- Custom cursor image -->
 	<img id="cursorImage" src="/img/custom-cursor.png" alt="Cursor" />
 	
+	<!-- Text masking overlay -->
+	<div id="textMask"></div>
+	
 	<div id="content">
 		<div class="masked-content" style="padding: 50px; font-size: 24px;">
 			<h1>Hidden Gallery</h1>
@@ -138,7 +148,7 @@ import { SEO } from 'astro-seo';
 	<script>
 		const aura = document.getElementById("aura");
 		const cursorImg = document.getElementById("cursorImage");
-		const maskedElements = document.querySelectorAll('.masked-content h1, .masked-content h2, .masked-content p');
+		const textMask = document.getElementById("textMask");
 		
 		document.addEventListener("mousemove", (e) => {
 			const x = (e.clientX / window.innerWidth) * 100;
@@ -152,11 +162,9 @@ import { SEO } from 'astro-seo';
 			cursorImg.style.left = `${e.clientX}px`;
 			cursorImg.style.top = `${e.clientY}px`;
 			
-			// Update mask position for text elements
-			maskedElements.forEach(element => {
-				element.style.setProperty('--mouse-x', x + '%');
-				element.style.setProperty('--mouse-y', y + '%');
-			});
+			// Update mask position for text mask only
+			textMask.style.setProperty('--mouse-x', x + '%');
+			textMask.style.setProperty('--mouse-y', y + '%');
 		});
 		
 		// Handle image clicking to reveal true content
