@@ -16,7 +16,6 @@ import { SEO } from 'astro-seo';
 	</style>
 	<script defer data-domain="lightersgames.com" src="/js/script.js"></script>
 	<script>window.plausible = window.plausible || function() { (window.plausible.q = window.plausible.q || []).push(arguments) }</script>
-
 	<style>
 		/* Aura effect styles */
 		#aura {
@@ -32,46 +31,28 @@ import { SEO } from 'astro-seo';
 			transition: transform 0.05s ease-out;
 			z-index: 9999;
 		}
-
-
-		/* Hide default cursor, replace with custom 64x64 image */
+		/* Hide default cursor globally */
+		* {
+			cursor: none !important;
+		}
 		body {
-			cursor: none;
 			background-color: #000;
 			margin: 0;
-		}
-		#cursorImage {
-			position: fixed;
-			width: 64px;
-			height: 64px;
-			pointer-events: none;
-			transform: translate(-50%, -50%);
-			z-index: 10000;
 		}
 	</style>
 </head>
 <body>
 	<!-- Aura element -->
 	<div id="aura"></div>
-	<!-- Custom cursor image -->
-	<img id="cursorImage" src="/img/custom-cursor.png" alt="Cursor" />
-
 	<div id="content">
 		<h1></h1>
 	</div>
-
 	<script>
 		const aura = document.getElementById("aura");
-		const cursorImg = document.getElementById("cursorImage");
-
 		document.addEventListener("mousemove", (e) => {
-			// Move aura
+			// Move aura to follow mouse
 			aura.style.left = `${e.clientX}px`;
 			aura.style.top = `${e.clientY}px`;
-
-			// Move custom cursor image
-			cursorImg.style.left = `${e.clientX}px`;
-			cursorImg.style.top = `${e.clientY}px`;
 		});
 	</script>
 </body>
