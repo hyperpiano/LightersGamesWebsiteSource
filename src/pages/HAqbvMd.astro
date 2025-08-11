@@ -25,17 +25,33 @@ import { SEO } from 'astro-seo';
 			height: 200px;
 			pointer-events: none;
 			border-radius: 50%;
-			background: radial-gradient(circle, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0) 70%);
-			filter: blur(20px);
+			/* Brighter, sharper edges */
+			background: radial-gradient(circle, rgba(255,255,255,0.8) 0%, rgba(255,255,255,0.2) 40%, rgba(255,255,255,0) 70%);
+			filter: blur(8px); /* less blur = sharper edges */
 			transform: translate(-50%, -50%);
 			transition: transform 0.05s ease-out;
 			z-index: 9999;
+		}
+
+		/* Hide default cursor, replace with custom 64x64 image */
+		body {
+			cursor: none;
+		}
+		#cursorImage {
+			position: fixed;
+			width: 64px;
+			height: 64px;
+			pointer-events: none;
+			transform: translate(-50%, -50%);
+			z-index: 10000;
 		}
 	</style>
 </head>
 <body>
 	<!-- Aura element -->
 	<div id="aura"></div>
+	<!-- Custom cursor image -->
+	<img id="cursorImage" src="/img/custom-cursor.png" alt="Cursor" />
 
 	<main>
 		<div id="content">
@@ -46,143 +62,17 @@ import { SEO } from 'astro-seo';
 
 	<script>
 		const aura = document.getElementById("aura");
+		const cursorImg = document.getElementById("cursorImage");
 
 		document.addEventListener("mousemove", (e) => {
+			// Move aura
 			aura.style.left = `${e.clientX}px`;
 			aura.style.top = `${e.clientY}px`;
+
+			// Move custom cursor image
+			cursorImg.style.left = `${e.clientX}px`;
+			cursorImg.style.top = `${e.clientY}px`;
 		});
 	</script>
 </body>
 </html>
-
-<style>
-	main {
-		background-color: #242424;
-		position: relative;
-		max-width: 1920px;
-		margin: auto;
-		padding-bottom: 4em;
-		color: white;
-	}
-
-	#content {
-		max-width: 80ch;
-		margin: 0 auto;
-		padding: 2ch;
-		line-height: 1.6;
-	}
-
-	h1 {
-		text-align: center;
-		margin-bottom: 1em;
-		font-size: 2.5em;
-		font-weight: 300;
-		letter-spacing: 2px;
-	}
-
-	h2 {
-		margin-top: 2em;
-		margin-bottom: 0.5em;
-		font-size: 1.5em;
-		font-weight: 400;
-		color: #ffffff;
-		border-bottom: 1px solid #444;
-		padding-bottom: 0.25em;
-	}
-
-	h3 {
-		margin-top: 1.5em;
-		margin-bottom: 0.5em;
-		font-size: 1.2em;
-		font-weight: 400;
-		color: #cccccc;
-	}
-
-	p {
-		margin-bottom: 1em;
-		text-align: left;
-	}
-
-	ul {
-		margin-bottom: 1em;
-		padding-left: 2em;
-	}
-
-	li {
-		margin-bottom: 0.5em;
-	}
-
-	em {
-		color: #aaaaaa;
-		font-style: italic;
-	}
-
-	strong {
-		font-weight: 600;
-	}
-
-	/* Responsive styles */
-	@media screen and (max-width: 768px) {
-		#content {
-			padding: 1ch;
-			max-width: 95%;
-		}
-
-		h1 {
-			font-size: 2em;
-		}
-
-		h2 {
-			font-size: 1.3em;
-		}
-
-		h3 {
-			font-size: 1.1em;
-		}
-	}
-
-	@media screen and (max-width: 500px) {
-		#content {
-			padding: 0.8ch;
-		}
-
-		h1 {
-			font-size: 1.8em;
-			letter-spacing: 1px;
-		}
-	}
-
-	.table_component {
-		overflow: auto;
-		width: 100%;
-	}
-	
-	.table_component table {
-		border: 1px solid #3c3c49;
-		height: 100%;
-		width: 100%;
-		table-layout: auto;
-		border-collapse: collapse;
-		border-spacing: 1px;
-		text-align: center;
-	}
-	
-	.table_component caption {
-		caption-side: top;
-		text-align: left;
-	}
-	
-	.table_component th {
-		border: 1px solid #3c3c49;
-		background-color: #eceff1;
-		color: #000000;
-		padding: 5px;
-	}
-
-	.table_component td {
-		border: 1px solid #3c3c49;
-		background-color: #ffffff;
-		color: #000000;
-		padding: 5px;
-	}
-</style>
