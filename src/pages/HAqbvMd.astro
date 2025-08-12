@@ -145,11 +145,12 @@ import { SEO } from 'astro-seo';
 			-webkit-mask: none;
 		}
 		
-		/* Image overlay text */
+		/* Image overlay text - centered in the middle of the image */
 		.image-overlay-text {
 			position: absolute;
-			top: 5px;
-			left: 5px;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
 			font-size: 2pt;
 			color: #ffffff;
 			font-family: Arial, sans-serif;
