@@ -15,7 +15,6 @@ import { SEO } from 'astro-seo';
 	<script defer data-domain="lightersgames.com" src="/js/script.js"></script>
 	<script>window.plausible = window.plausible || function() { (window.plausible.q = window.plausible.q || []).push(arguments) }</script>
 	<style>
-		/* Aura effect styles */
 		#aura {
 			position: fixed;
 			width: 250px;
@@ -182,27 +181,51 @@ import { SEO } from 'astro-seo';
 	<div id="revealMask" class="inactive"></div>
 	
 	<div id="content">
-		<div class="masked-content" style="padding: 50px; font-size: 24px;">
-			<!-- Hidden Image 1 -->
+		<div class="masked-content" style="position: absolute; top: 200px; left: 100px; font-size: 18px;">
+			<!-- Circle -->
 			<div class="true-image" style="margin: 20px; position: relative;">
-				<img class="true-image" src="/img/reveal/show-hexagon.png" alt="Revealed Image 1" width="200" height="150">
-				<div class="image-overlay-text">Secret Image #1</div>
+				<img class="true-image" src="/img/reveal/show-hexagon.png" alt="?" width="150" height="150">
+				<div class="image-overlay-text">F</div>
 			</div>
 		</div>
 		
 		<div class="masked-content" style="position: absolute; top: 300px; left: 400px; font-size: 18px;">
-			<!-- Hidden Image 2 -->
+			<!-- Triangle -->
 			<div class="true-image" style="margin: 15px 0; position: relative;">
-				<img class="true-image" src="/img/reveal/show-hexagon.png" alt="Revealed Image 2" width="150" height="200">
-				<div class="image-overlay-text">Hidden #2</div>
+				<img class="true-image" src="/img/reveal/show-hexagon.png" alt="?" width="150" height="150">
+				<div class="image-overlay-text">F</div>
 			</div>
 		</div>
 		
 		<div class="masked-content" style="position: absolute; bottom: 150px; right: 100px;">
-			<!-- Hidden Image 3 -->
-			<div class="true-image" style="margin-top: 10px; position: relative;">
-				<img class="true-image" src="/img/reveal/show-hexagon.png" alt="Revealed Image 3" width="180" height="120">
-				<div class="image-overlay-text" style="top: auto; bottom: 5px; right: 5px; left: auto;">Final Secret</div>
+			<!-- Square -->
+			<div class="true-image" style="margin: 15px 0; position: relative;">
+				<img class="true-image" src="/img/reveal/show-hexagon.png" alt="?" width="150" height="150">
+				<div class="image-overlay-text">F</div>
+			</div>
+		</div>
+		
+		<div class="masked-content" style="position: absolute; bottom: 400px; right: 500px;">
+			<!-- Pentagon -->
+			<div class="true-image" style="margin: 15px 0; position: relative;">
+				<img class="true-image" src="/img/reveal/show-hexagon.png" alt="?" width="150" height="150">
+				<div class="image-overlay-text">F</div>
+			</div>
+		</div>
+		
+		<div class="masked-content" style="position: absolute; bottom: 15px; right: 700px;">
+			<!-- Hexagon -->
+			<div class="true-image" style="margin: 15px 0; position: relative;">
+				<img class="true-image" src="/img/reveal/show-hexagon.png" alt="?" width="150" height="150">
+				<div class="image-overlay-text">F</div>
+			</div>
+		</div>
+		
+		<div class="masked-content" style="position: absolute; bottom: 700px; right: 100px;">
+			<!-- Octagon -->
+			<div class="true-image" style="margin: 15px 0; position: relative;">
+				<img class="true-image" src="/img/reveal/show-hexagon.png" alt="?" width="150" height="150">
+				<div class="image-overlay-text">F</div>
 			</div>
 		</div>
 	</div>
