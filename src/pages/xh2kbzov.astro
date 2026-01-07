@@ -1,159 +1,140 @@
 ---
+// Reference from bMvdpAH.astro [cite: 1]
 import Footer from '../components/Footer.astro';
 import { SEO } from 'astro-seo';
 ---
+
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta name="author" content="HuiBeom Jung"/>
-	<meta name="keywords" content="LightersGames"/>
-	<meta property="twitter:description" content="bMvdpAH">
-	<meta itemprop="description" content="bMvdpAH">
+	<meta name="keywords" content="LightersGames, Secret"/>
+	<title>xh2kbzov - Secret Page</title>
+	
 	<link rel="icon" type="image/png" sizes="40x40" href="/favicon-40x40.png" />
 	<style is:global>
 		@import "../styles/base.css";
 	</style>
+
 	<script defer data-domain="lightersgames.com" src="/js/script.js"></script>
-	<script>window.plausible = window.plausible || function() { (window.plausible.q = window.plausible.q || []).push(arguments) }</script>
 </head>
 <body>
 	<main>
 		<div id="content">
-			<h1><b>There's gotta be more.</b></h1>
+			<h1><b>Creating more secrets.</b></h1>
+			<p class="description">This is all that is prepared so far....</p>
+			
+			<div class="reward-section">
+				<p>However, it's truly amazing that you've made it this far.</p>
+				<strong>Please show this screenshot on Discord!</strong>
+			</div>
+
+			<div class="clock-container">
+				<p id="current-date"></p>
+				<p id="current-time"></p>
+			</div>
 		</div>
 	</main>
+
+	<Footer />
+
+	<script>
+		function updateClock() {
+			const now = new Date();
+			
+			// Date formatting (e.g., Wednesday, January 7, 2026)
+			const dateOptions = { year: 'numeric', month: 'long', day: 'numeric', weekday: 'long' };
+			const dateString = now.toLocaleDateString('en-US', dateOptions);
+			
+			// Time formatting (e.g., 4:34:05 PM)
+			const timeString = now.toLocaleTimeString('en-US', { hour12: true });
+
+			const dateElement = document.getElementById('current-date');
+			const timeElement = document.getElementById('current-time');
+
+			if (dateElement) dateElement.textContent = dateString;
+			if (timeElement) timeElement.textContent = timeString;
+		}
+
+		// Update every second
+		setInterval(updateClock, 1000);
+		// Run immediately on load
+		updateClock();
+	</script>
 </body>
 </html>
 
 <style>
+	/* Layout styles following reference guide [cite: 4, 5] */
 	main {
 		background-color: #242424;
-		position: relative;
-		max-width: 1920px;
-		margin: auto;
-		padding-bottom: 4em;
+		min-height: 100vh;
+		display: flex;
+		align-items: center;
+		justify-content: center;
 		color: white;
+		margin: auto;
+		text-align: center;
 	}
 
 	#content {
 		max-width: 80ch;
-		margin: 0 auto;
 		padding: 2ch;
 		line-height: 1.6;
 	}
 
 	h1 {
-		text-align: center;
-		margin-bottom: 1em;
 		font-size: 2.5em;
 		font-weight: 300;
 		letter-spacing: 2px;
+		margin-bottom: 0.5em;
 	}
 
-	h2 {
-		margin-top: 2em;
-		margin-bottom: 0.5em;
-		font-size: 1.5em;
-		font-weight: 400;
-		color: #ffffff;
-		border-bottom: 1px solid #444;
-		padding-bottom: 0.25em;
-	}
-
-	h3 {
-		margin-top: 1.5em;
-		margin-bottom: 0.5em;
+	.description {
+		color: #aaaaaa; /* Similar to em style in reference [cite: 8] */
 		font-size: 1.2em;
-		font-weight: 400;
-		color: #cccccc;
+		margin-bottom: 2em;
 	}
 
-	p {
-		margin-bottom: 1em;
-		text-align: left;
-	}
-
-	ul {
-		margin-bottom: 1em;
-		padding-left: 2em;
-	}
-
-	li {
-		margin-bottom: 0.5em;
-	}
-
-	em {
-		color: #aaaaaa;
-		font-style: italic;
+	.reward-section {
+		background: rgba(255, 255, 255, 0.05);
+		padding: 25px;
+		border-radius: 8px;
+		border: 1px solid #444;
+		margin-bottom: 3em;
 	}
 
 	strong {
-		font-weight: 600;
+		color: #ffffff;
+		font-size: 1.3em;
+		display: block;
+		margin-top: 10px;
+		font-weight: 600; /* [cite: 8] */
 	}
 
-	/* Responsive styles */
+	/* Clock Style */
+	.clock-container {
+		font-family: 'Courier New', Courier, monospace;
+		border-top: 1px solid #444;
+		padding-top: 2em;
+	}
+
+	#current-date {
+		font-size: 1.1em;
+		color: #cccccc; /* [cite: 7] */
+		margin-bottom: 5px;
+	}
+
+	#current-time {
+		font-size: 2.2em;
+		font-weight: bold;
+		color: #ffffff;
+	}
+
+	/* Responsive design based on reference [cite: 9, 10] */
 	@media screen and (max-width: 768px) {
-		#content {
-			padding: 1ch;
-			max-width: 95%;
-		}
-
-		h1 {
-			font-size: 2em;
-		}
-
-		h2 {
-			font-size: 1.3em;
-		}
-
-		h3 {
-			font-size: 1.1em;
-		}
+		h1 { font-size: 2em; }
+		#current-time { font-size: 1.6em; }
 	}
-
-	@media screen and (max-width: 500px) {
-		#content {
-			padding: 0.8ch;
-		}
-
-		h1 {
-			font-size: 1.8em;
-			letter-spacing: 1px;
-		}
-	}
-
-	.table_component {
-		overflow: auto;
-		width: 100%;
-	}
-	
-	.table_component table {
-		border: 1px solid #3c3c49;
-		height: 100%;
-		width: 100%;
-		table-layout: auto;
-		border-collapse: collapse;
-		border-spacing: 1px;
-		text-align: center;
-	}
-	
-	.table_component caption {
-		caption-side: top;
-		text-align: left;
-	}
-	
-	.table_component th {
-		border: 1px solid #3c3c49;
-		background-color: #eceff1;
-		color: #000000;
-		padding: 5px;
-}
-
-.table_component td {
-    border: 1px solid #3c3c49;
-    background-color: #ffffff;
-    color: #000000;
-    padding: 5px;
-}
 </style>
