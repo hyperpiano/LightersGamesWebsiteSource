@@ -1488,7 +1488,7 @@
   <div class="footer-inner">
     <div>
       <div class="footer-brand">LIGHTERSGAMES</div>
-      <div class="footer-copy">&copy; 2025-2026 Lightersgames Co., Ltd. All rights reserved.</div>
+      <div class="footer-copy">&copy; 2023-2026 Lightersgames Co., Ltd. All rights reserved.</div>
       <div class="footer-copy" style="margin-top: 0.3rem; font-size: 0.65rem;">&copy; 2026 Lightersgames Co.,Ltd. All Rights Reserved. THANKS, LIGHT.&trade; is a trademark of Lightersgames Co.,Ltd. Published by Game Source Entertainment.</div>
     </div>
     <div class="footer-links">
@@ -1814,18 +1814,26 @@ document.querySelectorAll('.email-protect-link').forEach(function(el) {
 });
 
 // ===== LIGHTBOX (Screenshot Popup) =====
+// Grid shows thumbnails; lightbox loads full-size via data-full attribute
 (function() {
   var overlay = document.getElementById('lightboxOverlay');
   var lbImg = document.getElementById('lightboxImg');
-  var allImages = [];
+  var galleryItems = [];
   var currentIdx = 0;
-  document.querySelectorAll('.gallery-item img').forEach(function(img) { allImages.push(img); });
+  document.querySelectorAll('.gallery-item').forEach(function(item) { galleryItems.push(item); });
+
+  function getFullUrl(idx) {
+    var item = galleryItems[idx];
+    // data-full has the original high-res URL; fallback to img.src (thumbnail)
+    return item.getAttribute('data-full') || item.querySelector('img').src;
+  }
+
   document.querySelectorAll('.gallery-item').forEach(function(item, idx) {
     item.addEventListener('click', function() {
       var img = item.querySelector('img');
       if (!img || !img.src || img.src === window.location.href) return;
       currentIdx = idx;
-      lbImg.src = img.src;
+      lbImg.src = getFullUrl(idx);
       overlay.classList.add('active');
       document.body.style.overflow = 'hidden';
     });
@@ -1835,13 +1843,13 @@ document.querySelectorAll('.email-protect-link').forEach(function(el) {
   document.getElementById('lightboxClose').addEventListener('click', closeLB);
   document.getElementById('lightboxPrev').addEventListener('click', function(e) {
     e.stopPropagation();
-    currentIdx = (currentIdx - 1 + allImages.length) % allImages.length;
-    lbImg.src = allImages[currentIdx].src;
+    currentIdx = (currentIdx - 1 + galleryItems.length) % galleryItems.length;
+    lbImg.src = getFullUrl(currentIdx);
   });
   document.getElementById('lightboxNext').addEventListener('click', function(e) {
     e.stopPropagation();
-    currentIdx = (currentIdx + 1) % allImages.length;
-    lbImg.src = allImages[currentIdx].src;
+    currentIdx = (currentIdx + 1) % galleryItems.length;
+    lbImg.src = getFullUrl(currentIdx);
   });
   document.addEventListener('keydown', function(e) {
     if (!overlay.classList.contains('active')) return;
@@ -1902,12 +1910,21 @@ function applyContentData(data) {
     }
   }
 
-  // Screenshots
+  // Screenshots — thumbnail for grid, full-size for lightbox
   if (data.screenshots) {
     Object.keys(data.screenshots).forEach(slot => {
-      const el = document.querySelector('[data-slot="' + slot + '"] img');
+      var item = document.querySelector('[data-slot="' + slot + '"]');
+      var el = item ? item.querySelector('img') : null;
       if (el && data.screenshots[slot]) {
-        el.src = data.screenshots[slot];
+        var fullUrl = data.screenshots[slot];
+        // Store full-size URL on the gallery-item for lightbox
+        item.setAttribute('data-full', fullUrl);
+        // Use thumbnail URL if available: /img/thumbs/slotname_thumb.jpg
+        if (data.thumbnails && data.thumbnails[slot]) {
+          el.src = data.thumbnails[slot];
+        } else {
+          el.src = fullUrl;
+        }
       }
     });
   }
