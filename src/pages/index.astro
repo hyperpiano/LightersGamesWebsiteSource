@@ -1054,7 +1054,7 @@
 <!-- Hero Section -->
 <section class="hero" id="hero">
   <!-- Game footage background (Steam trailer) -->
-  <video class="hero-video-bg" autoplay muted loop playsinline poster="">
+  <video class="hero-video-bg" autoplay muted loop playsinline poster="" style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;z-index:0;opacity:0.25;filter:brightness(0.5) saturate(0.7);">
     <source src="https://cdn.akamai.steamstatic.com/steam/apps/256985866/movie_max_vp9.webm" type="video/webm">
     <source src="https://cdn.akamai.steamstatic.com/steam/apps/256985866/movie_max.webm" type="video/webm">
     <source src="https://cdn.akamai.steamstatic.com/steam/apps/256985866/movie480_vp9.webm" type="video/webm">
@@ -1295,7 +1295,7 @@
     </div>
     <div style="background: var(--bg-card); border: 1px solid rgba(110,192,232,0.15); border-radius: 8px; padding: 1.2rem 1.5rem; text-align: center; min-width: 220px; flex: 1;">
       <div style="color: var(--accent-gold); font-size: 1.5rem; margin-bottom: 0.5rem;">&#128161;</div>
-      <div style="font-weight: 600; font-size: 0.9rem; margin-bottom: 0.3rem;">BIC 2024</div>
+      <div style="font-weight: 600; font-size: 0.9rem; margin-bottom: 0.3rem;">BIC 2023</div>
       <div style="font-size: 0.75rem; color: var(--text-secondary);">Nicalis Pick Award</div>
     </div>
     <div style="background: var(--bg-card); border: 1px solid rgba(110,192,232,0.15); border-radius: 8px; padding: 1.2rem 1.5rem; text-align: center; min-width: 220px; flex: 1;">
@@ -1922,6 +1922,8 @@ function applyContentData(data) {
         iframe.src = 'https://www.youtube.com/embed/' + ytMatch[1] + '?autoplay=1&mute=1&loop=1&playlist=' + ytMatch[1] + '&controls=0&showinfo=0&rel=0&modestbranding=1&playsinline=1';
         iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
         iframe.className = 'hero-video-bg-yt';
+        // Inline styles: Astro scopes CSS, so classes don't apply to JS-created elements
+        iframe.style.cssText = 'position:absolute;top:50%;left:50%;min-width:100%;min-height:100%;width:177.78vh;height:56.25vw;transform:translate(-50%,-50%);z-index:0;opacity:0.3;filter:brightness(0.5) saturate(0.7);pointer-events:none;border:none;';
         videoEl.parentNode.replaceChild(iframe, videoEl);
       }
     } else {
