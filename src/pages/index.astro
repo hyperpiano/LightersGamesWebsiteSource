@@ -1133,7 +1133,7 @@
     <h2 class="section-title">See the World Differently</h2>
   </div>
   <div class="trailer-wrapper reveal">
-    <div class="trailer-placeholder" id="trailerPlaceholder" onclick="loadTrailer()">
+    <div class="trailer-placeholder" id="trailerPlaceholder">
       <div class="play-btn"></div>
       <span style="color: var(--text-secondary); font-size: 0.85rem;">Click to play trailer</span>
     </div>
@@ -1444,7 +1444,7 @@
   </div>
 </footer>
 
-<script>
+<script is:inline>
 // ===== CURSOR LIGHT EFFECT =====
 const cursorLight = document.getElementById('cursorLight');
 let mouseX = 0, mouseY = 0;
@@ -1714,12 +1714,13 @@ if (simCanvas) {
 }
 
 // ===== TRAILER LAZY LOAD =====
-function loadTrailer() {
-  const placeholder = document.getElementById('trailerPlaceholder');
+// Trailer — attach via addEventListener (not inline onclick, which breaks in Astro module scope)
+document.getElementById('trailerPlaceholder').addEventListener('click', function() {
+  const placeholder = this;
   const wrapper = placeholder.parentElement;
-  // Replace with actual YouTube trailer ID
+  const ytId = window._trailerYoutubeId || '';
+  if (!ytId) { console.log('No trailer YouTube ID set'); return; }
   const iframe = document.createElement('iframe');
-  const ytId = window._trailerYoutubeId || 'YOUR_TRAILER_ID';
   iframe.src = 'https://www.youtube.com/embed/' + ytId + '?autoplay=1&rel=0';
   iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
   iframe.allowFullscreen = true;
@@ -1730,7 +1731,7 @@ function loadTrailer() {
   iframe.style.height = '100%';
   iframe.style.border = 'none';
   wrapper.replaceChild(iframe, placeholder);
-}
+});
 
 // ===== HERO SVG PARALLAX =====
 const heroInteractive = document.getElementById('heroInteractive');
