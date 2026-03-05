@@ -4,17 +4,27 @@
   "trailerYoutubeId": "FPIrbrhoLU8",
   "extraVideos": [],
   "screenshots": {
-    "ch1-1": "https://github.com/hyperpiano/LightersGamesWebsiteSource/blob/main/public/img/screenshots/full/ch1-1.png",
-    "ch1-2": "https://github.com/hyperpiano/LightersGamesWebsiteSource/blob/main/public/img/screenshots/full/ch1-2.png",
-    "ch1-3": "https://github.com/hyperpiano/LightersGamesWebsiteSource/blob/main/public/img/screenshots/full/ch1-3.png",
-    "ch2-1": "https://github.com/hyperpiano/LightersGamesWebsiteSource/blob/main/public/img/screenshots/full/ch2-1.png",
-    "ch2-2": "https://github.com/hyperpiano/LightersGamesWebsiteSource/blob/main/public/img/screenshots/full/ch2-2.png",
-    "ch2-3": "https://github.com/hyperpiano/LightersGamesWebsiteSource/blob/main/public/img/screenshots/full/ch2-3.png",
-    "ch3-1": "https://github.com/hyperpiano/LightersGamesWebsiteSource/blob/main/public/img/screenshots/full/ch3-1.png",
-    "ch3-2": "https://github.com/hyperpiano/LightersGamesWebsiteSource/blob/main/public/img/screenshots/full/ch3-2.png",
-    "ch3-3": "https://github.com/hyperpiano/LightersGamesWebsiteSource/blob/main/public/img/screenshots/full/ch3-3.png"
+    "ch1-1": "https://raw.githubusercontent.com/hyperpiano/LightersGamesWebsiteSource/main/public/img/screenshots/full/ch1-3.png/main/public/img/screenshots/full/ch1-1.png",
+    "ch1-2": "https://raw.githubusercontent.com/hyperpiano/LightersGamesWebsiteSource/main/public/img/screenshots/full/ch1-3.png/main/public/img/screenshots/full/ch1-2.png",
+    "ch1-3": "https://raw.githubusercontent.com/hyperpiano/LightersGamesWebsiteSource/main/public/img/screenshots/full/ch1-3.png/main/public/img/screenshots/full/ch1-3.png",
+    "ch2-1": "https://raw.githubusercontent.com/hyperpiano/LightersGamesWebsiteSource/main/public/img/screenshots/full/ch1-3.png/main/public/img/screenshots/full/ch2-1.png",
+    "ch2-2": "https://raw.githubusercontent.com/hyperpiano/LightersGamesWebsiteSource/main/public/img/screenshots/full/ch1-3.png/main/public/img/screenshots/full/ch2-2.png",
+    "ch2-3": "https://raw.githubusercontent.com/hyperpiano/LightersGamesWebsiteSource/main/public/img/screenshots/full/ch1-3.png/main/public/img/screenshots/full/ch2-3.png",
+    "ch3-1": "https://raw.githubusercontent.com/hyperpiano/LightersGamesWebsiteSource/main/public/img/screenshots/full/ch1-3.png/main/public/img/screenshots/full/ch3-1.png",
+    "ch3-2": "https://raw.githubusercontent.com/hyperpiano/LightersGamesWebsiteSource/main/public/img/screenshots/full/ch1-3.png/main/public/img/screenshots/full/ch3-2.png",
+    "ch3-3": "https://raw.githubusercontent.com/hyperpiano/LightersGamesWebsiteSource/main/public/img/screenshots/full/ch1-3.png/main/public/img/screenshots/full/ch3-3.png"
   },
-  "thumbnails": {},
+  "thumbnails": {
+    "ch1-1": "/img/screenshots/thumbs/ch1-1_thumb.jpg",
+    "ch1-2": "/img/screenshots/thumbs/ch1-2_thumb.jpg",
+    "ch1-3": "/img/screenshots/thumbs/ch1-3_thumb.jpg",
+    "ch2-1": "/img/screenshots/thumbs/ch2-1_thumb.jpg",
+    "ch2-2": "/img/screenshots/thumbs/ch2-2_thumb.jpg",
+    "ch2-3": "/img/screenshots/thumbs/ch2-2_thumb.jpg",
+    "ch3-1": "/img/screenshots/thumbs/ch3-1_thumb.jpg",
+    "ch3-2": "/img/screenshots/thumbs/ch3-2_thumb.jpg",
+    "ch3-3": "/img/screenshots/thumbs/ch3-3_thumb.jpg"
+  },
   "downloads": {
     "dl-presskit": "https://drive.google.com/drive/folders/1n39FotFqB-3vY08dP57ZI-pf5lJ0aFia?usp=drive_link",
     "dl-logo": "https://drive.google.com/drive/folders/1F-3_Bk2pLo3W_lulDaM5Tusl0JHutXbg?usp=drive_link",
