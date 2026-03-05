@@ -1,69 +1,312 @@
----
-
----
+<!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Amelite - 404</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 - Lightersgames</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-deep: #060a10;
+            --bg-elevated: #0f1419;
+            --text-primary: #e4eaf0;
+            --text-secondary: #a8b0ba;
+            --accent-gold: #6ec0e8;
+            --accent-gold-dim: rgba(110, 192, 232, 0.1);
+            --border-color: rgba(228, 234, 240, 0.1);
+        }
 
-	<link rel="icon" type="image/x-icon" href="/favicon.ico" />
-	<link rel="icon" type="image/png" href="/favicon-40x40.png" />
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-	<style is:global>
-		@import "../styles/base.css";
-	</style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-deep);
+            color: var(--text-primary);
+            line-height: 1.8;
+            overflow-x: hidden;
+        }
 
-	<script defer data-domain="lightersgames.com" src="/js/script.js"></script>
-	<script>window.plausible = window.plausible || function() { (window.plausible.q = window.plausible.q || []).push(arguments) }</script>
+        /* Navigation */
+        nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1.5rem 2rem;
+            border-bottom: 1px solid var(--border-color);
+            background-color: rgba(15, 20, 25, 0.5);
+            backdrop-filter: blur(8px);
+        }
+
+        .nav-left {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .nav-logo {
+            height: 32px;
+            width: auto;
+        }
+
+        .nav-company {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+            letter-spacing: 0.5px;
+        }
+
+        .nav-back {
+            color: var(--accent-gold);
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .nav-back:hover {
+            opacity: 0.8;
+            transform: translateX(-4px);
+        }
+
+        /* Main Content */
+        main {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: calc(100vh - 200px);
+            position: relative;
+        }
+
+        .error-container {
+            text-align: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .error-number {
+            font-size: 12rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--accent-gold), rgba(110, 192, 232, 0.5));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1;
+            margin-bottom: 1rem;
+            text-shadow: 0 0 40px rgba(110, 192, 232, 0.3);
+            animation: pulse-glow 3s ease-in-out infinite;
+        }
+
+        @keyframes pulse-glow {
+            0%, 100% {
+                text-shadow: 0 0 40px rgba(110, 192, 232, 0.3);
+            }
+            50% {
+                text-shadow: 0 0 60px rgba(110, 192, 232, 0.6);
+            }
+        }
+
+        .error-title {
+            font-size: 1.75rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+
+        .error-concept {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.8;
+        }
+
+        .error-concept strong {
+            color: var(--accent-gold);
+            font-weight: 600;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 0.75rem 2rem;
+            background: linear-gradient(135deg, var(--accent-gold), rgba(110, 192, 232, 0.8));
+            color: var(--bg-deep);
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 24px rgba(110, 192, 232, 0.3);
+        }
+
+        /* Background animation */
+        .shadow-layer {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .shadow-orb {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.05;
+            filter: blur(60px);
+        }
+
+        .shadow-orb-1 {
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(0, 0, 0, 0.3), transparent);
+            top: 10%;
+            left: 10%;
+            animation: float 8s ease-in-out infinite;
+        }
+
+        .shadow-orb-2 {
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(110, 192, 232, 0.1), transparent);
+            bottom: 15%;
+            right: 10%;
+            animation: float 10s ease-in-out infinite reverse;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(30px); }
+        }
+
+        /* Footer */
+        footer {
+            background-color: rgba(15, 20, 25, 0.5);
+            border-top: 1px solid var(--border-color);
+            padding: 2rem;
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+        }
+
+        .footer-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .footer-logo {
+            height: 24px;
+            width: auto;
+            margin-bottom: 1rem;
+            opacity: 0.7;
+        }
+
+        .footer-copyright {
+            margin-bottom: 1rem;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: var(--accent-gold);
+            text-decoration: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            opacity: 0.7;
+        }
+
+        @media (max-width: 768px) {
+            .error-number {
+                font-size: 6rem;
+            }
+
+            .error-title {
+                font-size: 1.25rem;
+            }
+
+            nav {
+                padding: 1rem 1.5rem;
+            }
+
+            main {
+                padding: 2rem 1.5rem;
+            }
+        }
+    </style>
 </head>
 <body>
-	<div class="container">
-		<header>
-			<img src="/img/404.png" alt="" role="presentation" />
-			<h1>Page not found</h1>
-		</header>
-		
-		<a href="/">Go back to LightersGames homepage</a>
-	</div>
-	<script>plausible("404",{ props: { path: document.location.pathname } });</script>
+    <nav>
+        <div class="nav-left">
+            <img src="/img/logo-lightersgames-white.png" alt="Lightersgames" class="nav-logo">
+            <span class="nav-company">Co., Ltd.</span>
+        </div>
+        <a href="/" class="nav-back">← Back to Home</a>
+    </nav>
+
+    <div class="shadow-layer">
+        <div class="shadow-orb shadow-orb-1"></div>
+        <div class="shadow-orb shadow-orb-2"></div>
+    </div>
+
+    <main>
+        <div class="error-container">
+            <div class="error-number">404</div>
+            <h1 class="error-title">Page Not Found</h1>
+            <p class="error-concept">
+                This page is <strong>lost in the shadows</strong>.
+                <br>Shine some light to find your way back.
+            </p>
+            <a href="/" class="cta-button">Return to Home</a>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <img src="/img/logo-lightersgames-white.png" alt="Lightersgames" class="footer-logo">
+            <div class="footer-copyright">© 2025-2026 Lightersgames Co., Ltd.</div>
+            <div class="footer-links">
+                <a href="/privacy">Privacy Policy</a>
+                <a href="/terms">Terms of Service</a>
+                <a href="mailto:hb@lightersgames.com">Contact</a>
+            </div>
+        </div>
+    </footer>
+
+    <script is:inline>
+        // Email protection
+        document.querySelectorAll('.email-protect').forEach(el => {
+            const user = el.getAttribute('data-user');
+            const domain = el.getAttribute('data-domain');
+            el.innerHTML = `<a href="mailto:${user}@${domain}">${user}@${domain}</a>`;
+        });
+    </script>
 </body>
 </html>
-
-<style>
-	body {
-		height: 100vh;
-		text-align: center;
-	}
-
-	.container {
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		justify-content: center;
-		height: 100%;
-		font-size: calc(1.5rem + 0.5vw);
-		gap: 1em;
-		padding: 2ch;
-	}
-
-	header {
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		gap: 1em;
-		flex-wrap: wrap;
-	}
-
-	h1 {
-		line-height: 1;
-	}
-
-	img {
-		width: 96px;
-	}
-
-	@media screen and (max-width: 1000px) {
-
-	}
-</style>
