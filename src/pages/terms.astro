@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terms of Service - Lightersgames</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-deep: #060a10;
+            --bg-elevated: #0f1419;
+            --text-primary: #e4eaf0;
+            --text-secondary: #a8b0ba;
+            --accent-gold: #6ec0e8;
+            --accent-gold-dim: rgba(110, 192, 232, 0.1);
+            --border-color: rgba(228, 234, 240, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-deep);
+            color: var(--text-primary);
+            line-height: 1.8;
+        }
+
+        /* Navigation */
+        nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1.5rem 2rem;
+            border-bottom: 1px solid var(--border-color);
+            background-color: rgba(15, 20, 25, 0.5);
+            backdrop-filter: blur(8px);
+        }
+
+        .nav-left {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .nav-logo {
+            height: 32px;
+            width: auto;
+        }
+
+        .nav-company {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+            letter-spacing: 0.5px;
+        }
+
+        .nav-back {
+            color: var(--accent-gold);
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .nav-back:hover {
+            opacity: 0.8;
+            transform: translateX(-4px);
+        }
+
+        /* Main Content */
+        main {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+
+        .page-title {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+        }
+
+        .last-updated {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-bottom: 3rem;
+            font-style: italic;
+        }
+
+        section {
+            margin-bottom: 2.5rem;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--accent-gold);
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid var(--accent-gold-dim);
+        }
+
+        .section-content {
+            color: var(--text-secondary);
+            line-height: 1.8;
+        }
+
+        .section-content p {
+            margin-bottom: 1rem;
+        }
+
+        .section-content ul,
+        .section-content ol {
+            margin-left: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .section-content li {
+            margin-bottom: 0.75rem;
+            color: var(--text-secondary);
+        }
+
+        .section-content strong {
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+
+        .highlight {
+            color: var(--accent-gold);
+            font-weight: 600;
+        }
+
+        .contact-info {
+            background-color: var(--bg-elevated);
+            border: 1px solid var(--border-color);
+            padding: 1.5rem;
+            border-radius: 6px;
+            margin-bottom: 2rem;
+        }
+
+        .contact-info p {
+            margin-bottom: 0.75rem;
+            font-size: 0.95rem;
+        }
+
+        .contact-info strong {
+            color: var(--accent-gold);
+            font-weight: 600;
+        }
+
+        /* Footer */
+        footer {
+            background-color: rgba(15, 20, 25, 0.5);
+            border-top: 1px solid var(--border-color);
+            padding: 2rem;
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+        }
+
+        .footer-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .footer-logo {
+            height: 24px;
+            width: auto;
+            margin-bottom: 1rem;
+            opacity: 0.7;
+        }
+
+        .footer-copyright {
+            margin-bottom: 1rem;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: var(--accent-gold);
+            text-decoration: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            opacity: 0.7;
+        }
+
+        @media (max-width: 768px) {
+            nav {
+                padding: 1rem 1.5rem;
+                flex-direction: column;
+                gap: 1rem;
+                align-items: flex-start;
+            }
+
+            .nav-left {
+                width: 100%;
+            }
+
+            .nav-back {
+                width: 100%;
+            }
+
+            main {
+                padding: 2rem 1.5rem;
+            }
+
+            .page-title {
+                font-size: 1.5rem;
+            }
+
+            .section-title {
+                font-size: 1.25rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="nav-left">
+            <img src="/img/logo-lightersgames-white.png" alt="Lightersgames" class="nav-logo">
+            <span class="nav-company">Co., Ltd.</span>
+        </div>
+        <a href="/" class="nav-back">← Back to Home</a>
+    </nav>
+
+    <main>
+        <h1 class="page-title">Terms of Service</h1>
+        <p class="last-updated">Last updated: 2025/6/27</p>
+
+        <section>
+            <h2 class="section-title">1. Acceptance of Terms</h2>
+            <div class="section-content">
+                <p>By accessing and using the Lightersgames website and services, you agree to be bound by these Terms of Service. If you do not agree to these terms, please discontinue use of our website and services immediately. We reserve the right to modify these terms at any time, and your continued use of our services following any modifications constitutes your acceptance of the updated terms.</p>
+            </div>
+        </section>
+
+        <section>
+            <h2 class="section-title">2. Use of Website</h2>
+            <div class="section-content">
+                <p>You agree to use the Lightersgames website and services only for lawful purposes and in a way that does not infringe upon the rights of others or restrict their use and enjoyment. Prohibited behavior includes:</p>
+                <ul>
+                    <li>Harassing or causing distress or inconvenience to any person</li>
+                    <li>Disrupting the normal flow of dialogue within our website or services</li>
+                    <li>Attempting to gain unauthorized access to our systems or networks</li>
+                    <li>Using automated tools to scrape or collect data</li>
+                    <li>Transmitting obscene or offensive content</li>
+                    <li>Engaging in any form of fraud or deception</li>
+                    <li>Distributing malware, viruses, or harmful code</li>
+                </ul>
+                <p>We reserve the right to monitor and investigate any alleged violations of these terms and take appropriate action in our sole discretion.</p>
+            </div>
+        </section>
+
+        <section>
+            <h2 class="section-title">3. Intellectual Property Rights</h2>
+            <div class="section-content">
+                <p>All content, graphics, design, compilation, magnetic translation, digital conversion, and other materials on the Lightersgames website are the exclusive property of Lightersgames Co., Ltd. or its content suppliers and are protected by international copyright and trademark laws.</p>
+                <p>The <span class="highlight">THANKS, LIGHT.</span> trademark and all associated logos, designs, and branding are the exclusive property of Lightersgames Co., Ltd. and may not be used without express written permission.</p>
+                <p>You are granted a limited, non-exclusive license to use our website and its content for personal, non-commercial purposes only. You may not:</p>
+                <ul>
+                    <li>Reproduce, distribute, or modify any content without permission</li>
+                    <li>Use our trademarks or logos in any manner without authorization</li>
+                    <li>Create derivative works based on our content or games</li>
+                    <li>Reverse engineer, decompile, or disassemble our games or software</li>
+                    <li>Sell, rent, lease, or lend our games or content</li>
+                </ul>
+            </div>
+        </section>
+
+        <section>
+            <h2 class="section-title">4. Game Purchases and Licensing</h2>
+            <div class="section-content">
+                <p>Lightersgames games are available for purchase through official channels including Steam, PlayStation Network (PSN), and our official website. When you purchase a game:</p>
+                <ul>
+                    <li>You are purchasing a license to use the game, not ownership of it</li>
+                    <li>The license is for personal, non-commercial use only</li>
+                    <li>You may not transfer, sell, or share your game license with others</li>
+                    <li>You must comply with the terms of the distribution platform (Steam, PSN, etc.)</li>
+                    <li>We reserve the right to modify, update, or discontinue games at any time</li>
+                    <li>Digital purchases are generally non-refundable except as required by applicable law</li>
+                </ul>
+                <p>By purchasing and downloading a game, you agree to be bound by the game's End-User License Agreement and any additional terms specific to that game.</p>
+            </div>
+        </section>
+
+        <section>
+            <h2 class="section-title">5. User Content & Community Guidelines</h2>
+            <div class="section-content">
+                <p>If you submit, post, or display content on our website or in our games (including comments, forum posts, screenshots, or user-generated content), you grant Lightersgames a worldwide, royalty-free, perpetual license to use, reproduce, modify, and distribute that content.</p>
+                <p>You are solely responsible for the content you create and share. You warrant that:</p>
+                <ul>
+                    <li>You own or have the right to share all content you submit</li>
+                    <li>Your content does not infringe on any third-party rights</li>
+                    <li>Your content complies with all applicable laws</li>
+                </ul>
+                <p><strong>Community Guidelines:</strong> User-generated content must not contain:</p>
+                <ul>
+                    <li>Hate speech, discrimination, or offensive language</li>
+                    <li>Sexual, explicit, or adult content</li>
+                    <li>Personal information or doxxing</li>
+                    <li>Spam, phishing, or scam content</li>
+                    <li>Cheating tools, exploits, or hacks</li>
+                    <li>Advertisement or promotional content without authorization</li>
+                </ul>
+                <p>We reserve the right to remove any content that violates these guidelines and to suspend or ban users who violate community standards.</p>
+            </div>
+        </section>
+
+        <section>
+            <h2 class="section-title">6. Disclaimer of Warranties</h2>
+            <div class="section-content">
+                <p>The website and services are provided on an "AS IS" and "AS AVAILABLE" basis. Lightersgames makes no warranties, expressed or implied, regarding the website or services, including but not limited to:</p>
+                <ul>
+                    <li>Warranties of merchantability or fitness for a particular purpose</li>
+                    <li>Warranties of title, non-infringement, or quiet enjoyment</li>
+                    <li>Warranties regarding uninterrupted or error-free service</li>
+                    <li>Warranties that defects will be corrected</li>
+                </ul>
+                <p>Lightersgames does not warrant that the website or services will be uninterrupted, secure, or free from errors, and does not warrant that any errors will be corrected.</p>
+            </div>
+        </section>
+
+        <section>
+            <h2 class="section-title">7. Limitation of Liability</h2>
+            <div class="section-content">
+                <p>To the maximum extent permitted by law, Lightersgames shall not be liable for any indirect, incidental, special, consequential, or punitive damages, including but not limited to:</p>
+                <ul>
+                    <li>Loss of data, revenue, or profits</li>
+                    <li>Business interruption or opportunity loss</li>
+                    <li>Damage to hardware or software</li>
+                    <li>Reputational harm</li>
+                </ul>
+                <p>This limitation applies regardless of the cause of action (contract, tort, negligence, etc.) and even if Lightersgames has been advised of the possibility of such damages.</p>
+                <p>The total aggregate liability of Lightersgames shall not exceed the amount paid by you for the specific game or service that caused the claim.</p>
+            </div>
+        </section>
+
+        <section>
+            <h2 class="section-title">8. Governing Law</h2>
+            <div class="section-content">
+                <p>These Terms of Service shall be governed by and construed in accordance with the laws of the Republic of Korea, without regard to its conflict of law principles. Any legal action or proceeding arising under these terms shall be exclusively brought in the courts located in the Republic of Korea, and you consent to the jurisdiction and venue of such courts.</p>
+            </div>
+        </section>
+
+        <section>
+            <h2 class="section-title">9. Contact Information</h2>
+            <div class="section-content">
+                <p>If you have questions about these Terms of Service, concerns about our services, or wish to report a violation, please contact us:</p>
+                <div class="contact-info" style="margin-top: 1.5rem;">
+                    <p><strong>Lightersgames Co., Ltd.</strong></p>
+                    <p>Address: 923, 54, Changeop-ro, Sujeong-gu, Seongnamsi, Gyeonggi-do, Republic of Korea</p>
+                    <p>Email: <span class="email-protect" data-user="hb" data-domain="lightersgames.com">[enable JS]</span></p>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2 class="section-title">10. Severability</h2>
+            <div class="section-content">
+                <p>If any provision of these Terms of Service is found to be invalid or unenforceable, the remaining provisions shall continue in full force and effect. The invalid or unenforceable provision shall be modified to the minimum extent necessary to make it valid and enforceable.</p>
+            </div>
+        </section>
+
+        <section>
+            <h2 class="section-title">11. Entire Agreement</h2>
+            <div class="section-content">
+                <p>These Terms of Service, together with our Privacy Policy and any other policies or terms referenced herein, constitute the entire agreement between you and Lightersgames regarding your use of our website and services, and supersede all prior and contemporaneous agreements, understandings, and representations.</p>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <img src="/img/logo-lightersgames-white.png" alt="Lightersgames" class="footer-logo">
+            <div class="footer-copyright">© 2025-2026 Lightersgames Co., Ltd.</div>
+            <div class="footer-links">
+                <a href="/privacy">Privacy Policy</a>
+                <a href="/terms">Terms of Service</a>
+                <a href="mailto:hb@lightersgames.com">Contact</a>
+            </div>
+        </div>
+    </footer>
+
+    <script is:inline>
+        // Email protection
+        document.querySelectorAll('.email-protect').forEach(el => {
+            const user = el.getAttribute('data-user');
+            const domain = el.getAttribute('data-domain');
+            el.innerHTML = `<a href="mailto:${user}@${domain}">${user}@${domain}</a>`;
+        });
+    </script>
+</body>
+</html>
