@@ -173,12 +173,27 @@
   }
   .hero-video-bg {
     position: absolute;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
+    top: 50%; left: 50%;
+    min-width: 100%; min-height: 100%;
+    width: auto; height: auto;
+    transform: translate(-50%, -50%);
     z-index: 0;
     object-fit: cover;
     opacity: 0.25;
     filter: brightness(0.5) saturate(0.7);
+  }
+  .hero-video-bg-yt {
+    position: absolute;
+    top: 50%; left: 50%;
+    width: 177.78vh; /* 16:9 ratio */
+    height: 100vh;
+    min-width: 100%; min-height: 100%;
+    transform: translate(-50%, -50%);
+    z-index: 0;
+    opacity: 0.3;
+    filter: brightness(0.5) saturate(0.7);
+    pointer-events: none;
+    border: none;
   }
   .hero-video-overlay {
     position: absolute;
@@ -932,8 +947,16 @@
     .gallery-grid { grid-template-columns: 1fr; }
     .hero-title { font-size: 2.5rem; }
     section { padding: 5rem 1.5rem; }
-    .team-grid { grid-template-columns: 1fr; }
+    .team-grid { grid-template-columns: 1fr; flex-direction: column; align-items: center; }
+    .team-card { width: 100%; max-width: 320px; justify-content: flex-start; }
     .press-facts { grid-template-columns: 1fr; }
+    .about-inner { text-align: center; }
+    .about-visual { margin: 0 auto; }
+    .feature-list { text-align: left; }
+    .section-title, .section-label, .section-desc { text-align: center; }
+    .community-grid { flex-direction: column; align-items: center; }
+    .footer-inner { flex-direction: column; text-align: center; gap: 1rem; }
+    .footer-links { justify-content: center; }
   }
 </style>
 </head>
@@ -1133,10 +1156,7 @@
     <h2 class="section-title">See the World Differently</h2>
   </div>
   <div class="trailer-wrapper reveal">
-    <div class="trailer-placeholder" id="trailerPlaceholder">
-      <div class="play-btn"></div>
-      <span style="color: var(--text-secondary); font-size: 0.85rem;">Click to play trailer</span>
-    </div>
+    <iframe id="trailerIframe" src="" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%;border:none;"></iframe>
   </div>
 </section>
 
@@ -1292,7 +1312,7 @@
     </div>
     <div class="team-card" style="opacity: 0.5;">
       <div class="team-avatar">T</div>
-      <div class="team-name">Taewook Go</div>
+      <div class="team-name">Taewook Koh</div>
       <div class="team-role">Technical Art <span style="font-size:0.65rem;color:var(--accent-gold);margin-left:0.3rem;">군복무 중</span></div>
     </div>
   </div>
@@ -1303,7 +1323,7 @@
   <div class="press-inner">
     <div class="reveal">
       <p class="section-label">Press Kit</p>
-      <h2 class="section-title">For Media & Publishers</h2>
+      <h2 class="section-title">For Media & Press</h2>
       <p class="section-desc">Everything you need to cover THANKS, LIGHT.</p>
       <div class="press-facts">
         <div class="press-fact">
@@ -1336,7 +1356,7 @@
         </div>
         <div class="press-fact">
           <div class="press-fact-label">Contact</div>
-          <div class="press-fact-value">press@lightersgames.com</div>
+          <div class="press-fact-value"><span class="email-protect" data-user="hb" data-domain="lightersgames.com">[enable JS to see email]</span></div>
         </div>
       </div>
     </div>
@@ -1439,7 +1459,7 @@
     <div class="footer-links">
       <a href="#">Privacy Policy</a>
       <a href="#">Terms</a>
-      <a href="mailto:press@lightersgames.com">Contact</a>
+      <a href="#" class="email-protect-link" data-user="hb" data-domain="lightersgames.com">Contact</a>
     </div>
   </div>
 </footer>
@@ -1554,10 +1574,10 @@ if (aboutVisual && cubeEl) {
   const baseRotX = -35.264;
   const baseRotY = 45;
 
-  aboutVisual.addEventListener('mousemove', (e) => {
+  function handleCubeInteraction(clientX, clientY) {
     const rect = aboutVisual.getBoundingClientRect();
-    const mx = (e.clientX - rect.left) / rect.width;
-    const my = (e.clientY - rect.top) / rect.height;
+    const mx = (clientX - rect.left) / rect.width;
+    const my = (clientY - rect.top) / rect.height;
     const rotY = baseRotY + (mx - 0.5) * 25;
     const rotX = baseRotX + (my - 0.5) * 20;
     cubeEl.style.transform = `rotateX(${rotX}deg) rotateY(${rotY}deg)`;
@@ -1566,19 +1586,38 @@ if (aboutVisual && cubeEl) {
       const fr = face.getBoundingClientRect();
       const fcx = fr.left + fr.width/2;
       const fcy = fr.top + fr.height/2;
-      const dist = Math.sqrt((e.clientX-fcx)**2 + (e.clientY-fcy)**2);
+      const dist = Math.sqrt((clientX-fcx)**2 + (clientY-fcy)**2);
       face.classList.toggle('lit', dist < 200);
     });
     shapeLabel.textContent = 'Light reveals it\'s a cube — with weight and physics';
     shapeLabel.style.color = 'var(--accent-gold)';
-  });
+  }
 
-  aboutVisual.addEventListener('mouseleave', () => {
+  function resetCube() {
     cubeEl.style.transform = `rotateX(${baseRotX}deg) rotateY(${baseRotY}deg)`;
     cubeFaces.forEach(f => f.classList.remove('lit'));
     shapeLabel.textContent = 'Hover to shine light on the silhouette';
     shapeLabel.style.color = '';
-  });
+  }
+
+  // Desktop: mouse
+  aboutVisual.addEventListener('mousemove', (e) => handleCubeInteraction(e.clientX, e.clientY));
+  aboutVisual.addEventListener('mouseleave', resetCube);
+
+  // Mobile: touch — move finger to shine light, prevents scroll within cube area
+  aboutVisual.addEventListener('touchstart', (e) => {
+    const t = e.touches[0];
+    handleCubeInteraction(t.clientX, t.clientY);
+    e.preventDefault();
+  }, { passive: false });
+
+  aboutVisual.addEventListener('touchmove', (e) => {
+    const t = e.touches[0];
+    handleCubeInteraction(t.clientX, t.clientY);
+    e.preventDefault();
+  }, { passive: false });
+
+  aboutVisual.addEventListener('touchend', resetCube);
 }
 
 // ===== 3D SHAPE SIMULATOR (Circle/Square/Triangle) =====
@@ -1713,24 +1752,22 @@ if (simCanvas) {
   window.addEventListener('touchend', () => { isDragging = false; });
 }
 
-// ===== TRAILER LAZY LOAD =====
-// Trailer — attach via addEventListener (not inline onclick, which breaks in Astro module scope)
-document.getElementById('trailerPlaceholder').addEventListener('click', function() {
-  const placeholder = this;
-  const wrapper = placeholder.parentElement;
-  const ytId = window._trailerYoutubeId || '';
-  if (!ytId) { console.log('No trailer YouTube ID set'); return; }
-  const iframe = document.createElement('iframe');
-  iframe.src = 'https://www.youtube.com/embed/' + ytId + '?autoplay=1&rel=0';
-  iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
-  iframe.allowFullscreen = true;
-  iframe.style.position = 'absolute';
-  iframe.style.top = '0';
-  iframe.style.left = '0';
-  iframe.style.width = '100%';
-  iframe.style.height = '100%';
-  iframe.style.border = 'none';
-  wrapper.replaceChild(iframe, placeholder);
+// ===== EMAIL PROTECTION =====
+// Decode email-protect spans into visible text and mailto links
+document.querySelectorAll('.email-protect').forEach(function(el) {
+  var u = el.getAttribute('data-user');
+  var d = el.getAttribute('data-domain');
+  if (u && d) {
+    var addr = u + '@' + d;
+    el.innerHTML = '<a href="mai' + 'lto:' + addr + '" style="color:var(--accent-gold);text-decoration:none;">' + addr + '</a>';
+  }
+});
+document.querySelectorAll('.email-protect-link').forEach(function(el) {
+  var u = el.getAttribute('data-user');
+  var d = el.getAttribute('data-domain');
+  if (u && d) {
+    el.href = 'mai' + 'lto:' + u + '@' + d;
+  }
 });
 
 // ===== HERO SVG PARALLAX =====
@@ -1759,16 +1796,7 @@ function applyContentData(data) {
         const iframe = document.createElement('iframe');
         iframe.src = 'https://www.youtube.com/embed/' + ytMatch[1] + '?autoplay=1&mute=1&loop=1&playlist=' + ytMatch[1] + '&controls=0&showinfo=0&rel=0&modestbranding=1&playsinline=1';
         iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
-        iframe.style.cssText = videoEl.style.cssText || '';
-        iframe.className = videoEl.className;
-        iframe.style.position = 'absolute';
-        iframe.style.top = '50%';
-        iframe.style.left = '50%';
-        iframe.style.width = '120%';
-        iframe.style.height = '120%';
-        iframe.style.transform = 'translate(-50%, -50%)';
-        iframe.style.border = 'none';
-        iframe.style.pointerEvents = 'none';
+        iframe.className = 'hero-video-bg-yt';
         videoEl.parentNode.replaceChild(iframe, videoEl);
       }
     } else {
@@ -1785,10 +1813,12 @@ function applyContentData(data) {
   // Trailer YouTube ID — supports full URLs or just ID
   if (data.trailerYoutubeId) {
     let tid = data.trailerYoutubeId;
-    // If user pasted a full URL, extract the ID
-    const ytMatch = tid.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/))([a-zA-Z0-9_-]{11})/);
-    if (ytMatch) tid = ytMatch[1];
-    window._trailerYoutubeId = tid;
+    var ytMatch2 = tid.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/))([a-zA-Z0-9_-]{11})/);
+    if (ytMatch2) tid = ytMatch2[1];
+    var trailerIframe = document.getElementById('trailerIframe');
+    if (trailerIframe) {
+      trailerIframe.src = 'https://www.youtube.com/embed/' + tid + '?rel=0';
+    }
   }
 
   // Screenshots
@@ -1824,6 +1854,27 @@ function applyContentData(data) {
         communityLinks[idx].target = '_blank';
       }
     });
+  }
+
+  // Footer links (Privacy, Terms, Contact page URLs)
+  if (data.footerLinks) {
+    var footerAnchors = document.querySelectorAll('.footer-links a');
+    footerAnchors.forEach(function(a) {
+      var text = a.textContent.trim().toLowerCase();
+      if (text.includes('privacy') && data.footerLinks.privacy) {
+        a.href = data.footerLinks.privacy;
+        a.target = '_blank';
+      } else if (text.includes('terms') && data.footerLinks.terms) {
+        a.href = data.footerLinks.terms;
+        a.target = '_blank';
+      }
+    });
+    // Contact URL (if not email-protected link)
+    var contactLink = document.querySelector('.footer-links a:not(.email-protect-link)[href="#"]');
+    if (contactLink && data.footerLinks.contact) {
+      contactLink.href = data.footerLinks.contact;
+      contactLink.target = '_blank';
+    }
   }
 }
 
