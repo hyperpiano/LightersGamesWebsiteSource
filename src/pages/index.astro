@@ -1742,69 +1742,71 @@ document.querySelector('.hero').addEventListener('mousemove', (e) => {
 });
 
 // ===== ADMIN CONTENT SYNC =====
-// Reads data saved by lightersgames-admin.html via localStorage
-(function loadAdminContent() {
-  try {
-    const raw = localStorage.getItem('lightersgames-content');
-    if (!raw) return;
-    const data = JSON.parse(raw);
+// Loads content from site-content.json (deployed) or localStorage (local dev)
+function applyContentData(data) {
+  if (!data) return;
 
-    // Hero video
-    if (data.heroVideoUrl) {
-      const vid = document.querySelector('.hero-video-bg source');
-      if (vid) { vid.src = data.heroVideoUrl; vid.parentElement.load(); }
-    }
-    if (data.heroPosterUrl) {
-      const vidEl = document.querySelector('.hero-video-bg');
-      if (vidEl) vidEl.poster = data.heroPosterUrl;
-    }
+  // Hero video
+  if (data.heroVideoUrl) {
+    const vid = document.querySelector('.hero-video-bg source');
+    if (vid) { vid.src = data.heroVideoUrl; vid.parentElement.load(); }
+  }
+  if (data.heroPosterUrl) {
+    const vidEl = document.querySelector('.hero-video-bg');
+    if (vidEl) vidEl.poster = data.heroPosterUrl;
+  }
 
-    // Trailer YouTube ID
-    if (data.trailerYoutubeId) {
-      window._trailerYoutubeId = data.trailerYoutubeId;
-    }
+  // Trailer YouTube ID
+  if (data.trailerYoutubeId) {
+    window._trailerYoutubeId = data.trailerYoutubeId;
+  }
 
-    // Screenshots
-    if (data.screenshots) {
-      Object.keys(data.screenshots).forEach(slot => {
-        const el = document.querySelector(`[data-slot="${slot}"] img`);
-        if (el && data.screenshots[slot]) {
-          el.src = data.screenshots[slot];
-        }
-      });
-    }
+  // Screenshots
+  if (data.screenshots) {
+    Object.keys(data.screenshots).forEach(slot => {
+      const el = document.querySelector('[data-slot="' + slot + '"] img');
+      if (el && data.screenshots[slot]) {
+        el.src = data.screenshots[slot];
+      }
+    });
+  }
 
-    // Download links (Press Kit)
-    if (data.downloads) {
-      const dlMap = {
-        'dl-presskit': 0,
-        'dl-logo': 1,
-        'dl-screenshots': 2,
-        'dl-factsheet': 3
-      };
-      const dlLinks = document.querySelectorAll('.download-list a');
-      Object.keys(data.downloads).forEach(key => {
-        const idx = dlMap[key];
-        if (idx !== undefined && dlLinks[idx] && data.downloads[key]) {
-          dlLinks[idx].href = data.downloads[key];
-          dlLinks[idx].target = '_blank';
-        }
-      });
-    }
+  // Download links (Press Kit)
+  if (data.downloads) {
+    const dlMap = { 'dl-presskit': 0, 'dl-logo': 1, 'dl-screenshots': 2, 'dl-factsheet': 3 };
+    const dlLinks = document.querySelectorAll('.download-list a');
+    Object.keys(data.downloads).forEach(key => {
+      const idx = dlMap[key];
+      if (idx !== undefined && dlLinks[idx] && data.downloads[key]) {
+        dlLinks[idx].href = data.downloads[key];
+        dlLinks[idx].target = '_blank';
+      }
+    });
+  }
 
-    // Community links
-    if (data.communityLinks) {
-      const communityLinks = document.querySelectorAll('.community-grid .community-link');
-      const linkOrder = ['link-discord','link-twitter','link-youtube','link-reddit','link-steam'];
-      linkOrder.forEach((key, idx) => {
-        if (data.communityLinks[key] && communityLinks[idx]) {
-          communityLinks[idx].href = data.communityLinks[key];
-          communityLinks[idx].target = '_blank';
-        }
-      });
-    }
-  } catch(e) { console.log('Admin content sync error:', e); }
-})();
+  // Community links
+  if (data.communityLinks) {
+    const communityLinks = document.querySelectorAll('.community-grid .community-link');
+    const linkOrder = ['link-discord','link-twitter','link-youtube','link-reddit','link-steam'];
+    linkOrder.forEach((key, idx) => {
+      if (data.communityLinks[key] && communityLinks[idx]) {
+        communityLinks[idx].href = data.communityLinks[key];
+        communityLinks[idx].target = '_blank';
+      }
+    });
+  }
+}
+
+// Try fetching site-content.json first, fallback to localStorage
+fetch('site-content.json')
+  .then(r => { if (!r.ok) throw new Error('no json'); return r.json(); })
+  .then(data => applyContentData(data))
+  .catch(() => {
+    try {
+      const raw = localStorage.getItem('lightersgames-content');
+      if (raw) applyContentData(JSON.parse(raw));
+    } catch(e) {}
+  });
 </script>
 </body>
 </html>
