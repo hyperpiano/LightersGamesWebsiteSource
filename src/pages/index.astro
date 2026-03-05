@@ -1,56 +1,1810 @@
----
-import Footer from '../components/Footer.astro';
-import Main from '../components/Main.astro';
-import { SEO } from 'astro-seo';
----
+<!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lightersgames — THANKS, LIGHT.</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+  @import url('https://fonts.cdnfonts.com/css/next-art');
 
-	<meta name="author" content="Marcus Otterström"/>
-	<meta name="keywords" content="LightersGames,ThanksLight,3D,Puzzle,Portal,Chamber,Steam,Indie"/>
+  /* ===== RESET & BASE ===== */
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
-	<SEO 
-		title="ThanksLight - Demo currently on Steam!"
-		description="This Is Not A Hexagon."
-		canonical="https://lightersgames.com"
-		openGraph={{
-			basic: {
-				title: "LightersGames",
-				type: "website",
-				image: "/img/trailer-img.png",
-				url: "https://lightersgames.com"
-			},
-			image: {
-            alt: "ThanksLight game promo image"  
-			},
-			optional: {
-				video: "https://youtu.be/BbaYeA66mMM",
-				description: "Switch between dimensions to solve mysterious puzzles, and uncover the truth."
-			}
-		}}
-		twitter={{
-			card: "summary_large_image"
-		}}
-	/>
+  :root {
+    --bg-deep: #060a10;
+    --bg-dark: #0a0f18;
+    --bg-card: #101820;
+    --text-primary: #e4eaf0;
+    --text-secondary: #7a8ea0;
+    --accent-gold: #6ec0e8;
+    --accent-warm: #90d4f5;
+    --accent-light: #d6f0ff;
+    --accent-blue: #4a9cff;
+    --accent-red: #e85050;
+    --gradient-hero: linear-gradient(135deg, #060a10 0%, #0c1420 50%, #0a1018 100%);
+  }
 
-	<meta property="twitter:description" content="Switch between dimensions to solve mysterious puzzles, and uncover the truth.">
-	<meta itemprop="description" content="Switch between dimensions to solve mysterious puzzles, and uncover the truth.">
+  html { scroll-behavior: smooth; font-size: 16px; }
+  body {
+    font-family: 'Inter', -apple-system, sans-serif;
+    background: var(--bg-deep);
+    color: var(--text-primary);
+    overflow-x: hidden;
+    line-height: 1.6;
+  }
 
-	<link rel="icon" type="image/png" sizes="40x40" href="/favicon-40x40.png" />
+  /* ===== CUSTOM CURSOR LIGHT ===== */
+  .cursor-light {
+    position: fixed;
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(circle, rgba(110,192,232,0.08) 0%, transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%, -50%);
+    transition: opacity 0.3s ease;
+    mix-blend-mode: screen;
+  }
 
-	<style is:global>
-		@import "../styles/base.css";
-		@import "../styles/lite-yt-embed.css";
-	</style>
+  /* ===== NAV ===== */
+  nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(10,10,15,0.85);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(110,192,232,0.1);
+    transition: all 0.3s ease;
+  }
+  nav.scrolled {
+    padding: 0.7rem 2rem;
+    background: rgba(10,10,15,0.95);
+  }
+  .nav-logo {
+    font-family: 'Inter', sans-serif;
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--accent-gold);
+    letter-spacing: 0.05em;
+    text-decoration: none;
+  }
+  .nav-logo span { color: var(--text-secondary); font-weight: 400; font-size: 0.8rem; margin-left: 0.5rem; }
+  .nav-links { display: flex; gap: 2rem; align-items: center; }
+  .nav-links a {
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    transition: color 0.3s;
+    position: relative;
+  }
+  .nav-links a:hover { color: var(--accent-gold); }
+  .nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background: var(--accent-gold);
+    transition: width 0.3s;
+  }
+  .nav-links a:hover::after { width: 100%; }
+  .nav-cta {
+    background: var(--accent-gold) !important;
+    color: var(--bg-deep) !important;
+    padding: 0.5rem 1.2rem;
+    border-radius: 4px;
+    font-weight: 600 !important;
+    text-transform: uppercase !important;
+    font-size: 0.8rem !important;
+    letter-spacing: 0.08em !important;
+    transition: all 0.3s !important;
+  }
+  .nav-cta:hover { background: var(--accent-warm) !important; transform: translateY(-1px); }
+  .nav-cta::after { display: none !important; }
 
-	<script defer src="/js/lite-yt-embed.js"></script>
-	<script defer data-domain="lightersgames.com" src="/js/script.js"></script>
-	<script>window.plausible = window.plausible || function() { (window.plausible.q = window.plausible.q || []).push(arguments) }</script>
+  /* Nav dropdown */
+  .nav-dropdown {
+    position: relative;
+  }
+  .nav-dropdown-menu {
+    display: none;
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(26,26,36,0.98);
+    border: 1px solid rgba(110,192,232,0.15);
+    border-radius: 8px;
+    padding: 0.5rem 0;
+    min-width: 200px;
+    backdrop-filter: blur(20px);
+    z-index: 1001;
+    box-shadow: 0 12px 40px rgba(0,0,0,0.4);
+  }
+  .nav-dropdown:hover .nav-dropdown-menu { display: block; }
+  .nav-dropdown-menu a {
+    display: block !important;
+    padding: 0.6rem 1.2rem !important;
+    font-size: 0.85rem !important;
+    white-space: nowrap;
+    transition: background 0.2s !important;
+  }
+  .nav-dropdown-menu a:hover {
+    background: rgba(110,192,232,0.08) !important;
+  }
+  .nav-dropdown-menu .dd-badge {
+    display: inline-block;
+    font-size: 0.6rem;
+    padding: 0.15rem 0.4rem;
+    border-radius: 3px;
+    margin-left: 0.5rem;
+    vertical-align: middle;
+    letter-spacing: 0.05em;
+  }
+  .dd-badge-live { background: rgba(110,232,150,0.15); color: #6ee896; }
+  .dd-badge-soon { background: rgba(110,192,232,0.15); color: var(--accent-gold); }
+
+  /* Mobile nav */
+  .nav-toggle { display: none; background: none; border: none; color: var(--text-primary); font-size: 1.5rem; cursor: pointer; }
+
+  /* ===== HERO ===== */
+  .hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background: var(--gradient-hero);
+    overflow: hidden;
+  }
+  .hero-video-bg {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    z-index: 0;
+    object-fit: cover;
+    opacity: 0.25;
+    filter: brightness(0.5) saturate(0.7);
+  }
+  .hero-video-overlay {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    z-index: 0;
+    background: linear-gradient(to bottom, rgba(6,10,16,0.6) 0%, rgba(6,10,16,0.3) 40%, rgba(6,10,16,0.7) 100%);
+  }
+  .hero-bg-canvas {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    z-index: 0;
+    opacity: 0.4;
+  }
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 800px;
+    padding: 0 2rem;
+  }
+  .hero-eyebrow {
+    font-size: 0.75rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--accent-gold);
+    margin-bottom: 1.5rem;
+    font-weight: 500;
+    opacity: 0;
+    animation: fadeUp 1s ease 0.3s forwards;
+  }
+  .hero-title {
+    font-family: 'NEXT ART', 'Inter', sans-serif;
+    font-size: clamp(3rem, 8vw, 6rem);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: -0.06em;
+    line-height: 0.92;
+    margin-bottom: 0.8rem;
+    opacity: 0;
+    animation: fadeUp 1s ease 0.5s forwards;
+  }
+  .hero-title em {
+    font-style: italic;
+    color: var(--accent-light);
+  }
+  .hero-subtitle {
+    font-size: 1.1rem;
+    color: var(--text-secondary);
+    margin-bottom: 2.5rem;
+    font-weight: 300;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+    opacity: 0;
+    animation: fadeUp 1s ease 0.7s forwards;
+  }
+  .hero-cta-group {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    opacity: 0;
+    animation: fadeUp 1s ease 0.9s forwards;
+  }
+  .btn-primary {
+    background: var(--accent-gold);
+    color: var(--bg-deep);
+    padding: 0.9rem 2rem;
+    border: none;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.3s;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .btn-primary:hover { background: var(--accent-warm); transform: translateY(-2px); box-shadow: 0 8px 30px rgba(110,192,232,0.3); }
+  .btn-secondary {
+    background: transparent;
+    color: var(--text-primary);
+    padding: 0.9rem 2rem;
+    border: 1px solid rgba(240,236,228,0.2);
+    border-radius: 4px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.3s;
+  }
+  .btn-secondary:hover { border-color: var(--accent-gold); color: var(--accent-gold); }
+
+  .hero-scroll-hint {
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    opacity: 0;
+    animation: fadeIn 1s ease 1.5s forwards;
+  }
+  .hero-scroll-hint span {
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+  }
+  .scroll-line {
+    width: 1px;
+    height: 40px;
+    background: linear-gradient(to bottom, var(--accent-gold), transparent);
+    animation: scrollPulse 2s ease infinite;
+  }
+
+  /* ===== INTERACTIVE LIGHT SHAPE (Hero) ===== */
+  .hero-interactive {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+    opacity: 0.15;
+  }
+  .hex-container {
+    width: 400px;
+    height: 400px;
+    position: relative;
+  }
+  .hex-shape {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 200px;
+    height: 200px;
+    transition: all 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .hex-shape.morphed {
+    border-radius: 50%;
+    box-shadow: 0 0 80px rgba(110,192,232,0.4), 0 0 160px rgba(110,192,232,0.1);
+  }
+
+  /* ===== SECTIONS COMMON ===== */
+  section {
+    padding: 8rem 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  .section-label {
+    font-size: 0.7rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--accent-gold);
+    margin-bottom: 1rem;
+    font-weight: 500;
+  }
+  .section-title {
+    font-family: 'Inter', sans-serif;
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    line-height: 1.2;
+  }
+  .section-desc {
+    color: var(--text-secondary);
+    font-size: 1.05rem;
+    max-width: 600px;
+    line-height: 1.7;
+    font-weight: 300;
+  }
+
+  /* ===== ABOUT ===== */
+  .about-section {
+    position: relative;
+    background: var(--bg-dark);
+    max-width: 100%;
+    padding: 8rem 2rem;
+  }
+  .about-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+  }
+  .about-visual {
+    position: relative;
+    height: 400px;
+    border-radius: 12px;
+    overflow: hidden;
+    background: #182030;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  /* 3D Cube Interactive — Orthographic, Hexagon silhouette */
+  .cube-scene {
+    width: 180px;
+    height: 180px;
+    /* No perspective = orthographic projection */
+    margin: 0 auto;
+  }
+  .cube {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    transform-style: preserve-3d;
+    /* Vertex-on angle: looks like a perfect hexagon */
+    transform: rotateX(-35.264deg) rotateY(45deg);
+    transition: transform 0.1s ease-out;
+  }
+  .cube-face {
+    position: absolute;
+    width: 180px;
+    height: 180px;
+    border: none;
+    outline: none;
+    /* Filled dark — distinct hexagon silhouette against lighter bg */
+    background: #080e18;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.7rem;
+    color: transparent;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    transition: all 0.5s ease;
+    backface-visibility: visible;
+  }
+  .cube-face.lit {
+    border: 1px solid rgba(110,192,232,0.5);
+    background: rgba(12,20,32,0.95);
+    box-shadow: inset 0 0 40px rgba(110,192,232,0.1), 0 0 25px rgba(110,192,232,0.15);
+    color: rgba(110,192,232,0.5);
+  }
+  .cube-face--front  { transform: translateZ(90px); }
+  .cube-face--back   { transform: rotateY(180deg) translateZ(90px); }
+  .cube-face--right  { transform: rotateY(90deg) translateZ(90px); }
+  .cube-face--left   { transform: rotateY(-90deg) translateZ(90px); }
+  .cube-face--top    { transform: rotateX(90deg) translateZ(90px); }
+  .cube-face--bottom { transform: rotateX(-90deg) translateZ(90px); }
+
+  .about-visual-label {
+    position: absolute;
+    bottom: 1.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.75rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+    white-space: nowrap;
+    transition: all 0.3s;
+  }
+
+  /* 3D Shape Simulator */
+  .shape-sim {
+    background: var(--bg-card);
+    border: 1px solid rgba(240,236,228,0.06);
+    border-radius: 12px;
+    padding: 2rem;
+    text-align: center;
+    max-width: 100%;
+  }
+  .shape-sim canvas {
+    display: block;
+    margin: 0 auto;
+    border-radius: 8px;
+    cursor: grab;
+    background: var(--bg-deep);
+  }
+  .shape-sim canvas:active { cursor: grabbing; }
+  .shape-sim-labels {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+  .shape-label {
+    padding: 0.3rem 0.8rem;
+    border-radius: 4px;
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    background: rgba(240,236,228,0.05);
+    color: var(--text-secondary);
+    transition: all 0.3s;
+  }
+  .shape-label.active {
+    background: rgba(110,192,232,0.15);
+    color: var(--accent-gold);
+    border: 1px solid rgba(110,192,232,0.3);
+  }
+  .feature-list {
+    list-style: none;
+    margin-top: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+  }
+  .feature-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+  }
+  .feature-icon {
+    width: 28px;
+    height: 28px;
+    min-width: 28px;
+    border-radius: 50%;
+    background: rgba(110,192,232,0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--accent-gold);
+    font-size: 0.8rem;
+    margin-top: 2px;
+  }
+
+  /* ===== TRAILER ===== */
+  .trailer-section {
+    text-align: center;
+  }
+  .trailer-wrapper {
+    margin-top: 3rem;
+    position: relative;
+    width: 100%;
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+    border: 1px solid rgba(110,192,232,0.1);
+  }
+  .trailer-wrapper::before {
+    content: '';
+    display: block;
+    padding-top: 56.25%;
+  }
+  .trailer-wrapper iframe,
+  .trailer-placeholder {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+  }
+  .trailer-placeholder {
+    background: var(--bg-card);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 1rem;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+  .trailer-placeholder:hover { background: #222233; }
+  .play-btn {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    background: var(--accent-gold);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s;
+  }
+  .play-btn::after {
+    content: '';
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 12px 0 12px 22px;
+    border-color: transparent transparent transparent var(--bg-deep);
+    margin-left: 4px;
+  }
+  .trailer-placeholder:hover .play-btn {
+    transform: scale(1.1);
+    box-shadow: 0 0 40px rgba(110,192,232,0.4);
+  }
+
+  /* ===== SCREENSHOTS ===== */
+  .screenshots-section { text-align: center; }
+  .gallery-grid {
+    margin-top: 3rem;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+  }
+  .gallery-item {
+    position: relative;
+    border-radius: 8px;
+    overflow: hidden;
+    aspect-ratio: 16/9;
+    background: var(--bg-card);
+    cursor: pointer;
+    transition: transform 0.3s;
+  }
+  .gallery-item:hover { transform: scale(1.02); }
+  .gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: opacity 0.3s;
+  }
+  .gallery-item::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(10,10,15,0.6), transparent 50%);
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  .gallery-item:hover::after { opacity: 1; }
+  .gallery-placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    background: linear-gradient(135deg, var(--bg-card), #1e1e2e);
+  }
+
+  /* ===== PLATFORMS ===== */
+  .platforms-section {
+    text-align: center;
+    background: var(--bg-dark);
+    max-width: 100%;
+    padding: 6rem 2rem;
+  }
+  .platforms-inner { max-width: 1200px; margin: 0 auto; }
+  .platform-grid {
+    margin-top: 3rem;
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+  }
+  .platform-card {
+    background: var(--bg-card);
+    border: 1px solid rgba(240,236,228,0.06);
+    border-radius: 12px;
+    padding: 2rem 2.5rem;
+    text-align: center;
+    min-width: 180px;
+    transition: all 0.3s;
+  }
+  .platform-card:hover {
+    border-color: var(--accent-gold);
+    transform: translateY(-4px);
+    box-shadow: 0 12px 40px rgba(0,0,0,0.3);
+  }
+  .platform-card .platform-icon {
+    font-size: 2rem;
+    margin-bottom: 0.8rem;
+  }
+  .platform-card .platform-name {
+    font-weight: 600;
+    font-size: 0.95rem;
+    margin-bottom: 0.3rem;
+  }
+  .platform-card .platform-status {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+  .platform-card .platform-status.available { color: #6bcf6b; }
+
+  /* ===== TEAM ===== */
+  .team-section { text-align: center; }
+  .team-grid {
+    margin-top: 3rem;
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+    max-width: 1000px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .team-card {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    padding: 0.8rem 1.2rem;
+    border-radius: 8px;
+    background: var(--bg-card);
+    border: 1px solid rgba(240,236,228,0.04);
+    transition: all 0.3s;
+  }
+  .team-card:hover {
+    border-color: rgba(110,192,232,0.2);
+    transform: translateY(-2px);
+  }
+  .team-avatar {
+    width: 36px;
+    height: 36px;
+    min-width: 36px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--accent-gold), var(--accent-warm));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Inter', sans-serif;
+    font-size: 1.5rem;
+    color: var(--bg-deep);
+    font-weight: 700;
+  }
+  .team-name {
+    font-weight: 600;
+    font-size: 1rem;
+    margin-bottom: 0.3rem;
+  }
+  .team-role {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+  }
+
+  /* ===== PRESS KIT ===== */
+  .press-section {
+    background: var(--bg-dark);
+    max-width: 100%;
+    padding: 6rem 2rem;
+  }
+  .press-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: start;
+  }
+  .press-facts {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-top: 2rem;
+  }
+  .press-fact {
+    background: var(--bg-card);
+    padding: 1.2rem;
+    border-radius: 8px;
+    border: 1px solid rgba(240,236,228,0.04);
+  }
+  .press-fact-label {
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+    margin-bottom: 0.3rem;
+  }
+  .press-fact-value {
+    font-weight: 600;
+    font-size: 0.95rem;
+  }
+  .press-downloads { margin-top: 2rem; }
+  .press-downloads h3 {
+    font-family: 'Inter', sans-serif;
+    font-size: 1.3rem;
+    margin-bottom: 1rem;
+  }
+  .download-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+  }
+  .download-list li a {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    padding: 1rem 1.2rem;
+    background: var(--bg-card);
+    border: 1px solid rgba(240,236,228,0.06);
+    border-radius: 8px;
+    text-decoration: none;
+    color: var(--text-primary);
+    transition: all 0.3s;
+    font-size: 0.9rem;
+  }
+  .download-list li a:hover {
+    border-color: var(--accent-gold);
+    background: rgba(110,192,232,0.05);
+  }
+  .dl-icon {
+    width: 36px;
+    height: 36px;
+    background: rgba(110,192,232,0.1);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--accent-gold);
+    font-size: 0.9rem;
+  }
+
+  /* ===== COMMUNITY ===== */
+  .community-section { text-align: center; }
+  .community-grid {
+    margin-top: 3rem;
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+  }
+  .community-link {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    padding: 1rem 2rem;
+    background: var(--bg-card);
+    border: 1px solid rgba(240,236,228,0.06);
+    border-radius: 8px;
+    text-decoration: none;
+    color: var(--text-primary);
+    font-weight: 500;
+    font-size: 0.95rem;
+    transition: all 0.3s;
+  }
+  .community-link:hover {
+    border-color: var(--accent-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(0,0,0,0.3);
+  }
+  .community-icon {
+    font-size: 1.3rem;
+  }
+
+  /* ===== CTA BANNER ===== */
+  .cta-banner {
+    text-align: center;
+    padding: 6rem 2rem;
+    background: linear-gradient(135deg, rgba(110,192,232,0.05), rgba(74,124,255,0.03));
+    max-width: 100%;
+    position: relative;
+    overflow: hidden;
+  }
+  .cta-banner::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--accent-gold), transparent);
+  }
+  .cta-banner .section-title { margin-bottom: 1rem; }
+  .cta-banner .section-desc {
+    margin: 0 auto 2rem;
+    text-align: center;
+  }
+
+  /* ===== FOOTER ===== */
+  footer {
+    background: var(--bg-dark);
+    border-top: 1px solid rgba(240,236,228,0.06);
+    padding: 3rem 2rem;
+    max-width: 100%;
+  }
+  .footer-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+  }
+  .footer-brand {
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    color: var(--accent-gold);
+    font-size: 1.1rem;
+  }
+  .footer-copy {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+  }
+  .footer-links { display: flex; gap: 1.5rem; }
+  .footer-links a {
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-size: 0.85rem;
+    transition: color 0.3s;
+  }
+  .footer-links a:hover { color: var(--accent-gold); }
+
+  /* ===== ANIMATIONS ===== */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  @keyframes scrollPulse {
+    0%, 100% { opacity: 0.3; transform: scaleY(0.6); transform-origin: top; }
+    50% { opacity: 1; transform: scaleY(1); }
+  }
+
+  /* Scroll reveal */
+  .reveal {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 900px) {
+    .about-inner, .press-inner { grid-template-columns: 1fr; }
+    .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+    .nav-links { display: none; }
+    .nav-links.open {
+      display: flex;
+      flex-direction: column;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      background: rgba(10,10,15,0.98);
+      padding: 2rem;
+      gap: 1.5rem;
+      border-bottom: 1px solid rgba(110,192,232,0.1);
+    }
+    .nav-toggle { display: block; }
+    .team-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 600px) {
+    .gallery-grid { grid-template-columns: 1fr; }
+    .hero-title { font-size: 2.5rem; }
+    section { padding: 5rem 1.5rem; }
+    .team-grid { grid-template-columns: 1fr; }
+    .press-facts { grid-template-columns: 1fr; }
+  }
+</style>
 </head>
 <body>
-	<Main />
-	<Footer />
+
+<!-- Cursor Light Effect -->
+<div class="cursor-light" id="cursorLight"></div>
+
+<!-- Navigation -->
+<nav id="mainNav">
+  <a href="#" class="nav-logo">LIGHTERSGAMES <span>Co., Ltd.</span></a>
+  <button class="nav-toggle" onclick="document.querySelector('.nav-links').classList.toggle('open')">&#9776;</button>
+  <div class="nav-links">
+    <div class="nav-dropdown">
+      <a href="#about" style="cursor: pointer;">Games &#9662;</a>
+      <div class="nav-dropdown-menu">
+        <a href="#about">THANKS, LIGHT. <span class="dd-badge dd-badge-live">LIVE</span></a>
+        <a href="#rightway">Right Way <span class="dd-badge dd-badge-soon">COMING SOON</span></a>
+      </div>
+    </div>
+    <a href="#trailer">Trailer</a>
+    <a href="#screenshots">Media</a>
+    <a href="#accolades">Awards</a>
+    <a href="#team">Team</a>
+    <a href="#press">Press</a>
+    <a href="#community">Community</a>
+    <a href="https://store.steampowered.com/app/2544740/THANKS_LIGHT/" class="nav-cta" target="_blank">Wishlist Now</a>
+  </div>
+</nav>
+
+<!-- Hero Section -->
+<section class="hero" id="hero">
+  <!-- Game footage background (Steam trailer) -->
+  <video class="hero-video-bg" autoplay muted loop playsinline poster="">
+    <source src="https://cdn.akamai.steamstatic.com/steam/apps/256985866/movie480_vp9.webm" type="video/webm">
+  </video>
+  <div class="hero-video-overlay"></div>
+  <canvas class="hero-bg-canvas" id="heroCanvas"></canvas>
+
+  <div class="hero-interactive" id="heroInteractive">
+    <div class="hex-container">
+      <svg width="400" height="400" viewBox="0 0 400 400" id="heroSvg">
+        <defs>
+          <radialGradient id="lightGrad" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="rgba(110,192,232,0.3)"/>
+            <stop offset="100%" stop-color="rgba(110,192,232,0)"/>
+          </radialGradient>
+          <filter id="glow">
+            <feGaussianBlur stdDeviation="8" result="blur"/>
+            <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+          </filter>
+        </defs>
+        <!-- Hexagon that morphs -->
+        <polygon id="heroHex"
+          points="200,80 280,130 280,230 200,280 120,230 120,130"
+          fill="none" stroke="rgba(110,192,232,0.3)" stroke-width="1"
+          filter="url(#glow)"/>
+        <!-- Light rays -->
+        <g id="lightRays" opacity="0.15">
+          <line x1="200" y1="180" x2="50" y2="50" stroke="rgba(110,192,232,0.4)" stroke-width="0.5"/>
+          <line x1="200" y1="180" x2="350" y2="30" stroke="rgba(110,192,232,0.4)" stroke-width="0.5"/>
+          <line x1="200" y1="180" x2="380" y2="200" stroke="rgba(110,192,232,0.4)" stroke-width="0.5"/>
+          <line x1="200" y1="180" x2="50" y2="350" stroke="rgba(110,192,232,0.4)" stroke-width="0.5"/>
+          <line x1="200" y1="180" x2="350" y2="350" stroke="rgba(110,192,232,0.4)" stroke-width="0.5"/>
+        </g>
+      </svg>
+    </div>
+  </div>
+
+  <div class="hero-content">
+    <p class="hero-eyebrow">A Lightersgames Production</p>
+    <h1 class="hero-title">THANKS, LIGHT.</h1>
+    <p class="hero-subtitle">Don't just see the silhouette.<br>Shine light to reveal the truth hidden in every shadow.</p>
+    <div class="hero-cta-group">
+      <a href="https://store.steampowered.com/app/2544740/THANKS_LIGHT/" class="btn-primary" target="_blank">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z"/></svg>
+        Wishlist on Steam
+      </a>
+      <a href="https://store.steampowered.com/app/3276550/THANKS_LIGHT__DEMO" class="btn-secondary" target="_blank">Play Free Demo</a>
+      <a href="#trailer" class="btn-secondary">Watch Trailer</a>
+    </div>
+  </div>
+
+  <div class="hero-scroll-hint">
+    <span>Scroll</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- Quote — Jeep Barnett -->
+<section style="text-align: center; padding: 4rem 2rem; max-width: 800px; margin: 0 auto;">
+  <div class="reveal">
+    <blockquote style="font-family: 'Inter', sans-serif; font-size: 1.3rem; font-style: italic; line-height: 1.6; color: var(--text-primary); position: relative; padding: 0 2rem;">
+      <span style="color: var(--accent-gold); font-size: 3rem; position: absolute; top: -0.5rem; left: 0; line-height: 1;">&ldquo;</span>
+      A solid puzzle mechanic with remote object interaction, like Portal and The Talos Principle.
+      <span style="color: var(--accent-gold); font-size: 3rem; line-height: 1;">&rdquo;</span>
+    </blockquote>
+    <p style="margin-top: 1rem; font-size: 0.85rem; color: var(--text-secondary);">
+      <strong style="color: var(--accent-gold);">Jeep Barnett</strong> — Portal Developer, Valve
+    </p>
+  </div>
+</section>
+
+<!-- About Section -->
+<section class="about-section" id="about">
+  <div class="about-inner">
+    <div class="about-visual reveal" id="aboutVisual">
+      <div class="cube-scene">
+        <div class="cube" id="cubeEl">
+          <div class="cube-face cube-face--front"></div>
+          <div class="cube-face cube-face--back"></div>
+          <div class="cube-face cube-face--right"></div>
+          <div class="cube-face cube-face--left"></div>
+          <div class="cube-face cube-face--top"></div>
+          <div class="cube-face cube-face--bottom"></div>
+        </div>
+      </div>
+      <p class="about-visual-label" id="shapeLabel">Hover to shine light on the silhouette</p>
+    </div>
+    <div class="reveal">
+      <p class="section-label">About the Game — Physics</p>
+      <h2 class="section-title">This Is Not a Hexagon</h2>
+      <p class="section-desc">
+        Without light, you only see an object's silhouette. With light, you see its true form. THANKS, LIGHT. is a first-person puzzle adventure where you manipulate light to transform the world between 2D and 3D. Light creates physics — darkness erases it.
+      </p>
+      <ul class="feature-list">
+        <li>
+          <span class="feature-icon">&#9728;</span>
+          <span><strong>Illuminate</strong> — Shine light to reveal 3D forms. Objects gain weight, collision, and physics. A flat hexagon becomes a cube you can stand on</span>
+        </li>
+        <li>
+          <span class="feature-icon">&#9670;</span>
+          <span><strong>Absorb</strong> — Remove light to strip away volume and mass. Objects flatten into weightless, static 2D silhouettes. A rolling ball freezes. A blocking wall becomes a gap</span>
+        </li>
+        <li>
+          <span class="feature-icon">&#9733;</span>
+          <span><strong>Mirror, Lens & Merge</strong> — Duplicate objects, resize them, or combine two forms into entirely new tools. Five mechanics, layered puzzles</span>
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- Interactive: Perspective Shape -->
+<section style="background: var(--bg-dark); max-width: 100%; padding: 6rem 2rem;">
+  <div style="max-width: 1000px; margin: 0 auto; text-align: center;">
+    <div class="reveal">
+      <p class="section-label">Interactive Demo — Geometry</p>
+      <h2 class="section-title">One Shape, Three Shadows</h2>
+      <p class="section-desc" style="margin: 0 auto 2rem;">A single 3D object can cast a circle, a square, or a triangle — depending on your perspective. Every puzzle in the game is built on this geometric principle. Drag to rotate and discover each silhouette.</p>
+    </div>
+    <div class="shape-sim reveal">
+      <canvas id="shapeSim" width="400" height="350"></canvas>
+      <div class="shape-sim-labels">
+        <span class="shape-label" id="lblCircle">Circle</span>
+        <span class="shape-label" id="lblSquare">Square</span>
+        <span class="shape-label" id="lblTriangle">Triangle</span>
+      </div>
+      <p style="font-size: 0.75rem; color: var(--text-secondary); margin-top: 0.8rem;">Click & drag to rotate</p>
+    </div>
+  </div>
+</section>
+
+<!-- You'll Love This If... -->
+<section style="max-width:100%; padding:6rem 2rem; background: linear-gradient(135deg, rgba(110,192,232,0.03), transparent);">
+  <div style="max-width:900px; margin:0 auto; text-align:center;" class="reveal">
+    <p class="section-label">Is This Game For You?</p>
+    <h2 class="section-title">You'll Love THANKS, LIGHT. If...</h2>
+    <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(250px, 1fr)); gap:1.5rem; margin-top:2.5rem; text-align:left;">
+      <div style="background:var(--bg-card); border:1px solid rgba(110,192,232,0.08); border-radius:10px; padding:1.5rem;">
+        <div style="font-size:1.3rem; margin-bottom:0.5rem;">&#127918;</div>
+        <div style="font-weight:600; font-size:0.95rem; margin-bottom:0.5rem; color:var(--accent-light);">Portal, Superliminal, The Talos Principle</div>
+        <p style="font-size:0.85rem; color:var(--text-secondary); line-height:1.5;">You enjoy first-person puzzle games that challenge your perception and reward creative thinking.</p>
+      </div>
+      <div style="background:var(--bg-card); border:1px solid rgba(110,192,232,0.08); border-radius:10px; padding:1.5rem;">
+        <div style="font-size:1.3rem; margin-bottom:0.5rem;">&#127756;</div>
+        <div style="font-weight:600; font-size:0.95rem; margin-bottom:0.5rem; color:var(--accent-light);">INSIDE, Control, Liminal Spaces</div>
+        <p style="font-size:0.85rem; color:var(--text-secondary); line-height:1.5;">You love eerie, atmospheric worlds with brutalist architecture, marble halls, and unsettling beauty.</p>
+      </div>
+      <div style="background:var(--bg-card); border:1px solid rgba(110,192,232,0.08); border-radius:10px; padding:1.5rem;">
+        <div style="font-size:1.3rem; margin-bottom:0.5rem;">&#128161;</div>
+        <div style="font-weight:600; font-size:0.95rem; margin-bottom:0.5rem; color:var(--accent-light);">Physics + Light = Puzzles</div>
+        <p style="font-size:0.85rem; color:var(--text-secondary); line-height:1.5;">You're fascinated by the idea that light creates physics — and darkness erases it. Every puzzle revolves around this single, elegant rule.</p>
+      </div>
+    </div>
+    <p style="margin-top:2rem; font-size:0.9rem; color:var(--text-secondary);">
+      3 chapters. 5 mechanics. One flashlight.
+      <span style="color:var(--accent-gold);">The truth is never what it looks like in the dark.</span>
+    </p>
+  </div>
+</section>
+
+<!-- Trailer Section -->
+<section class="trailer-section" id="trailer">
+  <div class="reveal">
+    <p class="section-label">Official Trailer</p>
+    <h2 class="section-title">See the World Differently</h2>
+  </div>
+  <div class="trailer-wrapper reveal">
+    <div class="trailer-placeholder" id="trailerPlaceholder" onclick="loadTrailer()">
+      <div class="play-btn"></div>
+      <span style="color: var(--text-secondary); font-size: 0.85rem;">Click to play trailer</span>
+    </div>
+  </div>
+</section>
+
+<!-- Screenshots -->
+<section class="screenshots-section" id="screenshots">
+  <div class="reveal">
+    <p class="section-label">Screenshots</p>
+    <h2 class="section-title">Captured Moments</h2>
+  </div>
+
+  <!-- Chapter 1 -->
+  <div class="reveal" style="margin-bottom: 0.5rem;">
+    <h3 style="font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--accent-gold); text-align: center; margin-bottom: 1rem;">Chapter 1 — Illuminate</h3>
+  </div>
+  <div class="gallery-grid reveal" id="gallery-ch1">
+    <div class="gallery-item" data-slot="ch1-1"><img src="" alt="Chapter 1 Screenshot 1" loading="lazy" style="width:100%;height:100%;object-fit:cover;border-radius:8px;"></div>
+    <div class="gallery-item" data-slot="ch1-2"><img src="" alt="Chapter 1 Screenshot 2" loading="lazy" style="width:100%;height:100%;object-fit:cover;border-radius:8px;"></div>
+    <div class="gallery-item" data-slot="ch1-3"><img src="" alt="Chapter 1 Screenshot 3" loading="lazy" style="width:100%;height:100%;object-fit:cover;border-radius:8px;"></div>
+  </div>
+
+  <!-- Chapter 2 -->
+  <div class="reveal" style="margin-top: 2.5rem; margin-bottom: 0.5rem;">
+    <h3 style="font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--accent-gold); text-align: center; margin-bottom: 1rem;">Chapter 2 — Absorb</h3>
+  </div>
+  <div class="gallery-grid reveal" id="gallery-ch2">
+    <div class="gallery-item" data-slot="ch2-1"><img src="" alt="Chapter 2 Screenshot 1" loading="lazy" style="width:100%;height:100%;object-fit:cover;border-radius:8px;"></div>
+    <div class="gallery-item" data-slot="ch2-2"><img src="" alt="Chapter 2 Screenshot 2" loading="lazy" style="width:100%;height:100%;object-fit:cover;border-radius:8px;"></div>
+    <div class="gallery-item" data-slot="ch2-3"><img src="" alt="Chapter 2 Screenshot 3" loading="lazy" style="width:100%;height:100%;object-fit:cover;border-radius:8px;"></div>
+  </div>
+
+  <!-- Chapter 3 -->
+  <div class="reveal" style="margin-top: 2.5rem; margin-bottom: 0.5rem;">
+    <h3 style="font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--accent-gold); text-align: center; margin-bottom: 1rem;">Chapter 3 — Mirror, Lens & Merge</h3>
+  </div>
+  <div class="gallery-grid reveal" id="gallery-ch3">
+    <div class="gallery-item" data-slot="ch3-1"><img src="" alt="Chapter 3 Screenshot 1" loading="lazy" style="width:100%;height:100%;object-fit:cover;border-radius:8px;"></div>
+    <div class="gallery-item" data-slot="ch3-2"><img src="" alt="Chapter 3 Screenshot 2" loading="lazy" style="width:100%;height:100%;object-fit:cover;border-radius:8px;"></div>
+    <div class="gallery-item" data-slot="ch3-3"><img src="" alt="Chapter 3 Screenshot 3" loading="lazy" style="width:100%;height:100%;object-fit:cover;border-radius:8px;"></div>
+  </div>
+</section>
+
+<!-- Accolades -->
+<section class="accolades-section" id="accolades" style="text-align: center;">
+  <div class="reveal">
+    <p class="section-label">Recognition</p>
+    <h2 class="section-title">Awards & Accolades</h2>
+    <p class="section-desc" style="margin: 0 auto 1rem;">
+      Featured at 30+ international events. Covered by press in 6+ languages.
+    </p>
+  </div>
+  <div class="reveal" style="margin-top: 2.5rem; display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem; max-width: 900px; margin-left: auto; margin-right: auto;">
+    <div style="background: var(--bg-card); border: 1px solid rgba(110,192,232,0.15); border-radius: 8px; padding: 1.2rem 1.5rem; text-align: center; min-width: 220px; flex: 1;">
+      <div style="color: var(--accent-gold); font-size: 1.5rem; margin-bottom: 0.5rem;">&#127942;</div>
+      <div style="font-weight: 600; font-size: 0.9rem; margin-bottom: 0.3rem;">Indiecraft 2025</div>
+      <div style="font-size: 0.75rem; color: var(--text-secondary);">Best Developer Award & Console TOP 2</div>
+    </div>
+    <div style="background: var(--bg-card); border: 1px solid rgba(110,192,232,0.15); border-radius: 8px; padding: 1.2rem 1.5rem; text-align: center; min-width: 220px; flex: 1;">
+      <div style="color: var(--accent-gold); font-size: 1.5rem; margin-bottom: 0.5rem;">&#127758;</div>
+      <div style="font-weight: 600; font-size: 0.9rem; margin-bottom: 0.3rem;">Gamescom 2025</div>
+      <div style="font-size: 0.75rem; color: var(--text-secondary);">KOCCA Korea Game Roadshow</div>
+    </div>
+    <div style="background: var(--bg-card); border: 1px solid rgba(110,192,232,0.15); border-radius: 8px; padding: 1.2rem 1.5rem; text-align: center; min-width: 220px; flex: 1;">
+      <div style="color: var(--accent-gold); font-size: 1.5rem; margin-bottom: 0.5rem;">&#127983;</div>
+      <div style="font-weight: 600; font-size: 0.9rem; margin-bottom: 0.3rem;">Tokyo Game Show 2025</div>
+      <div style="font-size: 0.75rem; color: var(--text-secondary);">Selected Indie 80</div>
+    </div>
+    <div style="background: var(--bg-card); border: 1px solid rgba(110,192,232,0.15); border-radius: 8px; padding: 1.2rem 1.5rem; text-align: center; min-width: 220px; flex: 1;">
+      <div style="color: var(--accent-gold); font-size: 1.5rem; margin-bottom: 0.5rem;">&#128161;</div>
+      <div style="font-weight: 600; font-size: 0.9rem; margin-bottom: 0.3rem;">BIC 2024</div>
+      <div style="font-size: 0.75rem; color: var(--text-secondary);">Nicalis Pick Award</div>
+    </div>
+    <div style="background: var(--bg-card); border: 1px solid rgba(110,192,232,0.15); border-radius: 8px; padding: 1.2rem 1.5rem; text-align: center; min-width: 220px; flex: 1;">
+      <div style="color: var(--accent-gold); font-size: 1.5rem; margin-bottom: 0.5rem;">&#128172;</div>
+      <div style="font-weight: 600; font-size: 0.9rem; margin-bottom: 0.3rem;">Portal Dev Endorsed</div>
+      <div style="font-size: 0.75rem; color: var(--text-secondary);">Jeep Barnett (Valve) — Praised puzzle mechanics</div>
+    </div>
+    <div style="background: var(--bg-card); border: 1px solid rgba(110,192,232,0.15); border-radius: 8px; padding: 1.2rem 1.5rem; text-align: center; min-width: 220px; flex: 1;">
+      <div style="color: var(--accent-gold); font-size: 1.5rem; margin-bottom: 0.5rem;">&#128218;</div>
+      <div style="font-weight: 600; font-size: 0.9rem; margin-bottom: 0.3rem;">Thinky Games</div>
+      <div style="font-size: 0.75rem; color: var(--text-secondary);">Featured in Puzzle Collection</div>
+    </div>
+  </div>
+  <div class="reveal" style="margin-top: 2rem;">
+    <p style="font-size: 0.8rem; color: var(--text-secondary); max-width: 700px; margin: 0 auto;">
+      Press coverage: Press Play Media (UK), 4Gamer (JP), BusinessWire (US), GamesWirtschaft (DE), VGTimes (RU), Sportskeeda (IN), and 20+ Korean outlets including Dong-A Ilbo, YTN, and ZDNET Korea.
+    </p>
+  </div>
+</section>
+
+<!-- Platforms -->
+<section class="platforms-section" id="platforms">
+  <div class="platforms-inner">
+    <div class="reveal">
+      <p class="section-label">Platforms</p>
+      <h2 class="section-title">Play Everywhere</h2>
+    </div>
+    <div class="platform-grid reveal">
+      <div class="platform-card">
+        <div class="platform-icon">🎮</div>
+        <div class="platform-name">Steam</div>
+        <div class="platform-status available">Demo Available Now</div>
+      </div>
+      <div class="platform-card">
+        <div class="platform-icon">🎮</div>
+        <div class="platform-name">Steam Early Access</div>
+        <div class="platform-status">August 2026</div>
+      </div>
+      <div class="platform-card">
+        <div class="platform-icon">🎮</div>
+        <div class="platform-name">Steam + PlayStation 5</div>
+        <div class="platform-status">September 2026</div>
+      </div>
+      <div class="platform-card">
+        <div class="platform-icon">🕹️</div>
+        <div class="platform-name">Nintendo Switch 2</div>
+        <div class="platform-status">TBA</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Team Section -->
+<section class="team-section" id="team">
+  <div class="reveal">
+    <p class="section-label">The Team</p>
+    <h2 class="section-title">Lightersgames Co., Ltd.</h2>
+    <p class="section-desc" style="margin: 0 auto;">
+      An indie studio from South Korea, lighting the path less traveled.
+      Founded in 2023, incorporated in 2025. Based at Gyeonggi Global Game Center, Seongnam.
+      Winner of the 2025 Indiecraft Best Developer Award.
+    </p>
+  </div>
+  <div class="team-grid reveal">
+    <div class="team-card">
+      <div class="team-avatar">H</div>
+      <div class="team-name">Huibeom Jung</div>
+      <div class="team-role">Director / Producer</div>
+    </div>
+    <div class="team-card">
+      <div class="team-avatar">S</div>
+      <div class="team-name">Seohyeon Lee</div>
+      <div class="team-role">Technical Director</div>
+    </div>
+    <div class="team-card">
+      <div class="team-avatar">J</div>
+      <div class="team-name">Jeongtae Go</div>
+      <div class="team-role">Art Director</div>
+    </div>
+    <div class="team-card">
+      <div class="team-avatar">S</div>
+      <div class="team-name">Sungchan Kim</div>
+      <div class="team-role">Technical Art / Porting</div>
+    </div>
+    <div class="team-card" style="opacity: 0.5;">
+      <div class="team-avatar">T</div>
+      <div class="team-name">Taewook Go</div>
+      <div class="team-role">Technical Art <span style="font-size:0.65rem;color:var(--accent-gold);margin-left:0.3rem;">군복무 중</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- Press Kit -->
+<section class="press-section" id="press">
+  <div class="press-inner">
+    <div class="reveal">
+      <p class="section-label">Press Kit</p>
+      <h2 class="section-title">For Media & Publishers</h2>
+      <p class="section-desc">Everything you need to cover THANKS, LIGHT.</p>
+      <div class="press-facts">
+        <div class="press-fact">
+          <div class="press-fact-label">Developer</div>
+          <div class="press-fact-value">Lightersgames Co., Ltd.</div>
+        </div>
+        <div class="press-fact">
+          <div class="press-fact-label">Genre</div>
+          <div class="press-fact-value">First-Person Puzzle Adventure</div>
+        </div>
+        <div class="press-fact">
+          <div class="press-fact-label">Location</div>
+          <div class="press-fact-value">Seongnam, South Korea</div>
+        </div>
+        <div class="press-fact">
+          <div class="press-fact-label">Platforms</div>
+          <div class="press-fact-value">PC (Steam), PS5, Switch 2</div>
+        </div>
+        <div class="press-fact">
+          <div class="press-fact-label">Price</div>
+          <div class="press-fact-value">$19.99 (USD)</div>
+        </div>
+        <div class="press-fact">
+          <div class="press-fact-label">Release</div>
+          <div class="press-fact-value">EA Aug 2026 / Full Sep 2026</div>
+        </div>
+        <div class="press-fact">
+          <div class="press-fact-label">Team Size</div>
+          <div class="press-fact-value">5 Members</div>
+        </div>
+        <div class="press-fact">
+          <div class="press-fact-label">Contact</div>
+          <div class="press-fact-value">press@lightersgames.com</div>
+        </div>
+      </div>
+    </div>
+    <div class="reveal">
+      <div class="press-downloads">
+        <h3>Downloads</h3>
+        <ul class="download-list">
+          <li><a href="#">
+            <span class="dl-icon">📦</span>
+            <span>Full Press Kit (ZIP)</span>
+          </a></li>
+          <li><a href="#">
+            <span class="dl-icon">🖼️</span>
+            <span>Logo & Brand Assets</span>
+          </a></li>
+          <li><a href="#">
+            <span class="dl-icon">📸</span>
+            <span>Screenshot Pack (High-res)</span>
+          </a></li>
+          <li><a href="#">
+            <span class="dl-icon">📄</span>
+            <span>Fact Sheet (PDF)</span>
+          </a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Community -->
+<section class="community-section" id="community">
+  <div class="reveal">
+    <p class="section-label">Community</p>
+    <h2 class="section-title">Join the Journey</h2>
+    <p class="section-desc" style="margin: 0 auto 2rem;">Follow us for updates, behind-the-scenes, and more.</p>
+  </div>
+  <div class="community-grid reveal">
+    <a href="#" class="community-link">
+      <span class="community-icon">💬</span>
+      Discord
+    </a>
+    <a href="#" class="community-link">
+      <span class="community-icon">🐦</span>
+      X / Twitter
+    </a>
+    <a href="#" class="community-link">
+      <span class="community-icon">📺</span>
+      YouTube
+    </a>
+    <a href="https://www.reddit.com/r/ThanksLight/" class="community-link" target="_blank">
+      <span class="community-icon">🔴</span>
+      Reddit
+    </a>
+    <a href="https://store.steampowered.com/app/2544740/THANKS_LIGHT/" class="community-link" target="_blank">
+      <span class="community-icon">🎮</span>
+      Steam
+    </a>
+  </div>
+</section>
+
+<!-- Right Way Teaser -->
+<section id="rightway" style="text-align: center; background: var(--bg-dark); max-width: 100%; padding: 6rem 2rem;">
+  <div class="reveal" style="max-width: 700px; margin: 0 auto;">
+    <p class="section-label">Next from Lightersgames</p>
+    <h2 class="section-title" style="font-size: clamp(1.8rem, 3.5vw, 2.5rem);">Right Way</h2>
+    <p style="color: var(--text-secondary); font-size: 1rem; line-height: 1.7; margin-bottom: 2rem;">
+      A new project is in the works. More details coming soon.
+    </p>
+    <div style="display: inline-block; padding: 0.6rem 1.5rem; border: 1px solid rgba(110,192,232,0.3); border-radius: 4px; font-size: 0.8rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent-gold);">
+      Coming Soon
+    </div>
+  </div>
+</section>
+
+<!-- Final CTA -->
+<section class="cta-banner">
+  <div class="reveal">
+    <h2 class="section-title">Ready to See the Light?</h2>
+    <p class="section-desc">Early Access launches August 2026. Play the free demo now and discover a world where nothing is what it seems.</p>
+    <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; margin-top: 1.5rem;">
+      <a href="https://store.steampowered.com/app/2544740/THANKS_LIGHT/" class="btn-primary" target="_blank">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z"/></svg>
+        Wishlist on Steam
+      </a>
+      <a href="https://store.steampowered.com/app/3276550/THANKS_LIGHT__DEMO" class="btn-secondary" target="_blank">
+        Play Free Demo
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <div class="footer-inner">
+    <div>
+      <div class="footer-brand">LIGHTERSGAMES</div>
+      <div class="footer-copy">&copy; 2023-2026 Lightersgames Co., Ltd. All rights reserved.</div>
+      <div class="footer-copy" style="margin-top: 0.3rem; font-size: 0.65rem;">&copy; 2026 Lightersgames Co.,Ltd. All Rights Reserved. THANKS, LIGHT.&trade; is a trademark of Lightersgames Co.,Ltd. Published by Game Source Entertainment.</div>
+    </div>
+    <div class="footer-links">
+      <a href="#">Privacy Policy</a>
+      <a href="#">Terms</a>
+      <a href="mailto:press@lightersgames.com">Contact</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+// ===== CURSOR LIGHT EFFECT =====
+const cursorLight = document.getElementById('cursorLight');
+let mouseX = 0, mouseY = 0;
+let lightX = 0, lightY = 0;
+
+document.addEventListener('mousemove', (e) => {
+  mouseX = e.clientX;
+  mouseY = e.clientY;
+});
+
+function animateLight() {
+  lightX += (mouseX - lightX) * 0.08;
+  lightY += (mouseY - lightY) * 0.08;
+  cursorLight.style.left = lightX + 'px';
+  cursorLight.style.top = lightY + 'px';
+  requestAnimationFrame(animateLight);
+}
+animateLight();
+
+// ===== HERO CANVAS — Particle starfield =====
+const canvas = document.getElementById('heroCanvas');
+const ctx = canvas.getContext('2d');
+let particles = [];
+
+function resizeCanvas() {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+}
+resizeCanvas();
+window.addEventListener('resize', resizeCanvas);
+
+class Particle {
+  constructor() {
+    this.reset();
+  }
+  reset() {
+    this.x = Math.random() * canvas.width;
+    this.y = Math.random() * canvas.height;
+    this.size = Math.random() * 1.5 + 0.3;
+    this.speedX = (Math.random() - 0.5) * 0.2;
+    this.speedY = (Math.random() - 0.5) * 0.2;
+    this.opacity = Math.random() * 0.5 + 0.1;
+    this.pulse = Math.random() * Math.PI * 2;
+  }
+  update() {
+    this.x += this.speedX;
+    this.y += this.speedY;
+    this.pulse += 0.02;
+
+    // Mouse influence
+    const dx = mouseX - this.x;
+    const dy = mouseY - this.y;
+    const dist = Math.sqrt(dx*dx + dy*dy);
+    if (dist < 200) {
+      const force = (200 - dist) / 200 * 0.3;
+      this.x -= dx * force * 0.005;
+      this.y -= dy * force * 0.005;
+    }
+
+    if (this.x < 0 || this.x > canvas.width || this.y < 0 || this.y > canvas.height) {
+      this.reset();
+    }
+  }
+  draw() {
+    const alpha = this.opacity * (0.5 + Math.sin(this.pulse) * 0.5);
+    ctx.beginPath();
+    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+    ctx.fillStyle = `rgba(110,192,232,${alpha})`;
+    ctx.fill();
+  }
+}
+
+for (let i = 0; i < 100; i++) {
+  particles.push(new Particle());
+}
+
+function animateParticles() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  particles.forEach(p => { p.update(); p.draw(); });
+  requestAnimationFrame(animateParticles);
+}
+animateParticles();
+
+// ===== NAV SCROLL =====
+window.addEventListener('scroll', () => {
+  document.getElementById('mainNav').classList.toggle('scrolled', window.scrollY > 50);
+});
+
+// ===== SCROLL REVEAL =====
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.15 });
+
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+// ===== 3D CUBE LIGHT REVEAL =====
+const cubeEl = document.getElementById('cubeEl');
+const aboutVisual = document.getElementById('aboutVisual');
+const shapeLabel = document.getElementById('shapeLabel');
+const cubeFaces = document.querySelectorAll('.cube-face');
+
+if (aboutVisual && cubeEl) {
+  const baseRotX = -35.264;
+  const baseRotY = 45;
+
+  aboutVisual.addEventListener('mousemove', (e) => {
+    const rect = aboutVisual.getBoundingClientRect();
+    const mx = (e.clientX - rect.left) / rect.width;
+    const my = (e.clientY - rect.top) / rect.height;
+    const rotY = baseRotY + (mx - 0.5) * 25;
+    const rotX = baseRotX + (my - 0.5) * 20;
+    cubeEl.style.transform = `rotateX(${rotX}deg) rotateY(${rotY}deg)`;
+
+    cubeFaces.forEach(face => {
+      const fr = face.getBoundingClientRect();
+      const fcx = fr.left + fr.width/2;
+      const fcy = fr.top + fr.height/2;
+      const dist = Math.sqrt((e.clientX-fcx)**2 + (e.clientY-fcy)**2);
+      face.classList.toggle('lit', dist < 200);
+    });
+    shapeLabel.textContent = 'Light reveals it\'s a cube — with weight and physics';
+    shapeLabel.style.color = 'var(--accent-gold)';
+  });
+
+  aboutVisual.addEventListener('mouseleave', () => {
+    cubeEl.style.transform = `rotateX(${baseRotX}deg) rotateY(${baseRotY}deg)`;
+    cubeFaces.forEach(f => f.classList.remove('lit'));
+    shapeLabel.textContent = 'Hover to shine light on the silhouette';
+    shapeLabel.style.color = '';
+  });
+}
+
+// ===== 3D SHAPE SIMULATOR (Circle/Square/Triangle) =====
+// Voxel point-cloud rendering — intersection of cylinder, square prism, triangular prism
+const simCanvas = document.getElementById('shapeSim');
+if (simCanvas) {
+  const sCtx = simCanvas.getContext('2d');
+  let isDragging = false;
+  let angleX = 0.4, angleY = 0.6;
+  let lastMX, lastMY;
+  const W = simCanvas.width, H = simCanvas.height;
+  const R = 85;
+  const step = 4;
+
+  function rot(x, y, z, aX, aY) {
+    let cY2 = Math.cos(aY), sY = Math.sin(aY);
+    let x1 = x*cY2 - z*sY, z1 = x*sY + z*cY2;
+    let cX2 = Math.cos(aX), sX = Math.sin(aX);
+    return { x: x1, y: y*cX2 - z1*sX, z: y*sX + z1*cX2 };
+  }
+
+  // Solid = intersection of cylinder(Z), square-prism(X), triangular-prism(Y)
+  function insideSolid(x, y, z) {
+    if (x*x + y*y > R*R) return false;
+    if (Math.abs(y) > R || Math.abs(z) > R) return false;
+    if (Math.abs(x) > (R - z) / 2) return false;
+    return true;
+  }
+
+  // Pre-compute surface voxels
+  const surfacePoints = [];
+  for (let x = -R; x <= R; x += step) {
+    for (let y = -R; y <= R; y += step) {
+      for (let z = -R; z <= R; z += step) {
+        if (!insideSolid(x, y, z)) continue;
+        // Check if it's a surface voxel (at least one neighbor outside)
+        let isSurface = false;
+        for (const d of [[-step,0,0],[step,0,0],[0,-step,0],[0,step,0],[0,0,-step],[0,0,step]]) {
+          if (!insideSolid(x+d[0], y+d[1], z+d[2])) { isSurface = true; break; }
+        }
+        if (isSurface) surfacePoints.push({x, y, z});
+      }
+    }
+  }
+
+  function drawShape(aX, aY) {
+    sCtx.clearRect(0, 0, W, H);
+    const cX = W/2, cY = H/2;
+    sCtx.fillStyle = '#060a10';
+    sCtx.fillRect(0, 0, W, H);
+
+    // Light direction
+    const lx = 0.4, ly = -0.5, lz = -0.7;
+    const ll = Math.sqrt(lx*lx + ly*ly + lz*lz);
+
+    // Transform and sort by depth
+    const projected = [];
+    for (const p of surfacePoints) {
+      const r = rot(p.x, p.y, p.z, aX, aY);
+      // Approximate normal from position (good enough for convex-ish shape)
+      const nx = p.x, ny = p.y, nz = p.z;
+      const nl = Math.sqrt(nx*nx + ny*ny + nz*nz) || 1;
+      const rn = rot(nx/nl, ny/nl, nz/nl, aX, aY);
+      const dot = Math.max(0, -(rn.x*lx + rn.y*ly + rn.z*lz) / ll);
+      const b = 0.15 + dot * 0.85;
+      projected.push({ sx: cX + r.x, sy: cY + r.y, z: r.z, b });
+    }
+    projected.sort((a, b) => a.z - b.z);
+
+    // Draw points
+    for (const p of projected) {
+      const r = Math.round(40 + 120 * p.b);
+      const g = Math.round(120 + 110 * p.b);
+      const bl = Math.round(180 + 75 * p.b);
+      sCtx.fillStyle = `rgb(${r},${g},${bl})`;
+      sCtx.fillRect(p.sx - 2, p.sy - 2, 4, 4);
+    }
+
+    // Subtle grid
+    sCtx.strokeStyle = 'rgba(110,192,232,0.04)';
+    sCtx.lineWidth = 0.5;
+    for (let g = -2; g <= 2; g++) {
+      sCtx.beginPath(); sCtx.moveTo(0, cY+g*40); sCtx.lineTo(W, cY+g*40); sCtx.stroke();
+      sCtx.beginPath(); sCtx.moveTo(cX+g*40, 0); sCtx.lineTo(cX+g*40, H); sCtx.stroke();
+    }
+    detectShape(aX, aY);
+  }
+
+  function detectShape(aX, aY) {
+    const lblC = document.getElementById('lblCircle');
+    const lblS = document.getElementById('lblSquare');
+    const lblT = document.getElementById('lblTriangle');
+    [lblC,lblS,lblT].forEach(l => l.classList.remove('active'));
+    let ny = ((aY % (Math.PI*2)) + Math.PI*2) % (Math.PI*2);
+    let nx = ((aX % (Math.PI*2)) + Math.PI*2) % (Math.PI*2);
+    const tol = 0.45;
+    if ((ny < tol || ny > Math.PI*2-tol || Math.abs(ny-Math.PI) < tol) && (nx < tol || nx > Math.PI*2-tol || Math.abs(nx-Math.PI) < tol)) {
+      lblC.classList.add('active');
+    }
+    if (Math.abs(ny - Math.PI/2) < tol || Math.abs(ny - Math.PI*3/2) < tol) {
+      lblS.classList.add('active');
+    }
+    if (Math.abs(nx - Math.PI/2) < tol || Math.abs(nx - Math.PI*3/2) < tol) {
+      lblT.classList.add('active');
+    }
+  }
+
+  drawShape(angleX, angleY);
+
+  simCanvas.addEventListener('mousedown', (e) => {
+    isDragging = true; lastMX = e.clientX; lastMY = e.clientY;
+  });
+  window.addEventListener('mousemove', (e) => {
+    if (!isDragging) return;
+    angleY += (e.clientX - lastMX) * 0.01;
+    angleX += (e.clientY - lastMY) * 0.01;
+    lastMX = e.clientX; lastMY = e.clientY;
+    drawShape(angleX, angleY);
+  });
+  window.addEventListener('mouseup', () => { isDragging = false; });
+
+  simCanvas.addEventListener('touchstart', (e) => {
+    isDragging = true; lastMX = e.touches[0].clientX; lastMY = e.touches[0].clientY; e.preventDefault();
+  });
+  window.addEventListener('touchmove', (e) => {
+    if (!isDragging) return;
+    angleY += (e.touches[0].clientX - lastMX) * 0.01;
+    angleX += (e.touches[0].clientY - lastMY) * 0.01;
+    lastMX = e.touches[0].clientX; lastMY = e.touches[0].clientY;
+    drawShape(angleX, angleY);
+  });
+  window.addEventListener('touchend', () => { isDragging = false; });
+}
+
+// ===== TRAILER LAZY LOAD =====
+function loadTrailer() {
+  const placeholder = document.getElementById('trailerPlaceholder');
+  const wrapper = placeholder.parentElement;
+  // Replace with actual YouTube trailer ID
+  const iframe = document.createElement('iframe');
+  const ytId = window._trailerYoutubeId || 'YOUR_TRAILER_ID';
+  iframe.src = 'https://www.youtube.com/embed/' + ytId + '?autoplay=1&rel=0';
+  iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+  iframe.allowFullscreen = true;
+  iframe.style.position = 'absolute';
+  iframe.style.top = '0';
+  iframe.style.left = '0';
+  iframe.style.width = '100%';
+  iframe.style.height = '100%';
+  iframe.style.border = 'none';
+  wrapper.replaceChild(iframe, placeholder);
+}
+
+// ===== HERO SVG PARALLAX =====
+const heroInteractive = document.getElementById('heroInteractive');
+document.querySelector('.hero').addEventListener('mousemove', (e) => {
+  const rect = e.currentTarget.getBoundingClientRect();
+  const x = (e.clientX - rect.left) / rect.width - 0.5;
+  const y = (e.clientY - rect.top) / rect.height - 0.5;
+  heroInteractive.style.transform = `translate(calc(-50% + ${x * 30}px), calc(-50% + ${y * 30}px))`;
+});
+
+// ===== ADMIN CONTENT SYNC =====
+// Reads data saved by lightersgames-admin.html via localStorage
+(function loadAdminContent() {
+  try {
+    const raw = localStorage.getItem('lightersgames-content');
+    if (!raw) return;
+    const data = JSON.parse(raw);
+
+    // Hero video
+    if (data.heroVideoUrl) {
+      const vid = document.querySelector('.hero-video-bg source');
+      if (vid) { vid.src = data.heroVideoUrl; vid.parentElement.load(); }
+    }
+    if (data.heroPosterUrl) {
+      const vidEl = document.querySelector('.hero-video-bg');
+      if (vidEl) vidEl.poster = data.heroPosterUrl;
+    }
+
+    // Trailer YouTube ID
+    if (data.trailerYoutubeId) {
+      window._trailerYoutubeId = data.trailerYoutubeId;
+    }
+
+    // Screenshots
+    if (data.screenshots) {
+      Object.keys(data.screenshots).forEach(slot => {
+        const el = document.querySelector(`[data-slot="${slot}"] img`);
+        if (el && data.screenshots[slot]) {
+          el.src = data.screenshots[slot];
+        }
+      });
+    }
+
+    // Download links (Press Kit)
+    if (data.downloads) {
+      const dlMap = {
+        'dl-presskit': 0,
+        'dl-logo': 1,
+        'dl-screenshots': 2,
+        'dl-factsheet': 3
+      };
+      const dlLinks = document.querySelectorAll('.download-list a');
+      Object.keys(data.downloads).forEach(key => {
+        const idx = dlMap[key];
+        if (idx !== undefined && dlLinks[idx] && data.downloads[key]) {
+          dlLinks[idx].href = data.downloads[key];
+          dlLinks[idx].target = '_blank';
+        }
+      });
+    }
+
+    // Community links
+    if (data.communityLinks) {
+      const communityLinks = document.querySelectorAll('.community-grid .community-link');
+      const linkOrder = ['link-discord','link-twitter','link-youtube','link-reddit','link-steam'];
+      linkOrder.forEach((key, idx) => {
+        if (data.communityLinks[key] && communityLinks[idx]) {
+          communityLinks[idx].href = data.communityLinks[key];
+          communityLinks[idx].target = '_blank';
+        }
+      });
+    }
+  } catch(e) { console.log('Admin content sync error:', e); }
+})();
+</script>
 </body>
 </html>
