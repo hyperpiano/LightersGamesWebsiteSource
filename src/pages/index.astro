@@ -1022,6 +1022,52 @@
   .lightbox-nav:hover { background: rgba(255,255,255,0.15); color: #fff; }
   .lightbox-prev { left: 1.5rem; }
   .lightbox-next { right: 1.5rem; }
+
+  /* Language Switcher */
+  .lang-switcher { position: relative; display: flex; align-items: center; }
+  .lang-btn {
+    background: rgba(110,192,232,0.1);
+    border: 1px solid rgba(110,192,232,0.2);
+    color: var(--text-secondary);
+    padding: 0.35rem 0.7rem;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-family: 'Inter', sans-serif;
+  }
+  .lang-btn:hover { border-color: var(--accent-gold); color: var(--accent-gold); }
+  .lang-dropdown {
+    display: none;
+    position: absolute;
+    top: calc(100% + 8px);
+    right: 0;
+    background: rgba(26,26,36,0.98);
+    border: 1px solid rgba(110,192,232,0.15);
+    border-radius: 8px;
+    padding: 0.4rem 0;
+    min-width: 140px;
+    backdrop-filter: blur(20px);
+    z-index: 1001;
+    box-shadow: 0 12px 40px rgba(0,0,0,0.4);
+    max-height: 320px;
+    overflow-y: auto;
+  }
+  .lang-dropdown.open { display: block; }
+  .lang-option {
+    display: block;
+    padding: 0.5rem 1rem;
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    text-decoration: none;
+    transition: all 0.2s;
+    white-space: nowrap;
+  }
+  .lang-option:hover { background: rgba(110,192,232,0.08); color: var(--text-primary); }
+  .lang-option.active { color: var(--accent-gold); font-weight: 600; }
+
 </style>
 </head>
 <body>
@@ -1035,19 +1081,36 @@
   <button class="nav-toggle" onclick="document.querySelector('.nav-links').classList.toggle('open')">&#9776;</button>
   <div class="nav-links">
     <div class="nav-dropdown">
-      <a href="#about" style="cursor: pointer;">Games &#9662;</a>
+      <a href="#about" style="cursor: pointer;"><span data-i18n="nav.games">Games</span> &#9662;</a>
       <div class="nav-dropdown-menu">
-        <a href="#about">THANKS, LIGHT. <span class="dd-badge dd-badge-live">LIVE</span></a>
-        <a href="#rightway">Right Way <span class="dd-badge dd-badge-soon">COMING SOON</span></a>
+        <a href="#about">THANKS, LIGHT. <span class="dd-badge dd-badge-live"><span data-i18n="nav.games_live">LIVE</span></span></a>
+        <a href="#rightway">Right Way <span class="dd-badge dd-badge-soon"><span data-i18n="nav.games_soon">COMING SOON</span></span></a>
       </div>
     </div>
-    <a href="#trailer">Trailer</a>
-    <a href="#screenshots">Media</a>
-    <a href="#accolades">Awards</a>
-    <a href="#team">Team</a>
-    <a href="#press">Press</a>
-    <a href="#community">Community</a>
-    <a href="https://store.steampowered.com/app/2544740/THANKS_LIGHT/" class="nav-cta" target="_blank">Wishlist Now</a>
+    <a href="#trailer"><span data-i18n="nav.trailer">Trailer</span></a>
+    <a href="#screenshots"><span data-i18n="nav.media">Media</span></a>
+    <a href="#accolades"><span data-i18n="nav.awards">Awards</span></a>
+    <a href="#team"><span data-i18n="nav.team">Team</span></a>
+    <a href="#press"><span data-i18n="nav.press">Press</span></a>
+    <a href="#community"><span data-i18n="nav.community">Community</span></a>
+    <div class="lang-switcher" id="langSwitcher">
+      <button class="lang-btn" id="langBtn">EN ▾</button>
+      <div class="lang-dropdown" id="langDropdown">
+        <a href="#" data-lang="en" class="lang-option active">English</a>
+        <a href="#" data-lang="ko" class="lang-option">한국어</a>
+        <a href="#" data-lang="ja" class="lang-option">日本語</a>
+    <a href="#" data-lang="zh-CN" class="lang-option">简体中文</a>
+    <a href="#" data-lang="zh-TW" class="lang-option">繁體中文</a>
+        <a href="#" data-lang="ru" class="lang-option">Русский</a>
+        <a href="#" data-lang="de" class="lang-option">Deutsch</a>
+        <a href="#" data-lang="fr" class="lang-option">Français</a>
+        <a href="#" data-lang="es" class="lang-option">Español</a>
+        <a href="#" data-lang="pt" class="lang-option">Português</a>
+        <a href="#" data-lang="tr" class="lang-option">Türkçe</a>
+        <a href="#" data-lang="pl" class="lang-option">Polski</a>
+      </div>
+    </div>
+    <a href="https://store.steampowered.com/app/2544740/THANKS_LIGHT/" class="nav-cta" target="_blank"><span data-i18n="nav.wishlist">Wishlist Now</span></a>
   </div>
 </nav>
 
@@ -1093,21 +1156,21 @@
   </div>
 
   <div class="hero-content">
-    <p class="hero-eyebrow">A Lightersgames Production</p>
+    <p class="hero-eyebrow"><span data-i18n="hero.eyebrow">A Lightersgames Production</span></p>
     <h1 class="hero-title">THANKS, LIGHT.</h1>
-    <p class="hero-subtitle">Don't just see the silhouette.<br>Shine light to reveal the truth<br>hidden in every shadow.</p>
+    <p class="hero-subtitle" data-i18n="hero.subtitle">Don't just see the silhouette.<br>Shine light to reveal the truth<br>hidden in every shadow.</p>
     <div class="hero-cta-group">
       <a href="https://store.steampowered.com/app/2544740/THANKS_LIGHT/" class="btn-primary" target="_blank">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z"/></svg>
-        Wishlist on Steam
+        <span data-i18n="hero.cta_steam">Wishlist on Steam</span>
       </a>
-      <a href="https://store.steampowered.com/app/3276550/THANKS_LIGHT__DEMO" class="btn-secondary" target="_blank">Play Free Demo</a>
-      <a href="#trailer" class="btn-secondary">Watch Trailer</a>
+      <a href="https://store.steampowered.com/app/3276550/THANKS_LIGHT__DEMO" class="btn-secondary" target="_blank"><span data-i18n="hero.cta_demo">Play Free Demo</span></a>
+      <a href="#trailer" class="btn-secondary"><span data-i18n="hero.cta_trailer">Watch Trailer</span></a>
     </div>
   </div>
 
   <div class="hero-scroll-hint">
-    <span>Scroll</span>
+    <span data-i18n="hero.scroll">Scroll</span>
     <div class="scroll-line"></div>
   </div>
 </section>
@@ -1117,11 +1180,11 @@
   <div class="reveal">
     <blockquote style="font-family: 'Inter', sans-serif; font-size: 1.3rem; font-style: italic; line-height: 1.6; color: var(--text-primary); position: relative; padding: 0 2rem;">
       <span style="color: var(--accent-gold); font-size: 3rem; position: absolute; top: -0.5rem; left: 0; line-height: 1;">&ldquo;</span>
-      A solid puzzle mechanic<br>with remote object interaction,<br>like Portal and The Talos Principle.
+      <span data-i18n="quote.text">A solid puzzle mechanic<br>with remote object interaction,<br>like Portal and The Talos Principle.</span>
       <span style="color: var(--accent-gold); font-size: 3rem; line-height: 1;">&rdquo;</span>
     </blockquote>
     <p style="margin-top: 1rem; font-size: 0.85rem; color: var(--text-secondary);">
-      <strong style="color: var(--accent-gold);">Jeep Barnett</strong> — Portal Developer, Valve
+      <span data-i18n="quote.author"><strong style="color: var(--accent-gold);">Jeep Barnett</strong> — Portal Developer, Valve</span>
     </p>
   </div>
 </section>
@@ -1140,30 +1203,30 @@
           <div class="cube-face cube-face--bottom"></div>
         </div>
       </div>
-      <p class="about-visual-label" id="shapeLabel">Hover to shine light on the silhouette</p>
+      <p class="about-visual-label" id="shapeLabel" data-i18n="about.cube_hint">Hover to shine light on the silhouette</p>
     </div>
     <div class="reveal">
-      <p class="section-label">About the Game — Physics</p>
-      <h2 class="section-title">This Is Not a Hexagon</h2>
+      <p class="section-label"><span data-i18n="about.label">About the Game — Physics</span></p>
+      <h2 class="section-title"><span data-i18n="about.title">This Is Not a Hexagon</span></h2>
       <p class="section-desc">
-        Without light, you only see an object's silhouette.<br>
-        With light, you see its true form.<br><br>
-        THANKS, LIGHT. is a first-person puzzle adventure<br>
-        where you manipulate light to transform the world between 2D and 3D.<br>
-        Light creates physics — darkness erases it.
+        <span data-i18n="about.desc1">Without light, you only see an object's silhouette.</span><br>
+        <span data-i18n="about.desc2">With light, you see its true form.</span><br><br>
+        <span data-i18n="about.desc3">THANKS, LIGHT. is a first-person puzzle adventure</span><br>
+        <span data-i18n="about.desc4">where you manipulate light to transform the world between 2D and 3D.</span><br>
+        <span data-i18n="about.desc5">Light creates physics — darkness erases it.</span>
       </p>
       <ul class="feature-list">
         <li>
           <span class="feature-icon">&#9728;</span>
-          <span><strong>Illuminate</strong> — Shine light to reveal 3D forms.<br>Objects gain weight, collision, and physics.<br>A flat hexagon becomes a cube you can stand on.</span>
+          <span data-i18n="feat.illuminate"><strong>Illuminate</strong> — Shine light to reveal 3D forms.<br>Objects gain weight, collision, and physics.<br>A flat hexagon becomes a cube you can stand on.</span>
         </li>
         <li>
           <span class="feature-icon">&#9670;</span>
-          <span><strong>Absorb</strong> — Remove light to strip away volume and mass.<br>Objects flatten into weightless, static 2D silhouettes.<br>A rolling ball freezes. A blocking wall becomes a gap.</span>
+          <span data-i18n="feat.absorb"><strong>Absorb</strong> — Remove light to strip away volume and mass.<br>Objects flatten into weightless, static 2D silhouettes.<br>A rolling ball freezes into a circle on the wall.</span>
         </li>
         <li>
           <span class="feature-icon">&#9733;</span>
-          <span><strong>Mirror, Lens & Merge</strong> — Duplicate objects, resize them,<br>or combine two forms into entirely new tools.<br>Five mechanics, layered puzzles.</span>
+          <span><span data-i18n="feat.mirror"><strong>Mirror, Lens &amp; Merge</strong> — Duplicate objects, resize them,<br>or combine two forms into entirely new tools.<br>Five mechanics, layered puzzles.</span></span>
         </li>
       </ul>
     </div>
@@ -1174,18 +1237,18 @@
 <section style="background: var(--bg-dark); max-width: 100%; padding: 6rem 2rem;">
   <div style="max-width: 1000px; margin: 0 auto; text-align: center;">
     <div class="reveal">
-      <p class="section-label">Interactive Demo — Geometry</p>
-      <h2 class="section-title">One Shape, Three Shadows</h2>
-      <p class="section-desc" style="margin: 0 auto 2rem;">A single 3D object can cast<br>a circle, a square, or a triangle<br>— depending on your perspective.<br><br>Every puzzle in the game is built on this geometric principle.<br>Drag to rotate and discover each silhouette.</p>
+      <p class="section-label"><span data-i18n="shape.label">Interactive Demo — Geometry</span></p>
+      <h2 class="section-title" data-i18n="shape.title">One Shape, Three Shadows</h2>
+      <p class="section-desc" style="margin: 0 auto 2rem;"><span data-i18n="shape.desc">A single 3D object can cast<br>a circle, a square, or a triangle<br>— depending on your perspective.<br><br>Every puzzle in the game is built on this geometric principle.<br>Drag to rotate and discover each silhouette.</span></p>
     </div>
     <div class="shape-sim reveal">
       <canvas id="shapeSim" width="400" height="350"></canvas>
       <div class="shape-sim-labels">
-        <span class="shape-label" id="lblCircle">Circle</span>
-        <span class="shape-label" id="lblSquare">Square</span>
-        <span class="shape-label" id="lblTriangle">Triangle</span>
+        <span class="shape-label" id="lblCircle" data-i18n="shape.circle">Circle</span>
+        <span class="shape-label" id="lblSquare" data-i18n="shape.square">Square</span>
+        <span class="shape-label" id="lblTriangle" data-i18n="shape.triangle">Triangle</span>
       </div>
-      <p style="font-size: 0.75rem; color: var(--text-secondary); margin-top: 0.8rem;">Click & drag to rotate</p>
+      <p style="font-size: 0.75rem; color: var(--text-secondary); margin-top: 0.8rem;"><span data-i18n="shape.hint">Click &amp; drag to rotate</span></p>
     </div>
   </div>
 </section>
@@ -1193,28 +1256,28 @@
 <!-- You'll Love This If... -->
 <section style="max-width:100%; padding:6rem 2rem; background: linear-gradient(135deg, rgba(110,192,232,0.03), transparent);">
   <div style="max-width:900px; margin:0 auto; text-align:center;" class="reveal">
-    <p class="section-label">Is This Game For You?</p>
-    <h2 class="section-title">You'll Love THANKS, LIGHT. If...</h2>
+    <p class="section-label"><span data-i18n="love.label">Is This Game For You?</span></p>
+    <h2 class="section-title"><span data-i18n="love.title">You'll Love THANKS, LIGHT. If...</span></h2>
     <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(250px, 1fr)); gap:1.5rem; margin-top:2.5rem; text-align:left;">
       <div style="background:var(--bg-card); border:1px solid rgba(110,192,232,0.08); border-radius:10px; padding:1.5rem;">
         <div style="font-size:1.3rem; margin-bottom:0.5rem;">&#127918;</div>
-        <div style="font-weight:600; font-size:0.95rem; margin-bottom:0.5rem; color:var(--accent-light);">Portal, Superliminal, The Talos Principle</div>
-        <p style="font-size:0.85rem; color:var(--text-secondary); line-height:1.7;">You enjoy first-person puzzle games<br>that challenge your perception<br>and reward creative thinking.</p>
+        <div style="font-weight:600; font-size:0.95rem; margin-bottom:0.5rem; color:var(--accent-light);" data-i18n="love.card1_title">Portal, Superliminal, The Talos Principle</div>
+        <p style="font-size:0.85rem; color:var(--text-secondary); line-height:1.7;" data-i18n="love.card1_desc">You enjoy first-person puzzle games<br>that challenge your perception<br>and reward creative thinking.</p>
       </div>
       <div style="background:var(--bg-card); border:1px solid rgba(110,192,232,0.08); border-radius:10px; padding:1.5rem;">
         <div style="font-size:1.3rem; margin-bottom:0.5rem;">&#127756;</div>
-        <div style="font-weight:600; font-size:0.95rem; margin-bottom:0.5rem; color:var(--accent-light);">INSIDE, Control, Liminal Spaces</div>
-        <p style="font-size:0.85rem; color:var(--text-secondary); line-height:1.7;">You love eerie, atmospheric worlds<br>with brutalist architecture, marble halls,<br>and unsettling beauty.</p>
+        <div style="font-weight:600; font-size:0.95rem; margin-bottom:0.5rem; color:var(--accent-light);" data-i18n="love.card2_title">INSIDE, Control, Liminal Spaces</div>
+        <p style="font-size:0.85rem; color:var(--text-secondary); line-height:1.7;" data-i18n="love.card2_desc">You love eerie, atmospheric worlds<br>with brutalist architecture, marble halls,<br>and unsettling beauty.</p>
       </div>
       <div style="background:var(--bg-card); border:1px solid rgba(110,192,232,0.08); border-radius:10px; padding:1.5rem;">
         <div style="font-size:1.3rem; margin-bottom:0.5rem;">&#128640;</div>
-        <div style="font-weight:600; font-size:0.95rem; margin-bottom:0.5rem; color:var(--accent-light);">Constantly Evolving</div>
-        <p style="font-size:0.85rem; color:var(--text-secondary); line-height:1.7;">Mechanics and art never stand still.<br>Each chapter introduces new rules and visuals<br>that redefine what you thought you knew.</p>
+        <div style="font-weight:600; font-size:0.95rem; margin-bottom:0.5rem; color:var(--accent-light);" data-i18n="love.card3_title">Constantly Evolving</div>
+        <p style="font-size:0.85rem; color:var(--text-secondary); line-height:1.7;" data-i18n="love.card3_desc">Mechanics and art never stand still.<br>Each chapter introduces new rules and visuals<br>that redefine what you thought you knew.</p>
       </div>
     </div>
     <p style="margin-top:2rem; font-size:0.9rem; color:var(--text-secondary); line-height:1.8;">
-      3 chapters. 5 mechanics. One flashlight.<br>
-      <span style="color:var(--accent-gold);">The truth is never what it looks like in the dark.</span>
+      <span data-i18n="love.summary1">3 chapters. 5 mechanics. One flashlight.</span><br>
+      <span style="color:var(--accent-gold);"><span data-i18n="love.summary2">The truth is never what it looks like in the dark.</span></span>
     </p>
   </div>
 </section>
@@ -1222,8 +1285,8 @@
 <!-- Trailer Section -->
 <section class="trailer-section" id="trailer">
   <div class="reveal">
-    <p class="section-label">Official Trailer</p>
-    <h2 class="section-title">See the World Differently</h2>
+    <p class="section-label"><span data-i18n="trailer.label">Official Trailer</span></p>
+    <h2 class="section-title" data-i18n="trailer.title">See the World Differently</h2>
   </div>
   <div class="trailer-wrapper reveal">
     <iframe id="trailerIframe" src="" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%;border:none;"></iframe>
@@ -1233,13 +1296,13 @@
 <!-- Screenshots -->
 <section class="screenshots-section" id="screenshots">
   <div class="reveal">
-    <p class="section-label">Screenshots</p>
-    <h2 class="section-title">Captured Moments</h2>
+    <p class="section-label" data-i18n="ss.label">Screenshots</p>
+    <h2 class="section-title" data-i18n="ss.title">Captured Moments</h2>
   </div>
 
   <!-- Chapter 1 -->
   <div class="reveal" style="margin-bottom: 0.5rem;">
-    <h3 style="font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--accent-gold); text-align: center; margin-bottom: 1rem;">Chapter 1 — Illuminate</h3>
+    <h3 style="font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--accent-gold); text-align: center; margin-bottom: 1rem;" data-i18n="ss.ch1">Chapter 1 — Illuminate</h3>
   </div>
   <div class="gallery-grid reveal" id="gallery-ch1">
     <div class="gallery-item" data-slot="ch1-1"><img src="" alt="Chapter 1 Screenshot 1" loading="lazy" style="width:100%;height:100%;object-fit:cover;border-radius:8px;"></div>
@@ -1249,7 +1312,7 @@
 
   <!-- Chapter 2 -->
   <div class="reveal" style="margin-top: 2.5rem; margin-bottom: 0.5rem;">
-    <h3 style="font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--accent-gold); text-align: center; margin-bottom: 1rem;">Chapter 2 — Absorb</h3>
+    <h3 style="font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--accent-gold); text-align: center; margin-bottom: 1rem;" data-i18n="ss.ch2">Chapter 2 — Absorb</h3>
   </div>
   <div class="gallery-grid reveal" id="gallery-ch2">
     <div class="gallery-item" data-slot="ch2-1"><img src="" alt="Chapter 2 Screenshot 1" loading="lazy" style="width:100%;height:100%;object-fit:cover;border-radius:8px;"></div>
@@ -1259,7 +1322,7 @@
 
   <!-- Chapter 3 -->
   <div class="reveal" style="margin-top: 2.5rem; margin-bottom: 0.5rem;">
-    <h3 style="font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--accent-gold); text-align: center; margin-bottom: 1rem;">Chapter 3 — Mirror, Lens & Merge</h3>
+    <h3 style="font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--accent-gold); text-align: center; margin-bottom: 1rem;" data-i18n="ss.ch3">Chapter 3 — Mirror, Lens &amp; Merge</h3>
   </div>
   <div class="gallery-grid reveal" id="gallery-ch3">
     <div class="gallery-item" data-slot="ch3-1"><img src="" alt="Chapter 3 Screenshot 1" loading="lazy" style="width:100%;height:100%;object-fit:cover;border-radius:8px;"></div>
@@ -1271,50 +1334,49 @@
 <!-- Accolades -->
 <section class="accolades-section" id="accolades" style="text-align: center;">
   <div class="reveal">
-    <p class="section-label">Recognition</p>
-    <h2 class="section-title">Awards & Accolades</h2>
+    <p class="section-label" data-i18n="awards.label">Recognition</p>
+    <h2 class="section-title" data-i18n="awards.title">Awards &amp; Accolades</h2>
     <p class="section-desc" style="margin: 0 auto 1rem;">
-      Featured at 30+ international events.<br>
-      Covered by press in 6+ languages.
+      <span data-i18n="awards.desc">Featured at 30+ international events.<br>Covered by press in 6+ languages.</span>
     </p>
   </div>
   <div class="reveal" style="margin-top: 2.5rem; display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem; max-width: 900px; margin-left: auto; margin-right: auto;">
     <div style="background: var(--bg-card); border: 1px solid rgba(110,192,232,0.15); border-radius: 8px; padding: 1.2rem 1.5rem; text-align: center; min-width: 220px; flex: 1;">
       <div style="color: var(--accent-gold); font-size: 1.5rem; margin-bottom: 0.5rem;">&#127942;</div>
-      <div style="font-weight: 600; font-size: 0.9rem; margin-bottom: 0.3rem;">Indiecraft 2025</div>
-      <div style="font-size: 0.75rem; color: var(--text-secondary);">Best Developer Award & Console TOP 2</div>
+      <div style="font-weight: 600; font-size: 0.9rem; margin-bottom: 0.3rem;" data-i18n="awards.indiecraft">Indiecraft 2025</div>
+      <div style="font-size: 0.75rem; color: var(--text-secondary);" data-i18n="awards.indiecraft_d">Best Developer Award &amp; Console TOP 2</div>
     </div>
     <div style="background: var(--bg-card); border: 1px solid rgba(110,192,232,0.15); border-radius: 8px; padding: 1.2rem 1.5rem; text-align: center; min-width: 220px; flex: 1;">
       <div style="color: var(--accent-gold); font-size: 1.5rem; margin-bottom: 0.5rem;">&#127758;</div>
-      <div style="font-weight: 600; font-size: 0.9rem; margin-bottom: 0.3rem;">Gamescom 2025</div>
-      <div style="font-size: 0.75rem; color: var(--text-secondary);">KOCCA Korea Game Roadshow</div>
+      <div style="font-weight: 600; font-size: 0.9rem; margin-bottom: 0.3rem;" data-i18n="awards.gamescom">Gamescom 2025</div>
+      <div style="font-size: 0.75rem; color: var(--text-secondary);" data-i18n="awards.gamescom_d">KOCCA Korea Game Roadshow</div>
     </div>
     <div style="background: var(--bg-card); border: 1px solid rgba(110,192,232,0.15); border-radius: 8px; padding: 1.2rem 1.5rem; text-align: center; min-width: 220px; flex: 1;">
       <div style="color: var(--accent-gold); font-size: 1.5rem; margin-bottom: 0.5rem;">&#127983;</div>
-      <div style="font-weight: 600; font-size: 0.9rem; margin-bottom: 0.3rem;">Tokyo Game Show 2025</div>
-      <div style="font-size: 0.75rem; color: var(--text-secondary);">Selected Indie 80</div>
+      <div style="font-weight: 600; font-size: 0.9rem; margin-bottom: 0.3rem;" data-i18n="awards.tgs">Tokyo Game Show 2025</div>
+      <div style="font-size: 0.75rem; color: var(--text-secondary);" data-i18n="awards.tgs_d">Selected Indie 80</div>
     </div>
     <div style="background: var(--bg-card); border: 1px solid rgba(110,192,232,0.15); border-radius: 8px; padding: 1.2rem 1.5rem; text-align: center; min-width: 220px; flex: 1;">
       <div style="color: var(--accent-gold); font-size: 1.5rem; margin-bottom: 0.5rem;">&#128161;</div>
-      <div style="font-weight: 600; font-size: 0.9rem; margin-bottom: 0.3rem;">BIC 2023</div>
-      <div style="font-size: 0.75rem; color: var(--text-secondary);">Nicalis Pick Award</div>
+      <div style="font-weight: 600; font-size: 0.9rem; margin-bottom: 0.3rem;" data-i18n="awards.bic">BIC 2023</div>
+      <div style="font-size: 0.75rem; color: var(--text-secondary);" data-i18n="awards.bic_d">Nicalis Pick Award</div>
     </div>
     <div style="background: var(--bg-card); border: 1px solid rgba(110,192,232,0.15); border-radius: 8px; padding: 1.2rem 1.5rem; text-align: center; min-width: 220px; flex: 1;">
       <div style="color: var(--accent-gold); font-size: 1.5rem; margin-bottom: 0.5rem;">&#128172;</div>
-      <div style="font-weight: 600; font-size: 0.9rem; margin-bottom: 0.3rem;">Portal Dev Endorsed</div>
-      <div style="font-size: 0.75rem; color: var(--text-secondary);">Jeep Barnett (Valve) — Praised puzzle mechanics</div>
+      <div style="font-weight: 600; font-size: 0.9rem; margin-bottom: 0.3rem;" data-i18n="awards.portal">Portal Dev Endorsed</div>
+      <div style="font-size: 0.75rem; color: var(--text-secondary);" data-i18n="awards.portal_d">Jeep Barnett (Valve) — Praised puzzle mechanics</div>
     </div>
     <div style="background: var(--bg-card); border: 1px solid rgba(110,192,232,0.15); border-radius: 8px; padding: 1.2rem 1.5rem; text-align: center; min-width: 220px; flex: 1;">
       <div style="color: var(--accent-gold); font-size: 1.5rem; margin-bottom: 0.5rem;">&#128218;</div>
-      <div style="font-weight: 600; font-size: 0.9rem; margin-bottom: 0.3rem;">Thinky Games</div>
-      <div style="font-size: 0.75rem; color: var(--text-secondary);">Featured in Puzzle Collection</div>
+      <div style="font-weight: 600; font-size: 0.9rem; margin-bottom: 0.3rem;" data-i18n="awards.thinky">Thinky Games</div>
+      <div style="font-size: 0.75rem; color: var(--text-secondary);" data-i18n="awards.thinky_d">Featured in Puzzle Collection</div>
     </div>
   </div>
   <div class="reveal" style="margin-top: 2rem;">
     <p style="font-size: 0.8rem; color: var(--text-secondary); max-width: 700px; margin: 0 auto; line-height: 1.8;">
-      Press Play Media (UK) · 4Gamer (JP) · BusinessWire (US)<br>
-      GamesWirtschaft (DE) · VGTimes (RU) · Sportskeeda (IN)<br>
-      and 20+ Korean outlets including Dong-A Ilbo, YTN, and ZDNET Korea.
+      <span data-i18n="awards.press1">Press Play Media (UK) · 4Gamer (JP) · BusinessWire (US)</span><br>
+      <span data-i18n="awards.press2">GamesWirtschaft (DE) · VGTimes (RU) · Sportskeeda (IN)</span><br>
+      <span data-i18n="awards.press3">and 20+ Korean outlets including Dong-A Ilbo, YTN, and ZDNET Korea.</span>
     </p>
   </div>
 </section>
@@ -1323,29 +1385,29 @@
 <section class="platforms-section" id="platforms">
   <div class="platforms-inner">
     <div class="reveal">
-      <p class="section-label">Platforms</p>
-      <h2 class="section-title">Play Everywhere</h2>
+      <p class="section-label" data-i18n="plat.label">Platforms</p>
+      <h2 class="section-title" data-i18n="plat.title">Play Everywhere</h2>
     </div>
     <div class="platform-grid reveal">
       <div class="platform-card">
         <div class="platform-icon">🎮</div>
         <div class="platform-name">Steam</div>
-        <div class="platform-status available">Demo Available Now</div>
+        <div class="platform-status available" data-i18n="plat.steam_demo">Demo Available Now</div>
       </div>
       <div class="platform-card">
         <div class="platform-icon">🎮</div>
-        <div class="platform-name">Steam Early Access</div>
-        <div class="platform-status">August 2026</div>
+        <div class="platform-name" data-i18n="plat.steam_ea">Steam Early Access</div>
+        <div class="platform-status" data-i18n="plat.steam_ea_date">August 2026</div>
       </div>
       <div class="platform-card">
         <div class="platform-icon">🎮</div>
-        <div class="platform-name">Steam + PlayStation 5</div>
-        <div class="platform-status">September 2026</div>
+        <div class="platform-name" data-i18n="plat.full">Steam + PlayStation 5</div>
+        <div class="platform-status" data-i18n="plat.full_date">September 2026</div>
       </div>
       <div class="platform-card">
         <div class="platform-icon">🕹️</div>
-        <div class="platform-name">Nintendo Switch 2</div>
-        <div class="platform-status">TBA</div>
+        <div class="platform-name" data-i18n="plat.ns2">Nintendo Switch 2</div>
+        <div class="platform-status" data-i18n="plat.ns2_date">TBA</div>
       </div>
     </div>
   </div>
@@ -1354,40 +1416,38 @@
 <!-- Team Section -->
 <section class="team-section" id="team">
   <div class="reveal">
-    <p class="section-label">The Team</p>
+    <p class="section-label" data-i18n="team.label">The Team</p>
     <img src="/img/logo-lightersgames-white.png" alt="Lightersgames Co., Ltd." style="height: 50px; width: auto; margin-bottom: 1rem; opacity: 0.85;">
-    <h2 class="section-title">Lightersgames Co., Ltd.</h2>
+    <h2 class="section-title" data-i18n="team.company">Lightersgames Co., Ltd.</h2>
     <p class="section-desc" style="margin: 0 auto;">
-      An indie studio from South Korea, lighting the path less traveled.<br>
-      Active since 2023 as Lighters. Incorporated as Lightersgames Co., Ltd. in 2025.<br>
-      Based at Gyeonggi Global Game Center, Seongnam.
+      <span data-i18n="team.desc">An indie studio from South Korea, lighting the path less traveled.<br>Active since 2023 as Lighters. Incorporated as Lightersgames Co., Ltd. in 2025.<br>Based at Gyeonggi Global Game Center, Seongnam.</span>
     </p>
   </div>
   <div class="team-grid reveal">
     <div class="team-card">
       <div class="team-avatar">H</div>
       <div class="team-name">Huibeom Jung</div>
-      <div class="team-role">Director / Producer</div>
+      <div class="team-role" data-i18n="team.role_pd">Director / Producer</div>
     </div>
     <div class="team-card">
       <div class="team-avatar">S</div>
       <div class="team-name">Seohyeon Lee</div>
-      <div class="team-role">Technical Director</div>
+      <div class="team-role" data-i18n="team.role_td">Technical Director</div>
     </div>
     <div class="team-card">
       <div class="team-avatar">J</div>
       <div class="team-name">Jeongtae Go</div>
-      <div class="team-role">Art Director</div>
+      <div class="team-role" data-i18n="team.role_ad">Art Director</div>
     </div>
     <div class="team-card">
       <div class="team-avatar">S</div>
       <div class="team-name">Sungchan Kim</div>
-      <div class="team-role">Technical Art / Porting</div>
+      <div class="team-role" data-i18n="team.role_ta">Technical Art / Porting</div>
     </div>
     <div class="team-card" style="opacity: 0.5;">
       <div class="team-avatar">T</div>
       <div class="team-name">Taewook Koh</div>
-      <div class="team-role">Technical Art <span style="font-size:0.65rem;color:var(--accent-gold);margin-left:0.3rem;">군복무 중</span></div>
+      <div class="team-role" data-i18n="team.role_ta2">Technical Art <span style="font-size:0.65rem;color:var(--accent-gold);margin-left:0.3rem;">군복무 중</span></div>
     </div>
   </div>
 </section>
@@ -1396,63 +1456,63 @@
 <section class="press-section" id="press">
   <div class="press-inner">
     <div class="reveal">
-      <p class="section-label">Press Kit</p>
-      <h2 class="section-title">For Media & Press</h2>
-      <p class="section-desc">Everything you need<br>to cover THANKS, LIGHT.</p>
+      <p class="section-label" data-i18n="press.label">Press Kit</p>
+      <h2 class="section-title" data-i18n="press.title">For Media &amp; Press</h2>
+      <p class="section-desc" data-i18n="press.desc">Everything you need<br>to cover THANKS, LIGHT.</p>
       <div class="press-facts">
         <div class="press-fact">
-          <div class="press-fact-label">Developer</div>
+          <div class="press-fact-label" data-i18n="press.developer">Developer</div>
           <div class="press-fact-value">Lightersgames Co., Ltd.</div>
         </div>
         <div class="press-fact">
-          <div class="press-fact-label">Genre</div>
-          <div class="press-fact-value">First-Person Puzzle Adventure</div>
+          <div class="press-fact-label" data-i18n="press.genre_l">Genre</div>
+          <div class="press-fact-value" data-i18n="press.genre_v">First-Person Puzzle Adventure</div>
         </div>
         <div class="press-fact">
-          <div class="press-fact-label">Location</div>
-          <div class="press-fact-value">Seongnam, South Korea</div>
+          <div class="press-fact-label" data-i18n="press.location_l">Location</div>
+          <div class="press-fact-value" data-i18n="press.location_v">Seongnam, South Korea</div>
         </div>
         <div class="press-fact">
-          <div class="press-fact-label">Platforms</div>
-          <div class="press-fact-value">PC (Steam), PS5, Switch 2</div>
+          <div class="press-fact-label" data-i18n="press.platforms_l">Platforms</div>
+          <div class="press-fact-value" data-i18n="press.platforms_v">PC (Steam), PS5, Switch 2</div>
         </div>
         <div class="press-fact">
-          <div class="press-fact-label">Price</div>
+          <div class="press-fact-label" data-i18n="press.price_l">Price</div>
           <div class="press-fact-value">$19.99 (USD)</div>
         </div>
         <div class="press-fact">
-          <div class="press-fact-label">Release</div>
-          <div class="press-fact-value">EA Aug 2026 / Full Sep 2026</div>
+          <div class="press-fact-label" data-i18n="press.release_l">Release</div>
+          <div class="press-fact-value" data-i18n="press.release_v">EA Aug 2026 / Full Sep 2026</div>
         </div>
         <div class="press-fact">
-          <div class="press-fact-label">Team Size</div>
-          <div class="press-fact-value">5 Members</div>
+          <div class="press-fact-label" data-i18n="press.teamsize_l">Team Size</div>
+          <div class="press-fact-value" data-i18n="press.teamsize_v">5 Members</div>
         </div>
         <div class="press-fact">
-          <div class="press-fact-label">Contact</div>
+          <div class="press-fact-label" data-i18n="press.contact_l">Contact</div>
           <div class="press-fact-value"><span class="email-protect" data-user="hb" data-domain="lightersgames.com">[enable JS to see email]</span></div>
         </div>
       </div>
     </div>
     <div class="reveal">
       <div class="press-downloads">
-        <h3>Downloads</h3>
+        <h3 data-i18n="press.downloads">Downloads</h3>
         <ul class="download-list">
           <li><a href="#">
             <span class="dl-icon">📦</span>
-            <span>Full Press Kit (ZIP)</span>
+            <span data-i18n="press.dl_presskit">Full Press Kit (ZIP)</span>
           </a></li>
           <li><a href="#">
             <span class="dl-icon">🖼️</span>
-            <span>Logo & Brand Assets</span>
+            <span data-i18n="press.dl_logo">Logo &amp; Brand Assets</span>
           </a></li>
           <li><a href="#">
             <span class="dl-icon">📸</span>
-            <span>Screenshot Pack (High-res)</span>
+            <span data-i18n="press.dl_ss">Screenshot Pack (High-res)</span>
           </a></li>
           <li><a href="#">
             <span class="dl-icon">📄</span>
-            <span>Fact Sheet (PDF)</span>
+            <span data-i18n="press.dl_factsheet">Fact Sheet (PDF)</span>
           </a></li>
         </ul>
       </div>
@@ -1463,9 +1523,9 @@
 <!-- Community -->
 <section class="community-section" id="community">
   <div class="reveal">
-    <p class="section-label">Community</p>
-    <h2 class="section-title">Join the Journey</h2>
-    <p class="section-desc" style="margin: 0 auto 2rem;">Follow us for updates,<br>behind-the-scenes, and more.</p>
+    <p class="section-label" data-i18n="comm.label">Community</p>
+    <h2 class="section-title" data-i18n="comm.title">Join the Journey</h2>
+    <p class="section-desc" style="margin: 0 auto 2rem;" data-i18n="comm.desc">Follow us for updates,<br>behind-the-scenes, and more.</p>
   </div>
   <div class="community-grid reveal">
     <a href="#" class="community-link">
@@ -1494,13 +1554,13 @@
 <!-- Right Way Teaser -->
 <section id="rightway" style="text-align: center; background: var(--bg-dark); max-width: 100%; padding: 6rem 2rem;">
   <div class="reveal" style="max-width: 700px; margin: 0 auto;">
-    <p class="section-label">Next from Lightersgames</p>
-    <h2 class="section-title" style="font-size: clamp(1.8rem, 3.5vw, 2.5rem);">Right Way</h2>
+    <p class="section-label" data-i18n="next.label">Next from Lightersgames</p>
+    <h2 class="section-title" style="font-size: clamp(1.8rem, 3.5vw, 2.5rem);" data-i18n="next.title">Right Way</h2>
     <p style="color: var(--text-secondary); font-size: 1rem; line-height: 1.7; margin-bottom: 2rem;">
-      A new project is in the works. More details coming soon.
+      <span data-i18n="next.desc">A new project is in the works. More details coming soon.</span>
     </p>
     <div style="display: inline-block; padding: 0.6rem 1.5rem; border: 1px solid rgba(110,192,232,0.3); border-radius: 4px; font-size: 0.8rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent-gold);">
-      Coming Soon
+      <span data-i18n="next.badge">Coming Soon</span>
     </div>
   </div>
 </section>
@@ -1508,15 +1568,15 @@
 <!-- Final CTA -->
 <section class="cta-banner">
   <div class="reveal">
-    <h2 class="section-title">Ready to See the Light?</h2>
-    <p class="section-desc">Early Access launches August 2026.<br>Play the free demo now and discover<br>a world where nothing is what it seems.</p>
+    <h2 class="section-title" data-i18n="cta.title">Ready to See the Light?</h2>
+    <p class="section-desc" data-i18n="cta.desc">Early Access launches August 2026.<br>Play the free demo now and discover<br>a world where nothing is what it seems.</p>
     <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; margin-top: 1.5rem;">
       <a href="https://store.steampowered.com/app/2544740/THANKS_LIGHT/" class="btn-primary" target="_blank">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z"/></svg>
-        Wishlist on Steam
+        <span data-i18n="cta.steam">Wishlist on Steam</span>
       </a>
       <a href="https://store.steampowered.com/app/3276550/THANKS_LIGHT__DEMO" class="btn-secondary" target="_blank">
-        Play Free Demo
+        <span data-i18n="cta.demo">Play Free Demo</span>
       </a>
     </div>
   </div>
@@ -1531,9 +1591,9 @@
       <div class="footer-copy" style="margin-top: 0.3rem; font-size: 0.65rem;">&copy; 2026 Lightersgames Co.,Ltd. All Rights Reserved. THANKS, LIGHT.&trade; is a trademark of Lightersgames Co.,Ltd. Published by Game Source Entertainment.</div>
     </div>
     <div class="footer-links">
-      <a href="/privacy-policy">Privacy Policy</a>
-      <a href="/terms">Terms</a>
-      <a href="#" class="email-protect-link" data-user="hb" data-domain="lightersgames.com">Contact</a>
+      <a href="/privacy-policy" data-i18n="footer.privacy">Privacy Policy</a>
+      <a href="/terms" data-i18n="footer.terms">Terms</a>
+      <a href="#" class="email-protect-link" data-user="hb" data-domain="lightersgames.com" data-i18n="footer.contact">Contact</a>
     </div>
   </div>
 </footer>
@@ -2027,6 +2087,1572 @@ fetch('/js/site-content.json')
       if (raw) applyContentData(JSON.parse(raw));
     } catch(e) {}
   });
+
+// ===== INTERNATIONALIZATION (i18n) =====
+const I18N = {
+  "en": {
+    "nav.games": "Games",
+    "nav.games_live": "LIVE",
+    "nav.games_soon": "COMING SOON",
+    "nav.trailer": "Trailer",
+    "nav.media": "Media",
+    "nav.awards": "Awards",
+    "nav.team": "Team",
+    "nav.press": "Press",
+    "nav.community": "Community",
+    "nav.wishlist": "Wishlist Now",
+    "hero.eyebrow": "A Lightersgames Production",
+    "hero.subtitle": "Don't just see the silhouette.<br>Shine light to reveal the truth<br>hidden in every shadow.",
+    "hero.cta_steam": "Wishlist on Steam",
+    "hero.cta_demo": "Play Free Demo",
+    "hero.cta_trailer": "Watch Trailer",
+    "hero.scroll": "Scroll",
+    "quote.text": "A solid puzzle mechanic<br>with remote object interaction,<br>like Portal and The Talos Principle.",
+    "quote.author": "Jeep Barnett — Portal Developer, Valve",
+    "about.label": "About the Game — Physics",
+    "about.title": "This Is Not a Hexagon",
+    "about.desc1": "Without light, you only see an object's silhouette.",
+    "about.desc2": "With light, you see its true form.",
+    "about.desc3": "THANKS, LIGHT. is a first-person puzzle adventure",
+    "about.desc4": "where you manipulate light to transform the world between 2D and 3D.",
+    "about.desc5": "Light creates physics — darkness erases it.",
+    "about.cube_hint": "Hover to shine light on the silhouette",
+    "feat.illuminate": "Illuminate — Shine light to reveal 3D forms.<br>Objects gain weight, collision, and physics.<br>A flat hexagon becomes a cube you can stand on.",
+    "feat.absorb": "Absorb — Remove light to strip away volume and mass.<br>Objects flatten into weightless, static 2D silhouettes.<br>A rolling ball freezes into a circle on the wall.",
+    "feat.mirror": "Mirror, Lens &amp; Merge — Duplicate objects, resize them,<br>or combine two forms into entirely new tools.<br>Five mechanics, layered across three chapters.",
+    "shape.label": "Interactive Demo — Geometry",
+    "shape.title": "One Shape, Three Shadows",
+    "shape.desc": "A single 3D object can cast<br>a circle, a square, or a triangle<br>— depending on your perspective.<br>Every puzzle in the game is built on this truth.",
+    "shape.circle": "Circle",
+    "shape.square": "Square",
+    "shape.triangle": "Triangle",
+    "shape.hint": "Click &amp; drag to rotate",
+    "love.label": "Is This Game For You?",
+    "love.title": "You'll Love THANKS, LIGHT. If...",
+    "love.card1_title": "Portal, Superliminal, The Talos Principle",
+    "love.card1_desc": "You enjoy first-person puzzle games<br>that challenge your perception<br>and reward creative thinking.",
+    "love.card2_title": "INSIDE, Control, Liminal Spaces",
+    "love.card2_desc": "You love eerie, atmospheric worlds<br>with brutalist architecture, marble halls,<br>and unsettling beauty.",
+    "love.card3_title": "Constantly Evolving",
+    "love.card3_desc": "Mechanics and art never stand still.<br>Each chapter introduces new rules and visuals<br>that redefine what you thought you knew.",
+    "love.summary1": "3 chapters. 5 mechanics. One flashlight.",
+    "love.summary2": "The truth is never what it looks like in the dark.",
+    "trailer.label": "Official Trailer",
+    "trailer.title": "See the World Differently",
+    "ss.label": "Screenshots",
+    "ss.title": "Captured Moments",
+    "ss.ch1": "Chapter 1 — Illuminate",
+    "ss.ch2": "Chapter 2 — Absorb",
+    "ss.ch3": "Chapter 3 — Mirror, Lens &amp; Merge",
+    "awards.label": "Recognition",
+    "awards.title": "Awards &amp; Accolades",
+    "awards.desc": "Featured at 30+ international events.<br>Covered by press in 6+ languages.",
+    "awards.indiecraft": "Indiecraft 2025",
+    "awards.indiecraft_d": "Best Developer Award &amp; Console TOP 2",
+    "awards.gamescom": "Gamescom 2025",
+    "awards.gamescom_d": "KOCCA Korea Game Roadshow",
+    "awards.tgs": "Tokyo Game Show 2025",
+    "awards.tgs_d": "Selected Indie 80",
+    "awards.bic": "BIC 2023",
+    "awards.bic_d": "Nicalis Pick Award",
+    "awards.portal": "Portal Dev Endorsed",
+    "awards.portal_d": "Jeep Barnett (Valve) — Praised puzzle mechanics",
+    "awards.thinky": "Thinky Games",
+    "awards.thinky_d": "Featured in Puzzle Collection",
+    "awards.press1": "Press Play Media (UK) · 4Gamer (JP) · BusinessWire (US)",
+    "awards.press2": "GamesWirtschaft (DE) · VGTimes (RU) · Sportskeeda (IN)",
+    "awards.press3": "and 20+ Korean outlets including Dong-A Ilbo, YTN, and ZDNET Korea.",
+    "plat.label": "Platforms",
+    "plat.title": "Play Everywhere",
+    "plat.steam_demo": "Demo Available Now",
+    "plat.steam_ea": "Steam Early Access",
+    "plat.steam_ea_date": "August 2026",
+    "plat.full": "Steam + PlayStation 5",
+    "plat.full_date": "September 2026",
+    "plat.ns2": "Nintendo Switch 2",
+    "plat.ns2_date": "TBA",
+    "team.label": "The Team",
+    "team.company": "Lightersgames Co., Ltd.",
+    "team.desc": "An indie studio from South Korea, lighting the path less traveled.<br>Active since 2023 as Lighters. Incorporated as Lightersgames Co., Ltd. in 2025.<br>Based at Gyeonggi Global Game Center, Seongnam.",
+    "team.role_pd": "Director / Producer",
+    "team.role_td": "Technical Director",
+    "team.role_ad": "Art Director",
+    "team.role_ta": "Technical Art / Porting",
+    "team.role_ta2": "Technical Art (Military Service)",
+    "press.label": "Press Kit",
+    "press.title": "For Media &amp; Press",
+    "press.desc": "Everything you need<br>to cover THANKS, LIGHT.",
+    "press.developer": "Developer",
+    "press.genre_l": "Genre",
+    "press.genre_v": "First-Person Puzzle Adventure",
+    "press.location_l": "Location",
+    "press.location_v": "Seongnam, South Korea",
+    "press.platforms_l": "Platforms",
+    "press.platforms_v": "PC (Steam), PS5, Switch 2",
+    "press.price_l": "Price",
+    "press.release_l": "Release",
+    "press.release_v": "EA Aug 2026 / Full Sep 2026",
+    "press.teamsize_l": "Team Size",
+    "press.teamsize_v": "5 Members",
+    "press.contact_l": "Contact",
+    "press.downloads": "Downloads",
+    "press.dl_presskit": "Full Press Kit (ZIP)",
+    "press.dl_logo": "Logo &amp; Brand Assets",
+    "press.dl_ss": "Screenshot Pack (High-res)",
+    "press.dl_factsheet": "Fact Sheet (PDF)",
+    "comm.label": "Community",
+    "comm.title": "Join the Journey",
+    "comm.desc": "Follow us for updates,<br>behind-the-scenes, and more.",
+    "next.label": "Next from Lightersgames",
+    "next.title": "Right Way",
+    "next.desc": "A new project is in the works. More details coming soon.",
+    "next.badge": "Coming Soon",
+    "cta.title": "Ready to See the Light?",
+    "cta.desc": "Early Access launches August 2026.<br>Play the free demo now and discover<br>a world where nothing is what it seems.",
+    "cta.steam": "Wishlist on Steam",
+    "cta.demo": "Play Free Demo",
+    "footer.privacy": "Privacy Policy",
+    "footer.terms": "Terms",
+    "footer.contact": "Contact"
+  },
+  "ko": {
+    "nav.games": "게임",
+    "nav.games_live": "출시",
+    "nav.games_soon": "준비 중",
+    "nav.trailer": "트레일러",
+    "nav.media": "미디어",
+    "nav.awards": "수상",
+    "nav.team": "팀",
+    "nav.press": "프레스",
+    "nav.community": "커뮤니티",
+    "nav.wishlist": "찜하기",
+    "hero.eyebrow": "라이터스게임즈 프로덕션",
+    "hero.subtitle": "실루엣만 보지 마세요.<br>빛을 비춰 그림자 속에 숨겨진<br>진실을 밝혀내세요.",
+    "hero.cta_steam": "Steam 찜하기",
+    "hero.cta_demo": "무료 데모 플레이",
+    "hero.cta_trailer": "트레일러 보기",
+    "hero.scroll": "스크롤",
+    "quote.text": "원격 오브젝트 상호작용을 활용한<br>탄탄한 퍼즐 메카닉.<br>포탈, 탈로스 프린시플과 같은 게임.",
+    "quote.author": "집 바넷 — 포탈 개발자, 밸브",
+    "about.label": "게임 소개 — 물리",
+    "about.title": "이것은 육각형이 아닙니다",
+    "about.desc1": "빛이 없으면, 오브젝트의 실루엣만 보입니다.",
+    "about.desc2": "빛이 있으면, 진짜 형태가 드러납니다.",
+    "about.desc3": "THANKS, LIGHT.는 1인칭 퍼즐 어드벤처로,",
+    "about.desc4": "빛을 조작해 세계를 2D와 3D 사이에서 변환합니다.",
+    "about.desc5": "빛은 물리를 만들고 — 어둠은 물리를 지웁니다.",
+    "about.cube_hint": "실루엣에 빛을 비춰 보세요",
+    "feat.illuminate": "일루미네이트 — 빛을 비춰 3D 형태를 드러냅니다.<br>오브젝트는 무게, 충돌, 물리를 얻습니다.<br>평면 육각형이 서 있을 수 있는 큐브가 됩니다.",
+    "feat.absorb": "앱소브 — 빛을 제거해 부피와 질량을 벗겨냅니다.<br>오브젝트는 무중력의 정적 2D 실루엣으로 납작해집니다.<br>굴러가던 공이 벽 위의 원으로 멈춥니다.",
+    "feat.mirror": "미러, 렌즈 &amp; 머지 — 오브젝트를 복제하거나 크기를 바꾸고,<br>두 형태를 완전히 새로운 도구로 결합합니다.<br>다섯 가지 메카닉이 세 챕터에 걸쳐 겹겹이 쌓입니다.",
+    "shape.label": "인터랙티브 데모 — 기하학",
+    "shape.title": "하나의 형태, 세 개의 그림자",
+    "shape.desc": "하나의 3D 오브젝트가<br>원, 사각형, 삼각형을 투영합니다<br>— 시점에 따라 달라집니다.<br>게임의 모든 퍼즐은 이 진실 위에 세워져 있습니다.",
+    "shape.circle": "원",
+    "shape.square": "사각형",
+    "shape.triangle": "삼각형",
+    "shape.hint": "클릭 &amp; 드래그로 회전",
+    "love.label": "이 게임이 당신을 위한 게임일까요?",
+    "love.title": "이런 분이라면 THANKS, LIGHT.를 사랑하게 될 거예요.",
+    "love.card1_title": "Portal, Superliminal, The Talos Principle",
+    "love.card1_desc": "인식에 도전하고<br>창의적 사고를 보상하는<br>1인칭 퍼즐 게임을 즐기신다면.",
+    "love.card2_title": "INSIDE, Control, Liminal Spaces",
+    "love.card2_desc": "브루탈리스트 건축과 대리석 홀,<br>불안한 아름다움이 감도는<br>으스스한 분위기의 세계를 좋아하신다면.",
+    "love.card3_title": "끊임없는 진화",
+    "love.card3_desc": "메카닉과 아트는 멈추지 않습니다.<br>매 챕터마다 새로운 규칙과 비주얼이 등장해<br>알고 있던 것을 다시 정의합니다.",
+    "love.summary1": "3개의 챕터. 5가지 메카닉. 하나의 손전등.",
+    "love.summary2": "진실은 어둠 속에서 보이는 것과 다릅니다.",
+    "trailer.label": "공식 트레일러",
+    "trailer.title": "세상을 다르게 보세요",
+    "ss.label": "스크린샷",
+    "ss.title": "포착된 순간들",
+    "ss.ch1": "챕터 1 — 일루미네이트",
+    "ss.ch2": "챕터 2 — 앱소브",
+    "ss.ch3": "챕터 3 — 미러, 렌즈 &amp; 머지",
+    "awards.label": "수상 이력",
+    "awards.title": "수상 &amp; 성과",
+    "awards.desc": "30개 이상의 국제 행사에 참가.<br>6개 이상의 언어로 언론 보도.",
+    "awards.indiecraft": "Indiecraft 2025",
+    "awards.indiecraft_d": "최우수 개발사상 &amp; 콘솔 TOP 2",
+    "awards.gamescom": "Gamescom 2025",
+    "awards.gamescom_d": "KOCCA 한국 게임 로드쇼",
+    "awards.tgs": "도쿄 게임쇼 2025",
+    "awards.tgs_d": "Selected Indie 80",
+    "awards.bic": "BIC 2023",
+    "awards.bic_d": "Nicalis Pick Award",
+    "awards.portal": "포탈 개발자 추천",
+    "awards.portal_d": "집 바넷 (밸브) — 퍼즐 메카닉 극찬",
+    "awards.thinky": "Thinky Games",
+    "awards.thinky_d": "퍼즐 컬렉션 선정",
+    "awards.press1": "Press Play Media (영국) · 4Gamer (일본) · BusinessWire (미국)",
+    "awards.press2": "GamesWirtschaft (독일) · VGTimes (러시아) · Sportskeeda (인도)",
+    "awards.press3": "동아일보, YTN, ZDNET Korea 등 20개 이상의 국내 매체 보도.",
+    "plat.label": "플랫폼",
+    "plat.title": "어디서든 플레이",
+    "plat.steam_demo": "데모 출시 중",
+    "plat.steam_ea": "Steam 앞서 해보기",
+    "plat.steam_ea_date": "2026년 8월",
+    "plat.full": "Steam + PlayStation 5",
+    "plat.full_date": "2026년 9월",
+    "plat.ns2": "Nintendo Switch 2",
+    "plat.ns2_date": "추후 공개",
+    "team.label": "팀",
+    "team.company": "주식회사 라이터스게임즈",
+    "team.desc": "대한민국에서 새로운 길을 밝히는 인디 스튜디오.<br>2023년부터 라이터스로 활동. 2025년 주식회사 라이터스게임즈로 법인 설립.<br>경기글로벌게임센터 (성남) 입주.",
+    "team.role_pd": "디렉터 / 프로듀서",
+    "team.role_td": "테크니컬 디렉터",
+    "team.role_ad": "아트 디렉터",
+    "team.role_ta": "테크니컬 아트 / 포팅",
+    "team.role_ta2": "테크니컬 아트 (군복무 중)",
+    "press.label": "프레스 키트",
+    "press.title": "미디어 &amp; 언론용",
+    "press.desc": "THANKS, LIGHT. 보도에<br>필요한 모든 자료.",
+    "press.developer": "개발사",
+    "press.genre_l": "장르",
+    "press.genre_v": "1인칭 퍼즐 어드벤처",
+    "press.location_l": "소재지",
+    "press.location_v": "대한민국 성남시",
+    "press.platforms_l": "플랫폼",
+    "press.platforms_v": "PC (Steam), PS5, Switch 2",
+    "press.price_l": "가격",
+    "press.release_l": "출시일",
+    "press.release_v": "EA 2026년 8월 / 정식 2026년 9월",
+    "press.teamsize_l": "팀 규모",
+    "press.teamsize_v": "5명",
+    "press.contact_l": "연락처",
+    "press.downloads": "다운로드",
+    "press.dl_presskit": "프레스 키트 전체 (ZIP)",
+    "press.dl_logo": "로고 &amp; 브랜드 에셋",
+    "press.dl_ss": "스크린샷 팩 (고해상도)",
+    "press.dl_factsheet": "팩트시트 (PDF)",
+    "comm.label": "커뮤니티",
+    "comm.title": "여정에 함께하세요",
+    "comm.desc": "업데이트, 비하인드 스토리 등<br>다양한 소식을 확인하세요.",
+    "next.label": "라이터스게임즈의 다음 작품",
+    "next.title": "Right Way",
+    "next.desc": "새로운 프로젝트를 준비 중입니다. 곧 공개됩니다.",
+    "next.badge": "준비 중",
+    "cta.title": "빛을 볼 준비가 되셨나요?",
+    "cta.desc": "앞서 해보기 2026년 8월 출시.<br>지금 무료 데모를 플레이하고<br>아무것도 보이는 대로가 아닌 세계를 발견하세요.",
+    "cta.steam": "Steam 찜하기",
+    "cta.demo": "무료 데모 플레이",
+    "footer.privacy": "개인정보처리방침",
+    "footer.terms": "이용약관",
+    "footer.contact": "연락처"
+  },
+  "ja": {
+    "nav.games": "ゲーム",
+    "nav.games_live": "配信中",
+    "nav.games_soon": "近日公開",
+    "nav.trailer": "トレーラー",
+    "nav.media": "メディア",
+    "nav.awards": "受賞歴",
+    "nav.team": "チーム",
+    "nav.press": "プレス",
+    "nav.community": "コミュニティ",
+    "nav.wishlist": "ウィッシュリスト",
+    "hero.eyebrow": "Lightersgames プロダクション",
+    "hero.subtitle": "シルエットだけを見ないでください。<br>光を当てて、すべての影に隠された<br>真実を明らかにしましょう。",
+    "hero.cta_steam": "Steamでウィッシュリスト",
+    "hero.cta_demo": "無料デモをプレイ",
+    "hero.cta_trailer": "トレーラーを見る",
+    "hero.scroll": "スクロール",
+    "quote.text": "ポータルやタロスの原理のような、<br>リモートオブジェクトインタラクションを活用した<br>堅実なパズルメカニクス。",
+    "quote.author": "ジープ・バーネット — Portal 開発者、Valve",
+    "about.label": "ゲーム紹介 — 物理",
+    "about.title": "これは六角形ではない",
+    "about.desc1": "光がなければ、オブジェクトのシルエットしか見えません。",
+    "about.desc2": "光があれば、本当の姿が現れます。",
+    "about.desc3": "THANKS, LIGHT.は一人称パズルアドベンチャーです。",
+    "about.desc4": "光を操り、世界を2Dと3Dの間で変換します。",
+    "about.desc5": "光は物理を生み出し、闇はそれを消し去ります。",
+    "about.cube_hint": "ホバーしてシルエットに光を当てよう",
+    "feat.illuminate": "イルミネイト — 光を当てて3D形状を現出。<br>オブジェクトは重さ、衝突、物理を得ます。<br>平面の六角形が立てる立方体に変わります。",
+    "feat.absorb": "アブソーブ — 光を取り除き体積と質量を剥ぎ取る。<br>オブジェクトは無重力の静的な2Dシルエットに。<br>転がるボールが壁の上の円に固まります。",
+    "feat.mirror": "ミラー、レンズ &amp; マージ — オブジェクトを複製、リサイズ、<br>または2つの形を全く新しいツールに結合。<br>5つのメカニクスが3章にわたって重なります。",
+    "shape.label": "インタラクティブデモ — ジオメトリ",
+    "shape.title": "ひとつの形、3つの影",
+    "shape.desc": "ひとつの3Dオブジェクトが<br>円、四角、三角を投影します<br>— 視点次第で変わります。<br>ゲームのすべてのパズルはこの真実の上に成り立っています。",
+    "shape.circle": "円",
+    "shape.square": "四角",
+    "shape.triangle": "三角",
+    "shape.hint": "クリック&amp;ドラッグで回転",
+    "love.label": "あなたのためのゲームですか？",
+    "love.title": "こんな方ならTHANKS, LIGHT.を気に入るはず",
+    "love.card1_title": "Portal, Superliminal, The Talos Principle",
+    "love.card1_desc": "認識に挑戦し、<br>創造的思考を報いる<br>一人称パズルゲームを楽しむなら。",
+    "love.card2_title": "INSIDE, Control, Liminal Spaces",
+    "love.card2_desc": "ブルータリスト建築と大理石のホール、<br>不安な美しさに満ちた<br>不気味な雰囲気の世界が好きなら。",
+    "love.card3_title": "絶え間ない進化",
+    "love.card3_desc": "メカニクスとアートは止まりません。<br>各章で新しいルールとビジュアルが登場し、<br>知っていたことを再定義します。",
+    "love.summary1": "3つの章。5つのメカニクス。1本の懐中電灯。",
+    "love.summary2": "真実は闇の中で見えるものとは違う。",
+    "trailer.label": "公式トレーラー",
+    "trailer.title": "世界を違う目で見よう",
+    "ss.label": "スクリーンショット",
+    "ss.title": "捉えた瞬間",
+    "ss.ch1": "第1章 — イルミネイト",
+    "ss.ch2": "第2章 — アブソーブ",
+    "ss.ch3": "第3章 — ミラー、レンズ &amp; マージ",
+    "awards.label": "受賞歴",
+    "awards.title": "受賞 &amp; 実績",
+    "awards.desc": "30以上の国際イベントに出展。<br>6言語以上でメディア掲載。",
+    "awards.indiecraft": "Indiecraft 2025",
+    "awards.indiecraft_d": "最優秀デベロッパー賞 &amp; コンソール TOP 2",
+    "awards.gamescom": "Gamescom 2025",
+    "awards.gamescom_d": "KOCCA Korea Game Roadshow",
+    "awards.tgs": "東京ゲームショウ 2025",
+    "awards.tgs_d": "Selected Indie 80",
+    "awards.bic": "BIC 2023",
+    "awards.bic_d": "Nicalis Pick Award",
+    "awards.portal": "Portal開発者推薦",
+    "awards.portal_d": "ジープ・バーネット (Valve) — パズルメカニクスを絶賛",
+    "awards.thinky": "Thinky Games",
+    "awards.thinky_d": "パズルコレクション選出",
+    "awards.press1": "Press Play Media (英) · 4Gamer (日) · BusinessWire (米)",
+    "awards.press2": "GamesWirtschaft (独) · VGTimes (露) · Sportskeeda (印)",
+    "awards.press3": "他、東亜日報、YTN、ZDNET Koreaなど韓国メディア20社以上。",
+    "plat.label": "プラットフォーム",
+    "plat.title": "どこでもプレイ",
+    "plat.steam_demo": "デモ配信中",
+    "plat.steam_ea": "Steam 早期アクセス",
+    "plat.steam_ea_date": "2026年8月",
+    "plat.full": "Steam + PlayStation 5",
+    "plat.full_date": "2026年9月",
+    "plat.ns2": "Nintendo Switch 2",
+    "plat.ns2_date": "時期未定",
+    "team.label": "チーム",
+    "team.company": "Lightersgames Co., Ltd.",
+    "team.desc": "韓国発、新たな道を照らすインディースタジオ。<br>2023年よりLightersとして活動。2025年にLightersgames Co., Ltd.として法人設立。<br>京畿グローバルゲームセンター（城南）拠点。",
+    "team.role_pd": "ディレクター / プロデューサー",
+    "team.role_td": "テクニカルディレクター",
+    "team.role_ad": "アートディレクター",
+    "team.role_ta": "テクニカルアート / ポーティング",
+    "team.role_ta2": "テクニカルアート（兵役中）",
+    "press.label": "プレスキット",
+    "press.title": "メディア &amp; プレス向け",
+    "press.desc": "THANKS, LIGHT.の報道に<br>必要なすべての素材。",
+    "press.developer": "開発",
+    "press.genre_l": "ジャンル",
+    "press.genre_v": "一人称パズルアドベンチャー",
+    "press.location_l": "所在地",
+    "press.location_v": "韓国 城南市",
+    "press.platforms_l": "プラットフォーム",
+    "press.platforms_v": "PC (Steam)、PS5、Switch 2",
+    "press.price_l": "価格",
+    "press.release_l": "発売日",
+    "press.release_v": "EA 2026年8月 / 正式 2026年9月",
+    "press.teamsize_l": "チーム規模",
+    "press.teamsize_v": "5名",
+    "press.contact_l": "連絡先",
+    "press.downloads": "ダウンロード",
+    "press.dl_presskit": "プレスキット一式 (ZIP)",
+    "press.dl_logo": "ロゴ &amp; ブランドアセット",
+    "press.dl_ss": "スクリーンショットパック (高解像度)",
+    "press.dl_factsheet": "ファクトシート (PDF)",
+    "comm.label": "コミュニティ",
+    "comm.title": "旅に参加しよう",
+    "comm.desc": "最新情報や舞台裏など、<br>さまざまなニュースをフォロー。",
+    "next.label": "Lightersgamesの次回作",
+    "next.title": "Right Way",
+    "next.desc": "新プロジェクト進行中。詳細は近日公開。",
+    "next.badge": "近日公開",
+    "cta.title": "光を見る準備はできましたか？",
+    "cta.desc": "早期アクセス 2026年8月開始。<br>今すぐ無料デモをプレイして、<br>何も見た目通りではない世界を発見しよう。",
+    "cta.steam": "Steamでウィッシュリスト",
+    "cta.demo": "無料デモをプレイ",
+    "footer.privacy": "プライバシーポリシー",
+    "footer.terms": "利用規約",
+    "footer.contact": "お問い合わせ"
+  },
+  "zh-CN": {
+    "nav.games": "游戏",
+    "nav.games_live": "已上线",
+    "nav.games_soon": "即将推出",
+    "nav.trailer": "预告片",
+    "nav.media": "媒体",
+    "nav.awards": "荣誉",
+    "nav.team": "团队",
+    "nav.press": "新闻",
+    "nav.community": "社区",
+    "nav.wishlist": "加入愿望单",
+    "hero.eyebrow": "Lightersgames 出品",
+    "hero.subtitle": "不要只看到剪影。<br>用光照亮每个阴影中<br>隐藏的真相。",
+    "hero.cta_steam": "Steam 加入愿望单",
+    "hero.cta_demo": "免费试玩",
+    "hero.cta_trailer": "观看预告片",
+    "hero.scroll": "向下滚动",
+    "quote.text": "一个扎实的谜题机制，<br>通过远程物体交互，<br>如同传送门和塔罗斯的法则。",
+    "quote.author": "Jeep Barnett — 传送门开发者，Valve",
+    "about.label": "关于游戏 — 物理",
+    "about.title": "这不是一个六边形",
+    "about.desc1": "没有光，你只能看到物体的剪影。",
+    "about.desc2": "有了光，你才能看到它的真实形态。",
+    "about.desc3": "THANKS, LIGHT. 是一款第一人称解谜冒险游戏，",
+    "about.desc4": "你可以操控光线在2D和3D之间变换世界。",
+    "about.desc5": "光创造物理 — 黑暗抹除物理。",
+    "about.cube_hint": "悬停鼠标，用光照亮剪影",
+    "feat.illuminate": "照亮 — 用光揭示3D形态。<br>物体获得重量、碰撞和物理属性。<br>平面六边形变成可以站立的立方体。",
+    "feat.absorb": "吸收 — 移除光线，剥离体积和质量。<br>物体变成无重力的静态2D剪影。<br>滚动的球冻结为墙上的圆形。",
+    "feat.mirror": "镜像、透镜 &amp; 合并 — 复制物体、调整大小，<br>或将两种形态组合成全新工具。<br>五种机制，贯穿三个章节层层叠加。",
+    "shape.label": "互动演示 — 几何",
+    "shape.title": "一个形状，三个影子",
+    "shape.desc": "一个3D物体可以投射出<br>圆形、方形或三角形<br>— 取决于你的视角。<br>游戏中每个谜题都建立在这个真理之上。",
+    "shape.circle": "圆形",
+    "shape.square": "方形",
+    "shape.triangle": "三角形",
+    "shape.hint": "点击并拖拽旋转",
+    "love.label": "这款游戏适合你吗？",
+    "love.title": "如果你是这样的玩家，你会爱上 THANKS, LIGHT.",
+    "love.card1_title": "Portal, Superliminal, The Talos Principle",
+    "love.card1_desc": "你喜欢挑战认知、<br>奖励创造性思维的<br>第一人称解谜游戏。",
+    "love.card2_title": "INSIDE, Control, Liminal Spaces",
+    "love.card2_desc": "你喜欢布鲁塔利主义建筑、<br>大理石大厅和令人不安的美感<br>所营造的诡异氛围世界。",
+    "love.card3_title": "不断进化",
+    "love.card3_desc": "机制和美术从不停滞。<br>每章引入新规则和视觉效果，<br>重新定义你所认知的一切。",
+    "love.summary1": "3个章节。5种机制。一支手电筒。",
+    "love.summary2": "真相从来不是黑暗中看到的样子。",
+    "trailer.label": "官方预告片",
+    "trailer.title": "用不同的视角看世界",
+    "ss.label": "游戏截图",
+    "ss.title": "捕捉的瞬间",
+    "ss.ch1": "第一章 — 照亮",
+    "ss.ch2": "第二章 — 吸收",
+    "ss.ch3": "第三章 — 镜像、透镜 &amp; 合并",
+    "awards.label": "荣誉",
+    "awards.title": "获奖 &amp; 成就",
+    "awards.desc": "参展30+国际活动。<br>6种以上语言的媒体报道。",
+    "awards.indiecraft": "Indiecraft 2025",
+    "awards.indiecraft_d": "最佳开发者奖 &amp; 主机 TOP 2",
+    "awards.gamescom": "科隆游戏展 2025",
+    "awards.gamescom_d": "KOCCA 韩国游戏路演",
+    "awards.tgs": "东京电玩展 2025",
+    "awards.tgs_d": "Selected Indie 80",
+    "awards.bic": "BIC 2023",
+    "awards.bic_d": "Nicalis Pick Award",
+    "awards.portal": "传送门开发者推荐",
+    "awards.portal_d": "Jeep Barnett (Valve) — 盛赞解谜机制",
+    "awards.thinky": "Thinky Games",
+    "awards.thinky_d": "入选解谜合集",
+    "awards.press1": "Press Play Media (英) · 4Gamer (日) · BusinessWire (美)",
+    "awards.press2": "GamesWirtschaft (德) · VGTimes (俄) · Sportskeeda (印)",
+    "awards.press3": "以及东亚日报、YTN、ZDNET Korea等20余家韩国媒体。",
+    "plat.label": "平台",
+    "plat.title": "随处畅玩",
+    "plat.steam_demo": "试玩版现已推出",
+    "plat.steam_ea": "Steam 抢先体验",
+    "plat.steam_ea_date": "2026年8月",
+    "plat.full": "Steam + PlayStation 5",
+    "plat.full_date": "2026年9月",
+    "plat.ns2": "Nintendo Switch 2",
+    "plat.ns2_date": "待定",
+    "team.label": "团队",
+    "team.company": "Lightersgames Co., Ltd.",
+    "team.desc": "来自韩国的独立工作室，照亮人迹罕至的道路。<br>2023年起以Lighters之名活动。2025年正式成立Lightersgames株式会社。<br>驻地：京畿全球游戏中心（城南）。",
+    "team.role_pd": "总监 / 制作人",
+    "team.role_td": "技术总监",
+    "team.role_ad": "美术总监",
+    "team.role_ta": "技术美术 / 移植",
+    "team.role_ta2": "技术美术（服兵役中）",
+    "press.label": "新闻资料",
+    "press.title": "媒体 &amp; 新闻",
+    "press.desc": "报道 THANKS, LIGHT.<br>所需的一切资料。",
+    "press.developer": "开发商",
+    "press.genre_l": "类型",
+    "press.genre_v": "第一人称解谜冒险",
+    "press.location_l": "所在地",
+    "press.location_v": "韩国 城南市",
+    "press.platforms_l": "平台",
+    "press.platforms_v": "PC (Steam)、PS5、Switch 2",
+    "press.price_l": "价格",
+    "press.release_l": "发售日",
+    "press.release_v": "EA 2026年8月 / 正式 2026年9月",
+    "press.teamsize_l": "团队规模",
+    "press.teamsize_v": "5人",
+    "press.contact_l": "联系方式",
+    "press.downloads": "下载",
+    "press.dl_presskit": "完整新闻资料包 (ZIP)",
+    "press.dl_logo": "标志 &amp; 品牌素材",
+    "press.dl_ss": "截图包 (高分辨率)",
+    "press.dl_factsheet": "概况表 (PDF)",
+    "comm.label": "社区",
+    "comm.title": "加入旅程",
+    "comm.desc": "关注我们获取最新动态、<br>幕后花絮等更多内容。",
+    "next.label": "Lightersgames 下一部作品",
+    "next.title": "Right Way",
+    "next.desc": "新项目正在开发中，更多详情即将公布。",
+    "next.badge": "即将推出",
+    "cta.title": "准备好看见光了吗？",
+    "cta.desc": "抢先体验 2026年8月启动。<br>现在就免费试玩，<br>发现一个万物皆非表象的世界。",
+    "cta.steam": "Steam 加入愿望单",
+    "cta.demo": "免费试玩",
+    "footer.privacy": "隐私政策",
+    "footer.terms": "服务条款",
+    "footer.contact": "联系我们"
+  },
+  "zh-TW": {
+    "nav.games": "遊戲",
+    "nav.games_live": "已上線",
+    "nav.games_soon": "即將推出",
+    "nav.trailer": "預告片",
+    "nav.media": "媒體",
+    "nav.awards": "榮譽",
+    "nav.team": "團隊",
+    "nav.press": "新聞",
+    "nav.community": "社群",
+    "nav.wishlist": "加入願望清單",
+    "hero.eyebrow": "Lightersgames 出品",
+    "hero.subtitle": "不要只看到剪影。<br>用光照亮每個陰影中<br>隱藏的真相。",
+    "hero.cta_steam": "Steam 加入願望清單",
+    "hero.cta_demo": "免費試玩",
+    "hero.cta_trailer": "觀看預告片",
+    "hero.scroll": "向下捲動",
+    "quote.text": "一個扎實的謎題機制，<br>透過遠距物件互動，<br>如同傳送門和塔羅斯的法則。",
+    "quote.author": "Jeep Barnett — 傳送門開發者，Valve",
+    "about.label": "關於遊戲 — 物理",
+    "about.title": "這不是一個六邊形",
+    "about.desc1": "沒有光，你只能看到物體的剪影。",
+    "about.desc2": "有了光，你才能看到它的真實形態。",
+    "about.desc3": "THANKS, LIGHT. 是一款第一人稱解謎冒險遊戲，",
+    "about.desc4": "你可以操控光線在2D和3D之間變換世界。",
+    "about.desc5": "光創造物理 — 黑暗抹除物理。",
+    "about.cube_hint": "懸停滑鼠，用光照亮剪影",
+    "feat.illuminate": "照亮 — 用光揭示3D形態。<br>物體獲得重量、碰撞和物理屬性。<br>平面六邊形變成可以站立的立方體。",
+    "feat.absorb": "吸收 — 移除光線，剝離體積和質量。<br>物體變成無重力的靜態2D剪影。<br>滾動的球凍結為牆上的圓形。",
+    "feat.mirror": "鏡像、透鏡 &amp; 合併 — 複製物體、調整大小，<br>或將兩種形態組合成全新工具。<br>五種機制，貫穿三個章節層層疊加。",
+    "shape.label": "互動演示 — 幾何",
+    "shape.title": "一個形狀，三個影子",
+    "shape.desc": "一個3D物體可以投射出<br>圓形、方形或三角形<br>— 取決於你的視角。<br>遊戲中每個謎題都建立在這個真理之上。",
+    "shape.circle": "圓形",
+    "shape.square": "方形",
+    "shape.triangle": "三角形",
+    "shape.hint": "點擊並拖曳旋轉",
+    "love.label": "這款遊戲適合你嗎？",
+    "love.title": "如果你是這樣的玩家，你會愛上 THANKS, LIGHT.",
+    "love.card1_title": "Portal, Superliminal, The Talos Principle",
+    "love.card1_desc": "你喜歡挑戰認知、<br>獎勵創造性思維的<br>第一人稱解謎遊戲。",
+    "love.card2_title": "INSIDE, Control, Liminal Spaces",
+    "love.card2_desc": "你喜歡粗獷主義建築、<br>大理石大廳和令人不安的美感<br>所營造的詭異氛圍世界。",
+    "love.card3_title": "不斷進化",
+    "love.card3_desc": "機制和美術從不停滯。<br>每章引入新規則和視覺效果，<br>重新定義你所認知的一切。",
+    "love.summary1": "3個章節。5種機制。一支手電筒。",
+    "love.summary2": "真相從來不是黑暗中看到的樣子。",
+    "trailer.label": "官方預告片",
+    "trailer.title": "用不同的視角看世界",
+    "ss.label": "遊戲截圖",
+    "ss.title": "捕捉的瞬間",
+    "ss.ch1": "第一章 — 照亮",
+    "ss.ch2": "第二章 — 吸收",
+    "ss.ch3": "第三章 — 鏡像、透鏡 &amp; 合併",
+    "awards.label": "榮譽",
+    "awards.title": "獲獎 &amp; 成就",
+    "awards.desc": "參展30+國際活動。<br>6種以上語言的媒體報導。",
+    "awards.indiecraft": "Indiecraft 2025",
+    "awards.indiecraft_d": "最佳開發者獎 &amp; 主機 TOP 2",
+    "awards.gamescom": "科隆遊戲展 2025",
+    "awards.gamescom_d": "KOCCA 韓國遊戲路演",
+    "awards.tgs": "東京電玩展 2025",
+    "awards.tgs_d": "Selected Indie 80",
+    "awards.bic": "BIC 2023",
+    "awards.bic_d": "Nicalis Pick Award",
+    "awards.portal": "傳送門開發者推薦",
+    "awards.portal_d": "Jeep Barnett (Valve) — 盛讚解謎機制",
+    "awards.thinky": "Thinky Games",
+    "awards.thinky_d": "入選解謎合輯",
+    "awards.press1": "Press Play Media (英) · 4Gamer (日) · BusinessWire (美)",
+    "awards.press2": "GamesWirtschaft (德) · VGTimes (俄) · Sportskeeda (印)",
+    "awards.press3": "以及東亞日報、YTN、ZDNET Korea等20餘家韓國媒體。",
+    "plat.label": "平台",
+    "plat.title": "隨處暢玩",
+    "plat.steam_demo": "試玩版現已推出",
+    "plat.steam_ea": "Steam 搶先體驗",
+    "plat.steam_ea_date": "2026年8月",
+    "plat.full": "Steam + PlayStation 5",
+    "plat.full_date": "2026年9月",
+    "plat.ns2": "Nintendo Switch 2",
+    "plat.ns2_date": "待定",
+    "team.label": "團隊",
+    "team.company": "Lightersgames Co., Ltd.",
+    "team.desc": "來自韓國的獨立工作室，照亮人跡罕至的道路。<br>2023年起以Lighters之名活動。2025年正式成立Lightersgames株式會社。<br>駐地：京畿全球遊戲中心（城南）。",
+    "team.role_pd": "總監 / 製作人",
+    "team.role_td": "技術總監",
+    "team.role_ad": "美術總監",
+    "team.role_ta": "技術美術 / 移植",
+    "team.role_ta2": "技術美術（服兵役中）",
+    "press.label": "新聞資料",
+    "press.title": "媒體 &amp; 新聞",
+    "press.desc": "報導 THANKS, LIGHT.<br>所需的一切資料。",
+    "press.developer": "開發商",
+    "press.genre_l": "類型",
+    "press.genre_v": "第一人稱解謎冒險",
+    "press.location_l": "所在地",
+    "press.location_v": "韓國 城南市",
+    "press.platforms_l": "平台",
+    "press.platforms_v": "PC (Steam)、PS5、Switch 2",
+    "press.price_l": "價格",
+    "press.release_l": "發售日",
+    "press.release_v": "EA 2026年8月 / 正式 2026年9月",
+    "press.teamsize_l": "團隊規模",
+    "press.teamsize_v": "5人",
+    "press.contact_l": "聯絡方式",
+    "press.downloads": "下載",
+    "press.dl_presskit": "完整新聞資料包 (ZIP)",
+    "press.dl_logo": "標誌 &amp; 品牌素材",
+    "press.dl_ss": "截圖包 (高解析度)",
+    "press.dl_factsheet": "概況表 (PDF)",
+    "comm.label": "社群",
+    "comm.title": "加入旅程",
+    "comm.desc": "追蹤我們獲取最新動態、<br>幕後花絮等更多內容。",
+    "next.label": "Lightersgames 下一部作品",
+    "next.title": "Right Way",
+    "next.desc": "新專案正在開發中，更多詳情即將公布。",
+    "next.badge": "即將推出",
+    "cta.title": "準備好看見光了嗎？",
+    "cta.desc": "搶先體驗 2026年8月啟動。<br>現在就免費試玩，<br>發現一個萬物皆非表象的世界。",
+    "cta.steam": "Steam 加入願望清單",
+    "cta.demo": "免費試玩",
+    "footer.privacy": "隱私權政策",
+    "footer.terms": "服務條款",
+    "footer.contact": "聯絡我們"
+  },
+  "ru": {
+    "nav.games": "Игры",
+    "nav.games_live": "В СЕТИ",
+    "nav.games_soon": "СКОРО",
+    "nav.trailer": "Трейлер",
+    "nav.media": "Медиа",
+    "nav.awards": "Награды",
+    "nav.team": "Команда",
+    "nav.press": "Пресса",
+    "nav.community": "Сообщество",
+    "nav.wishlist": "В список желаний",
+    "hero.eyebrow": "Проект Lightersgames",
+    "hero.subtitle": "Не смотрите только на силуэт.<br>Направьте свет, чтобы раскрыть истину,<br>скрытую в каждой тени.",
+    "hero.cta_steam": "В список желаний Steam",
+    "hero.cta_demo": "Бесплатная демо",
+    "hero.cta_trailer": "Смотреть трейлер",
+    "hero.scroll": "Прокрутка",
+    "quote.text": "Прочная механика головоломок<br>с дистанционным взаимодействием,<br>как в Portal и The Talos Principle.",
+    "quote.author": "Джип Барнетт — разработчик Portal, Valve",
+    "about.label": "Об игре — Физика",
+    "about.title": "Это не шестиугольник",
+    "about.desc1": "Без света вы видите лишь силуэт объекта.",
+    "about.desc2": "Со светом открывается его истинная форма.",
+    "about.desc3": "THANKS, LIGHT. — приключенческая головоломка от первого лица,",
+    "about.desc4": "где вы управляете светом, трансформируя мир между 2D и 3D.",
+    "about.desc5": "Свет создаёт физику — тьма стирает её.",
+    "about.cube_hint": "Наведите курсор, чтобы осветить силуэт",
+    "feat.illuminate": "Озарение — направьте свет, чтобы раскрыть 3D-формы.<br>Объекты обретают вес, столкновения и физику.<br>Плоский шестиугольник становится кубом, на который можно встать.",
+    "feat.absorb": "Поглощение — уберите свет, чтобы убрать объём и массу.<br>Объекты сплющиваются в невесомые статичные 2D-силуэты.<br>Катящийся мяч замирает кругом на стене.",
+    "feat.mirror": "Зеркало, линза &amp; слияние — дублируйте объекты, меняйте размер<br>или объединяйте две формы в совершенно новые инструменты.<br>Пять механик, наслоённых в трёх главах.",
+    "shape.label": "Интерактивная демо — Геометрия",
+    "shape.title": "Одна форма, три тени",
+    "shape.desc": "Один 3D-объект может отбрасывать<br>круг, квадрат или треугольник<br>— в зависимости от перспективы.<br>Каждая головоломка в игре построена на этой истине.",
+    "shape.circle": "Круг",
+    "shape.square": "Квадрат",
+    "shape.triangle": "Треугольник",
+    "shape.hint": "Нажмите и перетащите для вращения",
+    "love.label": "Эта игра для вас?",
+    "love.title": "Вам понравится THANKS, LIGHT., если...",
+    "love.card1_title": "Portal, Superliminal, The Talos Principle",
+    "love.card1_desc": "Вы любите головоломки от первого лица,<br>которые бросают вызов восприятию<br>и вознаграждают креативное мышление.",
+    "love.card2_title": "INSIDE, Control, Liminal Spaces",
+    "love.card2_desc": "Вам нравятся жуткие атмосферные миры<br>с бруталистской архитектурой, мраморными залами<br>и тревожной красотой.",
+    "love.card3_title": "Постоянная эволюция",
+    "love.card3_desc": "Механики и визуал не стоят на месте.<br>Каждая глава вводит новые правила и образы,<br>переопределяя всё, что вы знали.",
+    "love.summary1": "3 главы. 5 механик. Один фонарик.",
+    "love.summary2": "Истина никогда не выглядит так, как кажется во тьме.",
+    "trailer.label": "Официальный трейлер",
+    "trailer.title": "Увидьте мир по-другому",
+    "ss.label": "Скриншоты",
+    "ss.title": "Запечатлённые моменты",
+    "ss.ch1": "Глава 1 — Озарение",
+    "ss.ch2": "Глава 2 — Поглощение",
+    "ss.ch3": "Глава 3 — Зеркало, линза &amp; слияние",
+    "awards.label": "Признание",
+    "awards.title": "Награды &amp; достижения",
+    "awards.desc": "Участие в 30+ международных событиях.<br>Освещение прессой на 6+ языках.",
+    "awards.indiecraft": "Indiecraft 2025",
+    "awards.indiecraft_d": "Лучший разработчик &amp; Console TOP 2",
+    "awards.gamescom": "Gamescom 2025",
+    "awards.gamescom_d": "KOCCA Korea Game Roadshow",
+    "awards.tgs": "Tokyo Game Show 2025",
+    "awards.tgs_d": "Selected Indie 80",
+    "awards.bic": "BIC 2023",
+    "awards.bic_d": "Nicalis Pick Award",
+    "awards.portal": "Одобрено разработчиком Portal",
+    "awards.portal_d": "Джип Барнетт (Valve) — высоко оценил механику",
+    "awards.thinky": "Thinky Games",
+    "awards.thinky_d": "В подборке головоломок",
+    "awards.press1": "Press Play Media (UK) · 4Gamer (JP) · BusinessWire (US)",
+    "awards.press2": "GamesWirtschaft (DE) · VGTimes (RU) · Sportskeeda (IN)",
+    "awards.press3": "а также 20+ корейских изданий, включая Dong-A Ilbo, YTN и ZDNET Korea.",
+    "plat.label": "Платформы",
+    "plat.title": "Играйте везде",
+    "plat.steam_demo": "Демо доступна сейчас",
+    "plat.steam_ea": "Steam Ранний доступ",
+    "plat.steam_ea_date": "Август 2026",
+    "plat.full": "Steam + PlayStation 5",
+    "plat.full_date": "Сентябрь 2026",
+    "plat.ns2": "Nintendo Switch 2",
+    "plat.ns2_date": "Дата не объявлена",
+    "team.label": "Команда",
+    "team.company": "Lightersgames Co., Ltd.",
+    "team.desc": "Инди-студия из Южной Кореи, освещающая нехоженые пути.<br>Активна с 2023 года как Lighters. В 2025 зарегистрирована как Lightersgames Co., Ltd.<br>Базируется в Gyeonggi Global Game Center, Соннам.",
+    "team.role_pd": "Директор / Продюсер",
+    "team.role_td": "Технический директор",
+    "team.role_ad": "Арт-директор",
+    "team.role_ta": "Технический арт / Портирование",
+    "team.role_ta2": "Технический арт (военная служба)",
+    "press.label": "Пресс-кит",
+    "press.title": "Для СМИ &amp; прессы",
+    "press.desc": "Всё необходимое для<br>освещения THANKS, LIGHT.",
+    "press.developer": "Разработчик",
+    "press.genre_l": "Жанр",
+    "press.genre_v": "Приключенческая головоломка от первого лица",
+    "press.location_l": "Расположение",
+    "press.location_v": "Соннам, Южная Корея",
+    "press.platforms_l": "Платформы",
+    "press.platforms_v": "ПК (Steam), PS5, Switch 2",
+    "press.price_l": "Цена",
+    "press.release_l": "Релиз",
+    "press.release_v": "РД авг. 2026 / Полная сен. 2026",
+    "press.teamsize_l": "Размер команды",
+    "press.teamsize_v": "5 участников",
+    "press.contact_l": "Контакт",
+    "press.downloads": "Загрузки",
+    "press.dl_presskit": "Полный пресс-кит (ZIP)",
+    "press.dl_logo": "Логотип &amp; брендинг",
+    "press.dl_ss": "Скриншоты (высокое разрешение)",
+    "press.dl_factsheet": "Информационный лист (PDF)",
+    "comm.label": "Сообщество",
+    "comm.title": "Присоединяйтесь",
+    "comm.desc": "Следите за обновлениями,<br>закулисьем и новостями.",
+    "next.label": "Следующее от Lightersgames",
+    "next.title": "Right Way",
+    "next.desc": "Новый проект в разработке. Подробности скоро.",
+    "next.badge": "Скоро",
+    "cta.title": "Готовы увидеть свет?",
+    "cta.desc": "Ранний доступ — август 2026.<br>Играйте в бесплатную демо прямо сейчас<br>и откройте мир, где ничто не то, чем кажется.",
+    "cta.steam": "В список желаний Steam",
+    "cta.demo": "Бесплатная демо",
+    "footer.privacy": "Политика конфиденциальности",
+    "footer.terms": "Условия использования",
+    "footer.contact": "Контакт"
+  },
+  "de": {
+    "nav.games": "Spiele",
+    "nav.games_live": "LIVE",
+    "nav.games_soon": "BALD",
+    "nav.trailer": "Trailer",
+    "nav.media": "Medien",
+    "nav.awards": "Auszeichnungen",
+    "nav.team": "Team",
+    "nav.press": "Presse",
+    "nav.community": "Community",
+    "nav.wishlist": "Wunschliste",
+    "hero.eyebrow": "Eine Lightersgames Produktion",
+    "hero.subtitle": "Sieh nicht nur die Silhouette.<br>Leuchte, um die Wahrheit zu enthüllen,<br>die in jedem Schatten verborgen liegt.",
+    "hero.cta_steam": "Auf Steam vormerken",
+    "hero.cta_demo": "Kostenlose Demo spielen",
+    "hero.cta_trailer": "Trailer ansehen",
+    "hero.scroll": "Scrollen",
+    "quote.text": "Eine solide Puzzle-Mechanik<br>mit Fern-Objektinteraktion,<br>wie Portal und The Talos Principle.",
+    "quote.author": "Jeep Barnett — Portal-Entwickler, Valve",
+    "about.label": "Über das Spiel — Physik",
+    "about.title": "Das ist kein Sechseck",
+    "about.desc1": "Ohne Licht siehst du nur die Silhouette eines Objekts.",
+    "about.desc2": "Mit Licht erkennst du seine wahre Form.",
+    "about.desc3": "THANKS, LIGHT. ist ein Ego-Puzzle-Abenteuer,",
+    "about.desc4": "in dem du Licht manipulierst, um die Welt zwischen 2D und 3D zu verwandeln.",
+    "about.desc5": "Licht erzeugt Physik — Dunkelheit löscht sie aus.",
+    "about.cube_hint": "Bewege die Maus, um die Silhouette zu beleuchten",
+    "feat.illuminate": "Erleuchten — Richte Licht, um 3D-Formen zu enthüllen.<br>Objekte erhalten Gewicht, Kollision und Physik.<br>Ein flaches Sechseck wird ein begehbarer Würfel.",
+    "feat.absorb": "Absorbieren — Entferne Licht, um Volumen und Masse zu entziehen.<br>Objekte werden zu gewichtlosen, statischen 2D-Silhouetten.<br>Ein rollender Ball erstarrt zu einem Kreis an der Wand.",
+    "feat.mirror": "Spiegel, Linse &amp; Fusion — Dupliziere Objekte, ändere ihre Größe<br>oder kombiniere zwei Formen zu völlig neuen Werkzeugen.<br>Fünf Mechaniken, geschichtet über drei Kapitel.",
+    "shape.label": "Interaktive Demo — Geometrie",
+    "shape.title": "Eine Form, drei Schatten",
+    "shape.desc": "Ein einzelnes 3D-Objekt kann<br>einen Kreis, ein Quadrat oder ein Dreieck werfen<br>— je nach Perspektive.<br>Jedes Rätsel im Spiel baut auf dieser Wahrheit auf.",
+    "shape.circle": "Kreis",
+    "shape.square": "Quadrat",
+    "shape.triangle": "Dreieck",
+    "shape.hint": "Klicken &amp; ziehen zum Drehen",
+    "love.label": "Ist dieses Spiel für dich?",
+    "love.title": "Du wirst THANKS, LIGHT. lieben, wenn...",
+    "love.card1_title": "Portal, Superliminal, The Talos Principle",
+    "love.card1_desc": "Du Ego-Puzzlespiele magst,<br>die deine Wahrnehmung herausfordern<br>und kreatives Denken belohnen.",
+    "love.card2_title": "INSIDE, Control, Liminal Spaces",
+    "love.card2_desc": "Du unheimliche, atmosphärische Welten liebst<br>mit brutalistischer Architektur, Marmorhallen<br>und beunruhigender Schönheit.",
+    "love.card3_title": "Stetige Evolution",
+    "love.card3_desc": "Mechaniken und Kunst stehen nie still.<br>Jedes Kapitel führt neue Regeln und Visuals ein,<br>die alles neu definieren, was du zu wissen glaubtest.",
+    "love.summary1": "3 Kapitel. 5 Mechaniken. Eine Taschenlampe.",
+    "love.summary2": "Die Wahrheit sieht im Dunkeln nie so aus, wie sie scheint.",
+    "trailer.label": "Offizieller Trailer",
+    "trailer.title": "Sieh die Welt anders",
+    "ss.label": "Screenshots",
+    "ss.title": "Eingefangene Momente",
+    "ss.ch1": "Kapitel 1 — Erleuchten",
+    "ss.ch2": "Kapitel 2 — Absorbieren",
+    "ss.ch3": "Kapitel 3 — Spiegel, Linse &amp; Fusion",
+    "awards.label": "Anerkennung",
+    "awards.title": "Auszeichnungen &amp; Erfolge",
+    "awards.desc": "Präsentiert auf 30+ internationalen Events.<br>Berichtet in 6+ Sprachen.",
+    "awards.indiecraft": "Indiecraft 2025",
+    "awards.indiecraft_d": "Bester Entwickler &amp; Konsole TOP 2",
+    "awards.gamescom": "Gamescom 2025",
+    "awards.gamescom_d": "KOCCA Korea Game Roadshow",
+    "awards.tgs": "Tokyo Game Show 2025",
+    "awards.tgs_d": "Selected Indie 80",
+    "awards.bic": "BIC 2023",
+    "awards.bic_d": "Nicalis Pick Award",
+    "awards.portal": "Portal-Entwickler empfiehlt",
+    "awards.portal_d": "Jeep Barnett (Valve) — lobte die Puzzle-Mechanik",
+    "awards.thinky": "Thinky Games",
+    "awards.thinky_d": "In Puzzle-Sammlung aufgenommen",
+    "awards.press1": "Press Play Media (UK) · 4Gamer (JP) · BusinessWire (US)",
+    "awards.press2": "GamesWirtschaft (DE) · VGTimes (RU) · Sportskeeda (IN)",
+    "awards.press3": "und 20+ koreanische Medien, darunter Dong-A Ilbo, YTN und ZDNET Korea.",
+    "plat.label": "Plattformen",
+    "plat.title": "Überall spielen",
+    "plat.steam_demo": "Demo jetzt verfügbar",
+    "plat.steam_ea": "Steam Early Access",
+    "plat.steam_ea_date": "August 2026",
+    "plat.full": "Steam + PlayStation 5",
+    "plat.full_date": "September 2026",
+    "plat.ns2": "Nintendo Switch 2",
+    "plat.ns2_date": "TBA",
+    "team.label": "Das Team",
+    "team.company": "Lightersgames Co., Ltd.",
+    "team.desc": "Ein Indie-Studio aus Südkorea, das neue Wege beleuchtet.<br>Aktiv seit 2023 als Lighters. 2025 als Lightersgames Co., Ltd. gegründet.<br>Ansässig im Gyeonggi Global Game Center, Seongnam.",
+    "team.role_pd": "Direktor / Produzent",
+    "team.role_td": "Technischer Direktor",
+    "team.role_ad": "Art Director",
+    "team.role_ta": "Technical Art / Portierung",
+    "team.role_ta2": "Technical Art (Militärdienst)",
+    "press.label": "Pressemappe",
+    "press.title": "Für Medien &amp; Presse",
+    "press.desc": "Alles, was Sie brauchen,<br>um über THANKS, LIGHT. zu berichten.",
+    "press.developer": "Entwickler",
+    "press.genre_l": "Genre",
+    "press.genre_v": "Ego-Puzzle-Abenteuer",
+    "press.location_l": "Standort",
+    "press.location_v": "Seongnam, Südkorea",
+    "press.platforms_l": "Plattformen",
+    "press.platforms_v": "PC (Steam), PS5, Switch 2",
+    "press.price_l": "Preis",
+    "press.release_l": "Veröffentlichung",
+    "press.release_v": "EA Aug. 2026 / Voll Sep. 2026",
+    "press.teamsize_l": "Teamgröße",
+    "press.teamsize_v": "5 Mitglieder",
+    "press.contact_l": "Kontakt",
+    "press.downloads": "Downloads",
+    "press.dl_presskit": "Vollständige Pressemappe (ZIP)",
+    "press.dl_logo": "Logo &amp; Marken-Assets",
+    "press.dl_ss": "Screenshot-Paket (hochauflösend)",
+    "press.dl_factsheet": "Factsheet (PDF)",
+    "comm.label": "Community",
+    "comm.title": "Begleite die Reise",
+    "comm.desc": "Folge uns für Updates,<br>Blicke hinter die Kulissen und mehr.",
+    "next.label": "Als Nächstes von Lightersgames",
+    "next.title": "Right Way",
+    "next.desc": "Ein neues Projekt ist in Arbeit. Mehr Details bald.",
+    "next.badge": "Bald",
+    "cta.title": "Bereit, das Licht zu sehen?",
+    "cta.desc": "Early Access startet August 2026.<br>Spiele jetzt die kostenlose Demo<br>und entdecke eine Welt, in der nichts ist, wie es scheint.",
+    "cta.steam": "Auf Steam vormerken",
+    "cta.demo": "Kostenlose Demo spielen",
+    "footer.privacy": "Datenschutz",
+    "footer.terms": "Nutzungsbedingungen",
+    "footer.contact": "Kontakt"
+  },
+  "fr": {
+    "nav.games": "Jeux",
+    "nav.games_live": "EN DIRECT",
+    "nav.games_soon": "À VENIR",
+    "nav.trailer": "Bande-annonce",
+    "nav.media": "Médias",
+    "nav.awards": "Récompenses",
+    "nav.team": "Équipe",
+    "nav.press": "Presse",
+    "nav.community": "Communauté",
+    "nav.wishlist": "Ajouter à la liste de souhaits",
+    "hero.eyebrow": "Une production Lightersgames",
+    "hero.subtitle": "Ne regardez pas que la silhouette.<br>Dirigez la lumière pour révéler la vérité<br>cachée dans chaque ombre.",
+    "hero.cta_steam": "Ajouter à la liste de souhaits Steam",
+    "hero.cta_demo": "Jouer à la démo gratuite",
+    "hero.cta_trailer": "Regarder la bande-annonce",
+    "hero.scroll": "Défilement",
+    "quote.text": "Une mécanique de puzzle solide<br>avec interaction d'objets à distance,<br>comme Portal et The Talos Principle.",
+    "quote.author": "Jeep Barnett — Développeur de Portal, Valve",
+    "about.label": "À propos du jeu — Physique",
+    "about.title": "Ce n'est pas un hexagone",
+    "about.desc1": "Sans lumière, vous ne voyez que la silhouette de l'objet.",
+    "about.desc2": "Avec la lumière, vous voyez sa véritable forme.",
+    "about.desc3": "THANKS, LIGHT. est une aventure puzzle à la première personne",
+    "about.desc4": "où vous manipulez la lumière pour transformer le monde entre 2D et 3D.",
+    "about.desc5": "La lumière crée la physique — l'obscurité l'efface.",
+    "about.cube_hint": "Survolez pour illuminer la silhouette",
+    "feat.illuminate": "Illuminer — Dirigez la lumière pour révéler les formes 3D.<br>Les objets gagnent du poids, des collisions et de la physique.<br>Un hexagone plat devient un cube sur lequel vous pouvez vous tenir.",
+    "feat.absorb": "Absorber — Retirez la lumière pour enlever le volume et la masse.<br>Les objets deviennent des silhouettes 2D statiques et sans poids.<br>Une balle qui roule gèle en cercle sur le mur.",
+    "feat.mirror": "Miroir, Lentille &amp; Fusion — Dupliquez les objets, redimensionnez-les,<br>ou combinez deux formes en outils entièrement nouveaux.<br>Cinq mécaniques, superposées sur trois chapitres.",
+    "shape.label": "Démo interactive — Géométrie",
+    "shape.title": "Une forme, trois ombres",
+    "shape.desc": "Un seul objet 3D peut projeter<br>un cercle, un carré ou un triangle<br>— selon votre perspective.<br>Chaque puzzle du jeu repose sur cette vérité.",
+    "shape.circle": "Cercle",
+    "shape.square": "Carré",
+    "shape.triangle": "Triangle",
+    "shape.hint": "Cliquez &amp; glissez pour tourner",
+    "love.label": "Ce jeu est-il pour vous?",
+    "love.title": "Vous adorerez THANKS, LIGHT. si...",
+    "love.card1_title": "Portal, Superliminal, The Talos Principle",
+    "love.card1_desc": "Vous aimez les jeux de puzzle à la première personne<br>qui défient votre perception<br>et récompensent la pensée créative.",
+    "love.card2_title": "INSIDE, Control, Liminal Spaces",
+    "love.card2_desc": "Vous aimez les mondes atmosphériques et étranges<br>avec architecture brutaliste, salles de marbre<br>et beauté inquiétante.",
+    "love.card3_title": "Évolution constante",
+    "love.card3_desc": "Les mécaniques et l'art ne s'arrêtent jamais.<br>Chaque chapitre introduit de nouvelles règles et visuels<br>qui redéfinissent tout ce que vous pensiez savoir.",
+    "love.summary1": "3 chapitres. 5 mécaniques. Une lampe de poche.",
+    "love.summary2": "La vérité n'est jamais ce qu'elle paraît dans l'obscurité.",
+    "trailer.label": "Bande-annonce officielle",
+    "trailer.title": "Voir le monde différemment",
+    "ss.label": "Captures d'écran",
+    "ss.title": "Moments capturés",
+    "ss.ch1": "Chapitre 1 — Illuminer",
+    "ss.ch2": "Chapitre 2 — Absorber",
+    "ss.ch3": "Chapitre 3 — Miroir, Lentille &amp; Fusion",
+    "awards.label": "Reconnaissance",
+    "awards.title": "Récompenses &amp; Accomplissements",
+    "awards.desc": "Présenté à 30+ événements internationaux.<br>Couvert par la presse en 6+ langues.",
+    "awards.indiecraft": "Indiecraft 2025",
+    "awards.indiecraft_d": "Meilleur prix développeur &amp; Console TOP 2",
+    "awards.gamescom": "Gamescom 2025",
+    "awards.gamescom_d": "KOCCA Korea Game Roadshow",
+    "awards.tgs": "Tokyo Game Show 2025",
+    "awards.tgs_d": "Selected Indie 80",
+    "awards.bic": "BIC 2023",
+    "awards.bic_d": "Nicalis Pick Award",
+    "awards.portal": "Endossé par le développeur de Portal",
+    "awards.portal_d": "Jeep Barnett (Valve) — a loué la mécanique de puzzle",
+    "awards.thinky": "Thinky Games",
+    "awards.thinky_d": "Présenté dans la collection Puzzle",
+    "awards.press1": "Press Play Media (UK) · 4Gamer (JP) · BusinessWire (US)",
+    "awards.press2": "GamesWirtschaft (DE) · VGTimes (RU) · Sportskeeda (IN)",
+    "awards.press3": "et 20+ médias coréens dont Dong-A Ilbo, YTN et ZDNET Korea.",
+    "plat.label": "Plateformes",
+    "plat.title": "Jouer partout",
+    "plat.steam_demo": "Démo disponible maintenant",
+    "plat.steam_ea": "Accès anticipé Steam",
+    "plat.steam_ea_date": "Août 2026",
+    "plat.full": "Steam + PlayStation 5",
+    "plat.full_date": "Septembre 2026",
+    "plat.ns2": "Nintendo Switch 2",
+    "plat.ns2_date": "À annoncer",
+    "team.label": "L'équipe",
+    "team.company": "Lightersgames Co., Ltd.",
+    "team.desc": "Un studio indépendant de Corée du Sud, illuminant des chemins moins connus.<br>Actif depuis 2023 en tant que Lighters. Constitué en Lightersgames Co., Ltd. en 2025.<br>Basé au Gyeonggi Global Game Center, Seongnam.",
+    "team.role_pd": "Directeur / Producteur",
+    "team.role_td": "Directeur technique",
+    "team.role_ad": "Directeur artistique",
+    "team.role_ta": "Art technique / Portage",
+    "team.role_ta2": "Art technique (Service militaire)",
+    "press.label": "Dossier de presse",
+    "press.title": "Pour les médias &amp; la presse",
+    "press.desc": "Tout ce dont vous avez besoin<br>pour couvrir THANKS, LIGHT.",
+    "press.developer": "Développeur",
+    "press.genre_l": "Genre",
+    "press.genre_v": "Aventure puzzle à la première personne",
+    "press.location_l": "Localisation",
+    "press.location_v": "Seongnam, Corée du Sud",
+    "press.platforms_l": "Plateformes",
+    "press.platforms_v": "PC (Steam), PS5, Switch 2",
+    "press.price_l": "Prix",
+    "press.release_l": "Sortie",
+    "press.release_v": "EA août 2026 / Complète sept. 2026",
+    "press.teamsize_l": "Taille de l'équipe",
+    "press.teamsize_v": "5 membres",
+    "press.contact_l": "Contact",
+    "press.downloads": "Téléchargements",
+    "press.dl_presskit": "Dossier de presse complet (ZIP)",
+    "press.dl_logo": "Logo &amp; Ressources de marque",
+    "press.dl_ss": "Pack captures d'écran (haute résolution)",
+    "press.dl_factsheet": "Fiche d'information (PDF)",
+    "comm.label": "Communauté",
+    "comm.title": "Rejoignez le voyage",
+    "comm.desc": "Suivez-nous pour les mises à jour,<br>les coulisses et bien plus encore.",
+    "next.label": "Prochain de Lightersgames",
+    "next.title": "Right Way",
+    "next.desc": "Un nouveau projet en cours. Plus de détails à venir.",
+    "next.badge": "À venir",
+    "cta.title": "Prêt à voir la lumière?",
+    "cta.desc": "L'accès anticipé lance août 2026.<br>Jouez à la démo gratuite dès maintenant et découvrez<br>un monde où rien n'est ce qu'il semble.",
+    "cta.steam": "Ajouter à la liste de souhaits Steam",
+    "cta.demo": "Jouer à la démo gratuite",
+    "footer.privacy": "Politique de confidentialité",
+    "footer.terms": "Conditions d'utilisation",
+    "footer.contact": "Contact"
+  },
+  "es": {
+    "nav.games": "Juegos",
+    "nav.games_live": "EN VIVO",
+    "nav.games_soon": "PRÓXIMAMENTE",
+    "nav.trailer": "Tráiler",
+    "nav.media": "Medios",
+    "nav.awards": "Premios",
+    "nav.team": "Equipo",
+    "nav.press": "Prensa",
+    "nav.community": "Comunidad",
+    "nav.wishlist": "Añadir a lista de deseos",
+    "hero.eyebrow": "Una producción de Lightersgames",
+    "hero.subtitle": "No solo mires la silueta.<br>Ilumina para revelar la verdad<br>oculta en cada sombra.",
+    "hero.cta_steam": "Añadir a lista de deseos en Steam",
+    "hero.cta_demo": "Juega demo gratuita",
+    "hero.cta_trailer": "Ver tráiler",
+    "hero.scroll": "Desplazamiento",
+    "quote.text": "Una mecánica de puzzle sólida<br>con interacción de objetos remotos,<br>como Portal y The Talos Principle.",
+    "quote.author": "Jeep Barnett — Desarrollador de Portal, Valve",
+    "about.label": "Acerca del juego — Física",
+    "about.title": "Esto no es un hexágono",
+    "about.desc1": "Sin luz, solo ves la silueta del objeto.",
+    "about.desc2": "Con luz, ves su forma verdadera.",
+    "about.desc3": "THANKS, LIGHT. es una aventura puzzle en primera persona",
+    "about.desc4": "donde manipulas la luz para transformar el mundo entre 2D y 3D.",
+    "about.desc5": "La luz crea física — la oscuridad la borra.",
+    "about.cube_hint": "Pasa el ratón para iluminar la silueta",
+    "feat.illuminate": "Iluminar — Ilumina para revelar formas 3D.<br>Los objetos obtienen peso, colisión y física.<br>Un hexágono plano se convierte en un cubo sobre el que puedes estar de pie.",
+    "feat.absorb": "Absorber — Quita la luz para eliminar volumen y masa.<br>Los objetos se aplanan en siluetas 2D estáticas y sin peso.<br>Una bola rodante se congela en un círculo en la pared.",
+    "feat.mirror": "Espejo, Lente &amp; Fusión — Duplica objetos, cambia su tamaño,<br>o combina dos formas en herramientas completamente nuevas.<br>Cinco mecánicas, superpuestas en tres capítulos.",
+    "shape.label": "Demo interactiva — Geometría",
+    "shape.title": "Una forma, tres sombras",
+    "shape.desc": "Un único objeto 3D puede proyectar<br>un círculo, un cuadrado o un triángulo<br>— dependiendo de tu perspectiva.<br>Cada puzzle en el juego se construye sobre esta verdad.",
+    "shape.circle": "Círculo",
+    "shape.square": "Cuadrado",
+    "shape.triangle": "Triángulo",
+    "shape.hint": "Haz clic &amp; arrastra para girar",
+    "love.label": "¿Es este juego para ti?",
+    "love.title": "Amarás THANKS, LIGHT. si...",
+    "love.card1_title": "Portal, Superliminal, The Talos Principle",
+    "love.card1_desc": "Disfrutas de juegos de puzzle en primera persona<br>que desafían tu percepción<br>y recompensan el pensamiento creativo.",
+    "love.card2_title": "INSIDE, Control, Liminal Spaces",
+    "love.card2_desc": "Amas mundos atmosféricos y extraños<br>con arquitectura brutalista, salones de mármol<br>y belleza inquietante.",
+    "love.card3_title": "Evolución constante",
+    "love.card3_desc": "Las mecánicas y el arte nunca se detienen.<br>Cada capítulo introduce nuevas reglas y visuales<br>que redefinen todo lo que creías saber.",
+    "love.summary1": "3 capítulos. 5 mecánicas. Una linterna.",
+    "love.summary2": "La verdad nunca es lo que parece en la oscuridad.",
+    "trailer.label": "Tráiler oficial",
+    "trailer.title": "Ve el mundo diferente",
+    "ss.label": "Capturas de pantalla",
+    "ss.title": "Momentos capturados",
+    "ss.ch1": "Capítulo 1 — Iluminar",
+    "ss.ch2": "Capítulo 2 — Absorber",
+    "ss.ch3": "Capítulo 3 — Espejo, Lente &amp; Fusión",
+    "awards.label": "Reconocimiento",
+    "awards.title": "Premios &amp; Logros",
+    "awards.desc": "Presentado en 30+ eventos internacionales.<br>Cubierto por prensa en 6+ idiomas.",
+    "awards.indiecraft": "Indiecraft 2025",
+    "awards.indiecraft_d": "Mejor premio desarrollador &amp; Consola TOP 2",
+    "awards.gamescom": "Gamescom 2025",
+    "awards.gamescom_d": "KOCCA Korea Game Roadshow",
+    "awards.tgs": "Tokyo Game Show 2025",
+    "awards.tgs_d": "Selected Indie 80",
+    "awards.bic": "BIC 2023",
+    "awards.bic_d": "Nicalis Pick Award",
+    "awards.portal": "Endosado por desarrollador de Portal",
+    "awards.portal_d": "Jeep Barnett (Valve) — elogió la mecánica de puzzle",
+    "awards.thinky": "Thinky Games",
+    "awards.thinky_d": "Presentado en colección Puzzle",
+    "awards.press1": "Press Play Media (UK) · 4Gamer (JP) · BusinessWire (US)",
+    "awards.press2": "GamesWirtschaft (DE) · VGTimes (RU) · Sportskeeda (IN)",
+    "awards.press3": "y 20+ medios coreanos incluyendo Dong-A Ilbo, YTN y ZDNET Korea.",
+    "plat.label": "Plataformas",
+    "plat.title": "Juega en cualquier lugar",
+    "plat.steam_demo": "Demo disponible ahora",
+    "plat.steam_ea": "Acceso anticipado en Steam",
+    "plat.steam_ea_date": "Agosto 2026",
+    "plat.full": "Steam + PlayStation 5",
+    "plat.full_date": "Septiembre 2026",
+    "plat.ns2": "Nintendo Switch 2",
+    "plat.ns2_date": "Por anunciar",
+    "team.label": "El equipo",
+    "team.company": "Lightersgames Co., Ltd.",
+    "team.desc": "Un estudio independiente de Corea del Sur, iluminando caminos menos transitados.<br>Activo desde 2023 como Lighters. Incorporado como Lightersgames Co., Ltd. en 2025.<br>Basado en Gyeonggi Global Game Center, Seongnam.",
+    "team.role_pd": "Director / Productor",
+    "team.role_td": "Director técnico",
+    "team.role_ad": "Directora de arte",
+    "team.role_ta": "Arte técnico / Portación",
+    "team.role_ta2": "Arte técnico (Servicio militar)",
+    "press.label": "Kit de prensa",
+    "press.title": "Para medios &amp; prensa",
+    "press.desc": "Todo lo que necesitas<br>para cubrir THANKS, LIGHT.",
+    "press.developer": "Desarrollador",
+    "press.genre_l": "Género",
+    "press.genre_v": "Aventura puzzle en primera persona",
+    "press.location_l": "Ubicación",
+    "press.location_v": "Seongnam, Corea del Sur",
+    "press.platforms_l": "Plataformas",
+    "press.platforms_v": "PC (Steam), PS5, Switch 2",
+    "press.price_l": "Precio",
+    "press.release_l": "Lanzamiento",
+    "press.release_v": "EA ago 2026 / Completo sep 2026",
+    "press.teamsize_l": "Tamaño del equipo",
+    "press.teamsize_v": "5 miembros",
+    "press.contact_l": "Contacto",
+    "press.downloads": "Descargas",
+    "press.dl_presskit": "Kit de prensa completo (ZIP)",
+    "press.dl_logo": "Logo &amp; Recursos de marca",
+    "press.dl_ss": "Paquete de capturas (alta resolución)",
+    "press.dl_factsheet": "Hoja de datos (PDF)",
+    "comm.label": "Comunidad",
+    "comm.title": "Únete al viaje",
+    "comm.desc": "Síguenos para actualizaciones,<br>contenido exclusivo y más.",
+    "next.label": "Próximo de Lightersgames",
+    "next.title": "Right Way",
+    "next.desc": "Un nuevo proyecto en desarrollo. Más detalles próximamente.",
+    "next.badge": "Próximamente",
+    "cta.title": "¿Listo para ver la luz?",
+    "cta.desc": "Acceso anticipado lanza agosto 2026.<br>Juega la demo gratuita ahora y descubre<br>un mundo donde nada es lo que parece.",
+    "cta.steam": "Añadir a lista de deseos en Steam",
+    "cta.demo": "Juega demo gratuita",
+    "footer.privacy": "Política de privacidad",
+    "footer.terms": "Términos de servicio",
+    "footer.contact": "Contacto"
+  },
+  "pt": {
+    "nav.games": "Jogos",
+    "nav.games_live": "AO VIVO",
+    "nav.games_soon": "EM BREVE",
+    "nav.trailer": "Trailer",
+    "nav.media": "Mídia",
+    "nav.awards": "Prêmios",
+    "nav.team": "Equipe",
+    "nav.press": "Imprensa",
+    "nav.community": "Comunidade",
+    "nav.wishlist": "Adicionar à lista de desejos",
+    "hero.eyebrow": "Uma produção Lightersgames",
+    "hero.subtitle": "Não veja apenas a silhueta.<br>Ilumine para revelar a verdade<br>escondida em cada sombra.",
+    "hero.cta_steam": "Adicionar à lista de desejos no Steam",
+    "hero.cta_demo": "Jogar demo grátis",
+    "hero.cta_trailer": "Assistir trailer",
+    "hero.scroll": "Rolar",
+    "quote.text": "Uma mecânica de puzzle sólida<br>com interação de objetos remotos,<br>como Portal e The Talos Principle.",
+    "quote.author": "Jeep Barnett — Desenvolvedor de Portal, Valve",
+    "about.label": "Sobre o jogo — Física",
+    "about.title": "Isso não é um hexágono",
+    "about.desc1": "Sem luz, você vê apenas a silhueta do objeto.",
+    "about.desc2": "Com luz, você vê sua verdadeira forma.",
+    "about.desc3": "THANKS, LIGHT. é uma aventura puzzle em primeira pessoa",
+    "about.desc4": "onde você manipula a luz para transformar o mundo entre 2D e 3D.",
+    "about.desc5": "Luz cria física — escuridão a apaga.",
+    "about.cube_hint": "Passe o mouse para iluminar a silhueta",
+    "feat.illuminate": "Iluminar — Ilumine para revelar formas 3D.<br>Objetos ganham peso, colisão e física.<br>Um hexágono plano se torna um cubo em que você pode ficar de pé.",
+    "feat.absorb": "Absorver — Remova a luz para eliminar volume e massa.<br>Objetos se achattam em silhuetas 2D estáticas e sem peso.<br>Uma bola rolante congela em um círculo na parede.",
+    "feat.mirror": "Espelho, Lente &amp; Fusão — Duplique objetos, redimensione-os,<br>ou combine duas formas em ferramentas completamente novas.<br>Cinco mecânicas, sobrepostas em três capítulos.",
+    "shape.label": "Demo interativa — Geometria",
+    "shape.title": "Uma forma, três sombras",
+    "shape.desc": "Um único objeto 3D pode projetar<br>um círculo, um quadrado ou um triângulo<br>— dependendo da sua perspectiva.<br>Cada puzzle no jogo é construído sobre essa verdade.",
+    "shape.circle": "Círculo",
+    "shape.square": "Quadrado",
+    "shape.triangle": "Triângulo",
+    "shape.hint": "Clique &amp; arraste para girar",
+    "love.label": "Este jogo é para você?",
+    "love.title": "Você vai amar THANKS, LIGHT. se...",
+    "love.card1_title": "Portal, Superliminal, The Talos Principle",
+    "love.card1_desc": "Você gosta de jogos de puzzle em primeira pessoa<br>que desafiam sua percepção<br>e recompensam o pensamento criativo.",
+    "love.card2_title": "INSIDE, Control, Liminal Spaces",
+    "love.card2_desc": "Você ama mundos atmosféricos e assombrados<br>com arquitetura brutalista, salões de mármore<br>e beleza perturbadora.",
+    "love.card3_title": "Evolução constante",
+    "love.card3_desc": "Mecânicas e arte nunca ficam paradas.<br>Cada capítulo introduz novas regras e visuais<br>que redefinam tudo que você pensava saber.",
+    "love.summary1": "3 capítulos. 5 mecânicas. Uma lanterna.",
+    "love.summary2": "A verdade nunca é o que parece na escuridão.",
+    "trailer.label": "Trailer oficial",
+    "trailer.title": "Veja o mundo de forma diferente",
+    "ss.label": "Capturas de tela",
+    "ss.title": "Momentos capturados",
+    "ss.ch1": "Capítulo 1 — Iluminar",
+    "ss.ch2": "Capítulo 2 — Absorver",
+    "ss.ch3": "Capítulo 3 — Espelho, Lente &amp; Fusão",
+    "awards.label": "Reconhecimento",
+    "awards.title": "Prêmios &amp; Realizações",
+    "awards.desc": "Apresentado em 30+ eventos internacionais.<br>Coberto pela imprensa em 6+ idiomas.",
+    "awards.indiecraft": "Indiecraft 2025",
+    "awards.indiecraft_d": "Melhor prêmio de desenvolvedor &amp; Console TOP 2",
+    "awards.gamescom": "Gamescom 2025",
+    "awards.gamescom_d": "KOCCA Korea Game Roadshow",
+    "awards.tgs": "Tokyo Game Show 2025",
+    "awards.tgs_d": "Selected Indie 80",
+    "awards.bic": "BIC 2023",
+    "awards.bic_d": "Nicalis Pick Award",
+    "awards.portal": "Endossado pelo desenvolvedor de Portal",
+    "awards.portal_d": "Jeep Barnett (Valve) — elogiou a mecânica de puzzle",
+    "awards.thinky": "Thinky Games",
+    "awards.thinky_d": "Apresentado em coleção de Puzzle",
+    "awards.press1": "Press Play Media (UK) · 4Gamer (JP) · BusinessWire (US)",
+    "awards.press2": "GamesWirtschaft (DE) · VGTimes (RU) · Sportskeeda (IN)",
+    "awards.press3": "e 20+ mídia coreana incluindo Dong-A Ilbo, YTN e ZDNET Korea.",
+    "plat.label": "Plataformas",
+    "plat.title": "Jogue em qualquer lugar",
+    "plat.steam_demo": "Demo disponível agora",
+    "plat.steam_ea": "Acesso antecipado ao Steam",
+    "plat.steam_ea_date": "Agosto 2026",
+    "plat.full": "Steam + PlayStation 5",
+    "plat.full_date": "Setembro 2026",
+    "plat.ns2": "Nintendo Switch 2",
+    "plat.ns2_date": "A ser anunciado",
+    "team.label": "A equipe",
+    "team.company": "Lightersgames Co., Ltd.",
+    "team.desc": "Um estúdio independente da Coreia do Sul, iluminando caminhos menos percorridos.<br>Ativo desde 2023 como Lighters. Incorporado como Lightersgames Co., Ltd. em 2025.<br>Baseado em Gyeonggi Global Game Center, Seongnam.",
+    "team.role_pd": "Diretor / Produtor",
+    "team.role_td": "Diretor técnico",
+    "team.role_ad": "Diretora de arte",
+    "team.role_ta": "Arte técnica / Portação",
+    "team.role_ta2": "Arte técnica (Serviço militar)",
+    "press.label": "Kit de imprensa",
+    "press.title": "Para mídia &amp; imprensa",
+    "press.desc": "Tudo o que você precisa<br>para cobrir THANKS, LIGHT.",
+    "press.developer": "Desenvolvedor",
+    "press.genre_l": "Gênero",
+    "press.genre_v": "Aventura puzzle em primeira pessoa",
+    "press.location_l": "Localização",
+    "press.location_v": "Seongnam, Coreia do Sul",
+    "press.platforms_l": "Plataformas",
+    "press.platforms_v": "PC (Steam), PS5, Switch 2",
+    "press.price_l": "Preço",
+    "press.release_l": "Lançamento",
+    "press.release_v": "EA ago 2026 / Completo set 2026",
+    "press.teamsize_l": "Tamanho da equipe",
+    "press.teamsize_v": "5 membros",
+    "press.contact_l": "Contato",
+    "press.downloads": "Downloads",
+    "press.dl_presskit": "Kit de imprensa completo (ZIP)",
+    "press.dl_logo": "Logo &amp; Recursos de marca",
+    "press.dl_ss": "Pacote de capturas (alta resolução)",
+    "press.dl_factsheet": "Folha de dados (PDF)",
+    "comm.label": "Comunidade",
+    "comm.title": "Junte-se à jornada",
+    "comm.desc": "Nos siga para atualizações,<br>bastidores e muito mais.",
+    "next.label": "Próximo de Lightersgames",
+    "next.title": "Right Way",
+    "next.desc": "Um novo projeto em desenvolvimento. Mais detalhes em breve.",
+    "next.badge": "Em breve",
+    "cta.title": "Pronto para ver a luz?",
+    "cta.desc": "Acesso antecipado lançado em agosto de 2026.<br>Jogue a demo gratuita agora e descubra<br>um mundo onde nada é o que parece.",
+    "cta.steam": "Adicionar à lista de desejos no Steam",
+    "cta.demo": "Jogar demo grátis",
+    "footer.privacy": "Política de privacidade",
+    "footer.terms": "Termos de serviço",
+    "footer.contact": "Contato"
+  },
+  "tr": {
+    "nav.games": "Oyunlar",
+    "nav.games_live": "CANLI",
+    "nav.games_soon": "YAKINDA",
+    "nav.trailer": "Fragman",
+    "nav.media": "Medya",
+    "nav.awards": "Ödüller",
+    "nav.team": "Takım",
+    "nav.press": "Basın",
+    "nav.community": "Topluluk",
+    "nav.wishlist": "İstek Listesine Ekle",
+    "hero.eyebrow": "Lightersgames Yapımı",
+    "hero.subtitle": "Sadece silüeti görmeyin.<br>Gölgelerde gizli olan gerçeği<br>ortaya çıkarmak için ışığı yöneltin.",
+    "hero.cta_steam": "Steam İstek Listesine Ekle",
+    "hero.cta_demo": "Ücretsiz Demoyu Oyna",
+    "hero.cta_trailer": "Fragmanı İzle",
+    "hero.scroll": "Kaydır",
+    "quote.text": "Uzak nesne etkileşimi ile sağlam<br>bir bulmaca mekanikası,<br>Portal ve The Talos Principle gibi.",
+    "quote.author": "Jeep Barnett — Portal Geliştirici, Valve",
+    "about.label": "Oyun Hakkında — Fizik",
+    "about.title": "Bu bir altıgen değil",
+    "about.desc1": "Işık olmadan, nesnenin sadece silüetini görürsünüz.",
+    "about.desc2": "Işık ile gerçek şeklini görürsünüz.",
+    "about.desc3": "THANKS, LIGHT. birinci şahıs bakış açısından bir bulmaca macerası",
+    "about.desc4": "burada dünyayı 2D ve 3D arasında dönüştürmek için ışığı kontrol edersiniz.",
+    "about.desc5": "Işık fiziği yaratır — karanlık onu siler.",
+    "about.cube_hint": "Silüeti aydınlatmak için üzerine gelin",
+    "feat.illuminate": "Aydınlat — 3D şekilleri ortaya çıkarmak için ışığı yöneltin.<br>Nesneler ağırlık, çarpışma ve fizik kazanır.<br>Düz bir altıgen üzerinde durduğunuz bir küpe dönüşür.",
+    "feat.absorb": "Absorbe Et — Hacim ve kütleyi çıkarmak için ışığı kaldırın.<br>Nesneler ağırlıksız, statik 2D silüetlere düzleşir.<br>Yuvarlanan bir top duvardaki bir daireye donmuş kalır.",
+    "feat.mirror": "Ayna, Lens &amp; Birleştir — Nesneleri kopyala, yeniden boyutlandır,<br>veya iki şekli tamamen yeni araçlara dönüştür.<br>Beş mekanik, üç bölüm boyunca katmanlı.",
+    "shape.label": "İnteraktif Demo — Geometri",
+    "shape.title": "Bir şekil, üç gölge",
+    "shape.desc": "Tek bir 3D nesne<br>bir daire, kare veya üçgen yansıtabilir<br>— bakış açınıza bağlı olarak.<br>Oyundaki her bulmaca bu gerçek üzerine inşa edilmiştir.",
+    "shape.circle": "Daire",
+    "shape.square": "Kare",
+    "shape.triangle": "Üçgen",
+    "shape.hint": "Döndürmek için tıkla &amp; sürükle",
+    "love.label": "Bu oyun sizin için mi?",
+    "love.title": "Eğer... ise THANKS, LIGHT.'i seveceksiniz",
+    "love.card1_title": "Portal, Superliminal, The Talos Principle",
+    "love.card1_desc": "Algınıza meydan okuyan<br>ve yaratıcı düşünceyi ödüllendiren<br>birinci şahıs bulmaca oyunlarını seviyorsanız.",
+    "love.card2_title": "INSIDE, Control, Liminal Spaces",
+    "love.card2_desc": "Brutalist mimarisiz, mermer salonlarız<br>ve rahatsız edici güzellikle dolu<br>korkutucu atmosferik dünyaları seviyorsanız.",
+    "love.card3_title": "Sürekli Evrim",
+    "love.card3_desc": "Mekanikler ve sanat asla durmazlar.<br>Her bölüm, bildiğiniz her şeyi yeniden tanımlayan<br>yeni kurallar ve görseller sunar.",
+    "love.summary1": "3 bölüm. 5 mekanik. Bir el feneri.",
+    "love.summary2": "Gerçek, karanlıkta göründüğü gibi asla değildir.",
+    "trailer.label": "Resmi Fragman",
+    "trailer.title": "Dünyayı Farklı Gör",
+    "ss.label": "Ekran Görüntüleri",
+    "ss.title": "Yakalanan Anlar",
+    "ss.ch1": "Bölüm 1 — Aydınlat",
+    "ss.ch2": "Bölüm 2 — Absorbe Et",
+    "ss.ch3": "Bölüm 3 — Ayna, Lens &amp; Birleştir",
+    "awards.label": "Tanınma",
+    "awards.title": "Ödüller &amp; Başarılar",
+    "awards.desc": "30+ uluslararası etkinlikte sunuldu.<br>6+ dilde basın tarafından kapsanan.",
+    "awards.indiecraft": "Indiecraft 2025",
+    "awards.indiecraft_d": "En İyi Geliştirici Ödülü &amp; Konsol TOP 2",
+    "awards.gamescom": "Gamescom 2025",
+    "awards.gamescom_d": "KOCCA Korea Game Roadshow",
+    "awards.tgs": "Tokyo Game Show 2025",
+    "awards.tgs_d": "Selected Indie 80",
+    "awards.bic": "BIC 2023",
+    "awards.bic_d": "Nicalis Pick Award",
+    "awards.portal": "Portal Geliştirici Tarafından Onaylandı",
+    "awards.portal_d": "Jeep Barnett (Valve) — bulmaca mekaniğini övdü",
+    "awards.thinky": "Thinky Games",
+    "awards.thinky_d": "Bulmaca Koleksiyonunda Sunuldu",
+    "awards.press1": "Press Play Media (UK) · 4Gamer (JP) · BusinessWire (US)",
+    "awards.press2": "GamesWirtschaft (DE) · VGTimes (RU) · Sportskeeda (IN)",
+    "awards.press3": "ve Dong-A Ilbo, YTN ve ZDNET Korea dahil 20+ Kore medyası.",
+    "plat.label": "Platformlar",
+    "plat.title": "Her Yerde Oyna",
+    "plat.steam_demo": "Demo Şimdi Kullanılabilir",
+    "plat.steam_ea": "Steam Erken Erişim",
+    "plat.steam_ea_date": "Ağustos 2026",
+    "plat.full": "Steam + PlayStation 5",
+    "plat.full_date": "Eylül 2026",
+    "plat.ns2": "Nintendo Switch 2",
+    "plat.ns2_date": "Duyurulacak",
+    "team.label": "Takım",
+    "team.company": "Lightersgames Co., Ltd.",
+    "team.desc": "Güney Kore'den gelen, daha az gezilen yolları aydınlatan bağımsız bir stüdyo.<br>2023'ten beri Lighters olarak aktif. 2025'te Lightersgames Co., Ltd. olarak kuruldu.<br>Gyeonggi Global Game Center, Seongnam'da bulunan.",
+    "team.role_pd": "Yönetmen / Yapımcı",
+    "team.role_td": "Teknik Yönetmen",
+    "team.role_ad": "Sanat Yönetmeni",
+    "team.role_ta": "Teknik Sanat / Portlama",
+    "team.role_ta2": "Teknik Sanat (Askerlik Hizmeti)",
+    "press.label": "Basın Kiti",
+    "press.title": "Medya &amp; Basın İçin",
+    "press.desc": "THANKS, LIGHT. hakkında<br>raporlama için ihtiyaç duyduğunuz her şey.",
+    "press.developer": "Geliştirici",
+    "press.genre_l": "Tür",
+    "press.genre_v": "Birinci Şahıs Bakış Açısından Bulmaca Macerası",
+    "press.location_l": "Konum",
+    "press.location_v": "Seongnam, Güney Kore",
+    "press.platforms_l": "Platformlar",
+    "press.platforms_v": "PC (Steam), PS5, Switch 2",
+    "press.price_l": "Fiyat",
+    "press.release_l": "Yayınlama",
+    "press.release_v": "EA Ağu 2026 / Tam Eyl 2026",
+    "press.teamsize_l": "Takım Boyutu",
+    "press.teamsize_v": "5 Üye",
+    "press.contact_l": "İletişim",
+    "press.downloads": "İndirmeler",
+    "press.dl_presskit": "Tam Basın Kiti (ZIP)",
+    "press.dl_logo": "Logo &amp; Marka Varlıkları",
+    "press.dl_ss": "Ekran Görüntüsü Paketi (Yüksek Çözünürlük)",
+    "press.dl_factsheet": "Veri Sayfası (PDF)",
+    "comm.label": "Topluluk",
+    "comm.title": "Yolculuğa Katıl",
+    "comm.desc": "Güncellemeler, perde arkasında<br>ve daha fazlası için bizi takip edin.",
+    "next.label": "Lightersgames'den Sonraki",
+    "next.title": "Right Way",
+    "next.desc": "Yeni bir proje geliştirme aşamasında. Daha fazla detay yakında.",
+    "next.badge": "Yakında",
+    "cta.title": "Işığı Görmeye Hazır Mısınız?",
+    "cta.desc": "Erken Erişim Ağustos 2026'da başlıyor.<br>Şimdi ücretsiz demoyu oyna ve bulunuz<br>hiçbir şeyin göründüğü gibi olmadığı bir dünya.",
+    "cta.steam": "Steam İstek Listesine Ekle",
+    "cta.demo": "Ücretsiz Demoyu Oyna",
+    "footer.privacy": "Gizlilik Politikası",
+    "footer.terms": "Hizmet Şartları",
+    "footer.contact": "İletişim"
+  },
+  "pl": {
+    "nav.games": "Gry",
+    "nav.games_live": "NA ŻYWO",
+    "nav.games_soon": "WKRÓTCE",
+    "nav.trailer": "Zwiastun",
+    "nav.media": "Media",
+    "nav.awards": "Nagrody",
+    "nav.team": "Zespół",
+    "nav.press": "Prasa",
+    "nav.community": "Społeczność",
+    "nav.wishlist": "Dodaj do listy życzeń",
+    "hero.eyebrow": "Produkcja Lightersgames",
+    "hero.subtitle": "Nie patrz tylko na sylwetę.<br>Kieruj światło, aby ujawnić prawdę<br>ukrytą w każdym cieniu.",
+    "hero.cta_steam": "Dodaj do listy życzeń Steam",
+    "hero.cta_demo": "Graj w darmową demo",
+    "hero.cta_trailer": "Obejrzyj zwiastun",
+    "hero.scroll": "Przewijanie",
+    "quote.text": "Solidna mechanika łamigłówek<br>z interakcją obiektów na odległość,<br>jak Portal i The Talos Principle.",
+    "quote.author": "Jeep Barnett — Twórca Portal, Valve",
+    "about.label": "O grze — Fizyka",
+    "about.title": "To nie jest sześciokąt",
+    "about.desc1": "Bez światła widzisz tylko sylwetę obiektu.",
+    "about.desc2": "Ze światłem widzisz jego prawdziwą formę.",
+    "about.desc3": "THANKS, LIGHT. to przygodowa łamigłówka z perspektywy pierwszej osoby",
+    "about.desc4": "gdzie manipulujesz światłem, aby transformować świat między 2D i 3D.",
+    "about.desc5": "Światło tworzy fizykę — ciemność ją usuwa.",
+    "about.cube_hint": "Najedź myszką, aby oświetlić sylwetę",
+    "feat.illuminate": "Oświetl — Kieruj światło, aby ujawnić kształty 3D.<br>Obiekty zyskują wagę, kolizje i fizykę.<br>Płaski sześciokąt staje się sześcianem, na którym możesz stać.",
+    "feat.absorb": "Wchłoń — Usuń światło, aby usunąć objętość i masę.<br>Obiekty spłaszczają się w bezwagowe, statyczne sylwety 2D.<br>Tocząca się piłka zamraża się w koło na ścienę.",
+    "feat.mirror": "Lustro, Soczewka &amp; Połączenie — Duplikuj obiekty, zmień ich rozmiar,<br>lub połącz dwie formy w zupełnie nowe narzędzia.<br>Pięć mechanik, ułożone na trzech rozdziałach.",
+    "shape.label": "Demo interaktywne — Geometria",
+    "shape.title": "Jeden kształt, trzy cienie",
+    "shape.desc": "Jeden obiekt 3D może rzucać<br>koło, kwadrat lub trójkąt<br>— w zależności od perspektywy.<br>Każda łamigłówka w grze opiera się na tej prawdzie.",
+    "shape.circle": "Koło",
+    "shape.square": "Kwadrat",
+    "shape.triangle": "Trójkąt",
+    "shape.hint": "Kliknij &amp; przeciągnij, aby obrócić",
+    "love.label": "Czy ta gra jest dla Ciebie?",
+    "love.title": "Będziesz kochać THANKS, LIGHT., jeśli...",
+    "love.card1_title": "Portal, Superliminal, The Talos Principle",
+    "love.card1_desc": "Lubisz łamigłówki z perspektywy pierwszej osoby,<br>które kwestionują twoją percepcję<br>i nagradzają kreatywne myślenie.",
+    "love.card2_title": "INSIDE, Control, Liminal Spaces",
+    "love.card2_desc": "Kochasz niesamowite, atmosferyczne światy<br>z brutalistyczną architekturą, marmurowym hale,<br>i niepokojącym pięknem.",
+    "love.card3_title": "Nieustanna ewolucja",
+    "love.card3_desc": "Mechaniki i sztuka nigdy się nie zatrzymują.<br>Każdy rozdział wprowadza nowe reguły i wizualizacje,<br>które przedefiniują wszystko, co myślałeś, że wiesz.",
+    "love.summary1": "3 rozdziały. 5 mechanik. Jedna latarka.",
+    "love.summary2": "Prawda nigdy nie jest taka, jak się wydaje w ciemności.",
+    "trailer.label": "Oficjalny zwiastun",
+    "trailer.title": "Obejrzyj świat inaczej",
+    "ss.label": "Zrzuty ekranu",
+    "ss.title": "Uchwycone chwile",
+    "ss.ch1": "Rozdział 1 — Oświetl",
+    "ss.ch2": "Rozdział 2 — Wchłoń",
+    "ss.ch3": "Rozdział 3 — Lustro, Soczewka &amp; Połączenie",
+    "awards.label": "Uznanie",
+    "awards.title": "Nagrody &amp; Osiągnięcia",
+    "awards.desc": "Zaprezentowane na 30+ międzynarodowych wydarzeniach.<br>Pokryte przez prasę w 6+ językach.",
+    "awards.indiecraft": "Indiecraft 2025",
+    "awards.indiecraft_d": "Najlepsza nagroda dla deweloperów &amp; Konsola TOP 2",
+    "awards.gamescom": "Gamescom 2025",
+    "awards.gamescom_d": "KOCCA Korea Game Roadshow",
+    "awards.tgs": "Tokyo Game Show 2025",
+    "awards.tgs_d": "Selected Indie 80",
+    "awards.bic": "BIC 2023",
+    "awards.bic_d": "Nicalis Pick Award",
+    "awards.portal": "Zalecone przez twórcę Portal",
+    "awards.portal_d": "Jeep Barnett (Valve) — pochwalił mechanikę łamigłówek",
+    "awards.thinky": "Thinky Games",
+    "awards.thinky_d": "Prezentowana w kolekcji Puzzle",
+    "awards.press1": "Press Play Media (UK) · 4Gamer (JP) · BusinessWire (US)",
+    "awards.press2": "GamesWirtschaft (DE) · VGTimes (RU) · Sportskeeda (IN)",
+    "awards.press3": "i 20+ mediów koreańskich, w tym Dong-A Ilbo, YTN i ZDNET Korea.",
+    "plat.label": "Platformy",
+    "plat.title": "Graj wszędzie",
+    "plat.steam_demo": "Demo dostępna teraz",
+    "plat.steam_ea": "Steam Wczesny dostęp",
+    "plat.steam_ea_date": "Sierpień 2026",
+    "plat.full": "Steam + PlayStation 5",
+    "plat.full_date": "Wrzesień 2026",
+    "plat.ns2": "Nintendo Switch 2",
+    "plat.ns2_date": "Do ogłoszenia",
+    "team.label": "Zespół",
+    "team.company": "Lightersgames Co., Ltd.",
+    "team.desc": "Niezależne studio z Korei Południowej, oświetlające mniej utarte ścieżki.<br>Aktywne od 2023 roku jako Lighters. Założone jako Lightersgames Co., Ltd. w 2025 roku.<br>Siedziba w Gyeonggi Global Game Center, Seongnam.",
+    "team.role_pd": "Dyrektor / Producent",
+    "team.role_td": "Dyrektor techniczny",
+    "team.role_ad": "Dyrektor artystyczny",
+    "team.role_ta": "Sztuka techniczna / Portowanie",
+    "team.role_ta2": "Sztuka techniczna (Służba wojskowa)",
+    "press.label": "Kit prasowy",
+    "press.title": "Dla mediów &amp; prasy",
+    "press.desc": "Wszystko, czego potrzebujesz,<br>aby reportować THANKS, LIGHT.",
+    "press.developer": "Deweloper",
+    "press.genre_l": "Gatunek",
+    "press.genre_v": "Przygodowa łamigłówka z perspektywy pierwszej osoby",
+    "press.location_l": "Lokalizacja",
+    "press.location_v": "Seongnam, Korea Południowa",
+    "press.platforms_l": "Platformy",
+    "press.platforms_v": "PC (Steam), PS5, Switch 2",
+    "press.price_l": "Cena",
+    "press.release_l": "Premiera",
+    "press.release_v": "EA sie 2026 / Pełna wrz 2026",
+    "press.teamsize_l": "Rozmiar zespołu",
+    "press.teamsize_v": "5 członków",
+    "press.contact_l": "Kontakt",
+    "press.downloads": "Pobieranie",
+    "press.dl_presskit": "Pełny kit prasowy (ZIP)",
+    "press.dl_logo": "Logo &amp; Zasoby marki",
+    "press.dl_ss": "Pakiet zrzutów ekranu (wysoka rozdzielczość)",
+    "press.dl_factsheet": "Karta informacyjna (PDF)",
+    "comm.label": "Społeczność",
+    "comm.title": "Dołącz do podróży",
+    "comm.desc": "Obserwuj nas, aby otrzymać aktualizacje,<br>kulisy i wiele więcej.",
+    "next.label": "Następne od Lightersgames",
+    "next.title": "Right Way",
+    "next.desc": "Nowy projekt w opracowaniu. Więcej szczegółów wkrótce.",
+    "next.badge": "Wkrótce",
+    "cta.title": "Gotów zobaczyć światło?",
+    "cta.desc": "Wczesny dostęp rozpoczyna się w sierpniu 2026.<br>Graj w darmową demo teraz i odkryj<br>świat, gdzie nic nie jest tym, czym się wydaje.",
+    "cta.steam": "Dodaj do listy życzeń Steam",
+    "cta.demo": "Graj w darmową demo",
+    "footer.privacy": "Polityka prywatności",
+    "footer.terms": "Warunki usługi",
+    "footer.contact": "Kontakt"
+  }
+};
+
+const LANG_LABELS = {
+  'en':'EN','ko':'KO','ja':'JA','ru':'RU',
+  'de':'DE','fr':'FR','es':'ES','pt':'PT','tr':'TR','pl':'PL'
+};
+
+let currentLang = localStorage.getItem('lg_lang') || navigator.language.split('-')[0] || 'en';
+// Map browser language to our supported languages
+if (!I18N[currentLang]) {
+  if (currentLang === 'zh') currentLang = 'zh-CN';
+  else if (currentLang === 'pt') currentLang = 'pt';
+  else currentLang = 'en';
+}
+
+function setLang(lang) {
+  if (!I18N[lang]) return;
+  currentLang = lang;
+  localStorage.setItem('lg_lang', lang);
+  document.documentElement.lang = lang === 'zh-CN' ? 'zh-Hans' : lang === 'zh-TW' ? 'zh-Hant' : lang;
+
+  // Update all data-i18n elements
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    const val = I18N[lang][key];
+    if (val) el.innerHTML = val;
+  });
+
+  // Update lang button text
+  const langBtn = document.getElementById('langBtn');
+  if (langBtn) langBtn.textContent = (LANG_LABELS[lang] || lang.toUpperCase()) + ' ▾';
+
+  // Update active option
+  document.querySelectorAll('.lang-option').forEach(opt => {
+    opt.classList.toggle('active', opt.getAttribute('data-lang') === lang);
+  });
+}
+
+// Language switcher UI
+const langBtn = document.getElementById('langBtn');
+const langDropdown = document.getElementById('langDropdown');
+
+if (langBtn && langDropdown) {
+  langBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    langDropdown.classList.toggle('open');
+  });
+
+  langDropdown.addEventListener('click', (e) => {
+    const opt = e.target.closest('.lang-option');
+    if (opt) {
+      e.preventDefault();
+      setLang(opt.getAttribute('data-lang'));
+      langDropdown.classList.remove('open');
+    }
+  });
+
+  document.addEventListener('click', () => langDropdown.classList.remove('open'));
+}
+
+// Apply language on load
+setLang(currentLang);
+
 </script>
 </body>
 </html>
