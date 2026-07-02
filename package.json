@@ -2,6 +2,9 @@
   "name": "lightersgames.com",
   "version": "0.0.1",
   "private": true,
+  "engines": {
+    "node": "22.x"
+  },
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
@@ -9,10 +12,13 @@
     "preview": "astro preview"
   },
   "devDependencies": {
-    "astro": "^5.4.1"
+    "astro": "^6.4.8"
   },
   "dependencies": {
     "astro-seo": "^0.4.2",
     "lite-youtube-embed": "^0.2.0"
+  },
+  "overrides": {
+    "esbuild": "^0.28.1"
   }
 }
